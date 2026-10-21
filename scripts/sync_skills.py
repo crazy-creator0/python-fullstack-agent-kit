@@ -114,9 +114,10 @@ def main() -> int:
             continue
 
         try:
+            was_existing = destination.exists()
             destination_root.mkdir(parents=True, exist_ok=True)
             shutil.copytree(source, destination, dirs_exist_ok=True)
-            print(f"{'UPDATED' if destination.exists() else 'COPIED'}: {source.name} -> {destination}")
+            print(f"{'UPDATED' if was_existing else 'COPIED'}: {source.name} -> {destination}")
             copied += 1
         except OSError as exc:
             print(f"ERROR copying {source.name}: {exc}", file=sys.stderr)
