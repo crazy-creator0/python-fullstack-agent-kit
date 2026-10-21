@@ -30,7 +30,7 @@ npx create-python-fullstack-agent-kit init ../my-app --platform claude
 npx create-python-fullstack-agent-kit init . --platform generic
 ```
 
-See [PUBLISHING.md](PUBLISHING.md) for the steps needed to check the npm name and publish it.
+See [npm publishing guide](https://github.com/crazy-creator0/python-fullstack-agent-kit/blob/main/PUBLISHING.md) for the steps needed to check the npm name and publish it.
 
 ## What is included
 
