@@ -1,0 +1,12 @@
+---
+description: Shared Python full-stack engineering, safe implementation, and verification rules
+alwaysApply: true
+---
+
+@AGENTS.md
+
+@.agents/AGENTS.md
+
+These files are the shared source of truth. Before implementing a coding task, inspect the actual repository and load only relevant skills from `.agents/skills/<name>/SKILL.md`. If your Cursor version does not discover or automatically invoke skills from that location, reference the relevant SKILL.md file explicitly in chat; do not pretend automatic skill loading is supported.
+
+Keep changes focused, avoid circular imports and unnecessary abstractions, protect secrets, and report only checks actually performed. For UI work, see `IMPECCABLE-SETUP.md`.
