@@ -21,6 +21,25 @@ This kit is designed around shared Markdown instructions and reusable Agent Skil
 
 Paths and supported features can vary by version and product tier. Use the links at the end of this document to confirm current behavior.
 
+## One-command installer (npm)
+
+An npm CLI package scaffold is prepared in this repository. It is **not yet published to the public npm registry**, so its `npx` command will not work by package name until the owner completes the release steps in [PUBLISHING.md](https://github.com/crazy-creator0/python-fullstack-agent-kit/blob/main/PUBLISHING.md).
+
+After it is published, users will be able to run:
+
+```bash
+npx create-python-fullstack-agent-kit init .
+```
+
+In an interactive terminal, the installer offers a platform picker. For scripted or unlisted IDE setups:
+
+```bash
+npx create-python-fullstack-agent-kit init . --platform generic
+npx create-python-fullstack-agent-kit init . --platform cursor --dry-run
+```
+
+The installer preserves existing files by default. Use `--force` only when you explicitly want to overwrite them.
+
 ## Recommended setup
 
 1. Download the ZIP or clone this repository.
