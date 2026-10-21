@@ -14,23 +14,29 @@ A beginner-friendly, production-minded AI coding-agent kit that is not tied to o
 
 ## One-command installer (npm)
 
-The repository now includes an npm CLI package named `create-python-fullstack-agent-kit`. **It is not yet published to the public npm registry**; until the owner checks package-name availability, chooses the license, and publishes it, use the ZIP/clone instructions above. Once the owner publishes it, users will be able to run:
+The repository now includes a dependency-free npm CLI package named `create-python-fullstack-agent-kit`.
+
+**Use it right now from GitHub** (requires Node.js/npm and Git installed):
+
+```bash
+npx --yes github:crazy-creator0/python-fullstack-agent-kit init .
+```
+
+Interactive terminals let users choose an IDE profile. For an unlisted IDE or scripted setup, choose the generic fallback:
+
+```bash
+npx --yes github:crazy-creator0/python-fullstack-agent-kit init . --platform generic
+npx --yes github:crazy-creator0/python-fullstack-agent-kit init . --platform cursor --dry-run
+npx --yes github:crazy-creator0/python-fullstack-agent-kit init ../my-app --platform claude
+```
+
+The CLI preserves existing files by default; `--force` explicitly allows overwriting. Preview changes first with `--dry-run`. If you prefer the shorter package-name command, the npm registry release is a separate step and **has not been published yet**:
 
 ```bash
 npx create-python-fullstack-agent-kit init .
 ```
 
-The CLI prompts for an IDE profile in interactive terminals, supports `--platform <name>` for automation, and offers a generic fallback for unlisted IDEs. It preserves existing files by default; `--force` explicitly allows overwriting. Preview changes first with `--dry-run`.
-
-Examples:
-
-```bash
-npx create-python-fullstack-agent-kit init . --platform cursor --dry-run
-npx create-python-fullstack-agent-kit init ../my-app --platform claude
-npx create-python-fullstack-agent-kit init . --platform generic
-```
-
-See [npm publishing guide](https://github.com/crazy-creator0/python-fullstack-agent-kit/blob/main/PUBLISHING.md) for the steps needed to check the npm name and publish it.
+See the [npm publishing guide](https://github.com/crazy-creator0/python-fullstack-agent-kit/blob/main/PUBLISHING.md) for package-name checking, licensing, and release steps.
 
 ## What is included
 
