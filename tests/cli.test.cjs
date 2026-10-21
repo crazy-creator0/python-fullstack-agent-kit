@@ -163,6 +163,20 @@ test("refuses to write through a symlinked directory", () => {
   });
 });
 
+
+test("refuses to write through a broken file symlink", () => {
+  withFixture(({ kitRoot, projectRoot }) => {
+    const outside = path.join(path.dirname(projectRoot), "outside");
+    fs.mkdirSync(outside, { recursive: true });
+    const target = path.join(outside, "should-not-be-created.md");
+    fs.symlinkSync(target, path.join(projectRoot, "AGENTS.md"), "file");
+
+    const summary = installKit({ packageRoot: kitRoot, projectRoot, platform: "generic" });
+    assert.ok(summary.errors > 0);
+    assert.equal(fs.existsSync(target), false);
+  });
+});
+
 test("Claude profile copies skills into the native skill directory", () => {
   withFixture(({ kitRoot, projectRoot }) => {
     const summary = installKit({ packageRoot: kitRoot, projectRoot, platform: "claude" });
