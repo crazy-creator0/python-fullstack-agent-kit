@@ -29,9 +29,10 @@
     "PLATFORM-SETUP.md"
   ],
   "scripts": {
-    "test": "node --test tests/*.test.cjs",
+    "test": "node --test tests/cli.test.cjs",
     "check": "node --check bin/cli.cjs && npm test",
-    "pack:dry-run": "npm pack --dry-run"
+    "pack:dry-run": "npm pack --dry-run",
+    "prepublishOnly": "npm run check"
   },
   "repository": {
     "type": "git",
