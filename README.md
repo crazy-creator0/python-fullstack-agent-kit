@@ -4,7 +4,7 @@ A beginner-friendly, production-minded AI coding-agent kit that is not tied to o
 
 ## Start here
 
-**[Download ZIP](https://github.com/crazy-creator0/python-fullstack-agent-kit/archive/refs/heads/main.zip)** · **[Browse repository](https://github.com/crazy-creator0/python-fullstack-agent-kit)** · **[Platform setup guide](PLATFORM-SETUP.md)**
+**[Download ZIP](https://github.com/crazy-creator0/python-fullstack-agent-kit/archive/refs/heads/main.zip)** · **[Browse repository](https://github.com/crazy-creator0/python-fullstack-agent-kit)** · **[Platform setup guide](PLATFORM-SETUP.md)** · **[Unknown IDE? Start here](GENERIC-IDE-SETUP.md)**
 
 1. Download or clone this repository.
 2. Choose your coding assistant in `PLATFORM-SETUP.md`.
@@ -22,6 +22,7 @@ A beginner-friendly, production-minded AI coding-agent kit that is not tied to o
 - `scripts/sync_skills.py` — optional sync from canonical skills to several host-native skill folders; skips existing skill folders unless `--force` is supplied.
 - `.opencode/agents/` — optional OpenCode-specific planner, reviewer, and verifier subagents.
 - `PLATFORM-SETUP.md` — platform guidance, setup steps, and limitations.
+- `GENERIC-IDE-SETUP.md` — universal fallback for unlisted IDEs or agents.
 - `IMPECCABLE-SETUP.md` — optional frontend design quality checks.
 - `OPENCODE-SETUP.md` — additional notes for OpenCode users.
 
@@ -37,7 +38,7 @@ python scripts/sync_skills.py --target opencode --project-root /path/to/your/pro
 python scripts/sync_skills.py --target windsurf --project-root /path/to/your/project
 ```
 
-Use `--dry-run` to preview changes. Existing skill folders are skipped by default; pass `--force` only when you intend to update existing copies. Other hosts can use `--target custom --custom-dir .your-agent/skills`. Run the utility tests with `python -m unittest discover -s tests -v`. See [PLATFORM-SETUP.md](PLATFORM-SETUP.md) for paths and limitations.
+Use `--dry-run` to preview changes. Existing skill folders are skipped by default; pass `--force` only when you intend to update existing copies. Other hosts can use `--target custom --custom-dir .your-agent/skills`. Run the utility tests with `python -m unittest discover -s tests -v`. See [PLATFORM-SETUP.md](PLATFORM-SETUP.md) for paths and limitations, or [GENERIC-IDE-SETUP.md](GENERIC-IDE-SETUP.md) if your IDE is not listed.
 
 ## Core principles
 
@@ -56,4 +57,5 @@ This kit aims for broad compatibility; it cannot guarantee identical behavior in
 
 - [Download the current main-branch ZIP](https://github.com/crazy-creator0/python-fullstack-agent-kit/archive/refs/heads/main.zip)
 - [Open platform setup instructions](PLATFORM-SETUP.md)
+- [Universal setup for any IDE](GENERIC-IDE-SETUP.md)
 - [Browse all files](https://github.com/crazy-creator0/python-fullstack-agent-kit)
