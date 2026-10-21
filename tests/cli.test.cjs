@@ -148,6 +148,21 @@ test("dry-run reports intended changes without writing", () => {
   });
 });
 
+
+test("refuses to write through a symlinked directory", () => {
+  withFixture(({ kitRoot, projectRoot }) => {
+    const outside = path.join(path.dirname(projectRoot), "outside");
+    fs.mkdirSync(outside, { recursive: true });
+    const sentinel = path.join(outside, "AGENTS.md");
+    fs.writeFileSync(sentinel, "keep private rules\\n", "utf8");
+    fs.symlinkSync(outside, path.join(projectRoot, ".agents"), "dir");
+
+    const summary = installKit({ packageRoot: kitRoot, projectRoot, platform: "generic" });
+    assert.ok(summary.errors > 0);
+    assert.equal(fs.readFileSync(sentinel, "utf8"), "keep private rules\\n");
+  });
+});
+
 test("Claude profile copies skills into the native skill directory", () => {
   withFixture(({ kitRoot, projectRoot }) => {
     const summary = installKit({ packageRoot: kitRoot, projectRoot, platform: "claude" });
