@@ -97,9 +97,15 @@ The included `.devin/rules/python-fullstack-agent-kit.md` uses the current rule 
 
 Junie supports root `AGENTS.md` and can combine it with `.junie/rules/*.md`; this kit includes a small Junie rule adapter. JetBrains AI Assistant also supports project rules in `.aiassistant/rules/`, provided here as optional extra context. AI Assistant's selected coding agent determines which instruction and skill mechanisms apply—do not assume all agents inside the same IDE share capabilities.
 
-### Other editors and coding agents
+### Unknown / unlisted IDEs
 
-If a host reads root `AGENTS.md`, start there. If not, paste/copy the shared rules into its documented project-instructions setting. If it supports Agent Skills, point it at `.agents/skills/` or use `scripts/sync_skills.py` for a native target. Otherwise, explicitly attach or open the one skill relevant to the task. The workflow files in `.agents/workflows/` are plain Markdown and can be used as prompts or adapted to host-native commands.
+**Don't see your IDE listed? It can still use this kit.** Follow the generic fallback in [GENERIC-IDE-SETUP.md](GENERIC-IDE-SETUP.md). It gives you copy-paste instructions for any coding assistant that can read Markdown, project files, or reusable prompts. If the host supports custom skill folders, use the `custom` target in the sync script; otherwise, attach the relevant `SKILL.md` file manually.
+
+The workflow files in `.agents/workflows/` are plain Markdown and can be used as prompts or adapted to host-native commands. This fallback does not force an IDE to support automatic discovery or subagents; it gives you a manual route when it does not.
+
+## Universal fallback for an unlisted tool
+
+Open [GENERIC-IDE-SETUP.md](GENERIC-IDE-SETUP.md) and follow its copy-paste prompt. It works as a manual integration path for any IDE/agent that can accept project instructions or read attached Markdown files, even when the product has no native skill system.
 
 ## Verify installation
 
