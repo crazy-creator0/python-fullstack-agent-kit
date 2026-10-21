@@ -21,24 +21,32 @@ This kit is designed around shared Markdown instructions and reusable Agent Skil
 
 Paths and supported features can vary by version and product tier. Use the links at the end of this document to confirm current behavior.
 
-## One-command installer (npm)
+## One-command installer (npx)
 
-An npm CLI package scaffold is prepared in this repository. It is **not yet published to the public npm registry**, so its `npx` command will not work by package name until the owner completes the release steps in [PUBLISHING.md](https://github.com/crazy-creator0/python-fullstack-agent-kit/blob/main/PUBLISHING.md).
+A dependency-free Node.js CLI is included in the repository.
 
-After it is published, users will be able to run:
+**Available now via GitHub** (requires Node.js/npm and Git):
 
 ```bash
-npx create-python-fullstack-agent-kit init .
+npx --yes github:crazy-creator0/python-fullstack-agent-kit init .
 ```
 
 In an interactive terminal, the installer offers a platform picker. For scripted or unlisted IDE setups:
 
 ```bash
-npx create-python-fullstack-agent-kit init . --platform generic
-npx create-python-fullstack-agent-kit init . --platform cursor --dry-run
+npx --yes github:crazy-creator0/python-fullstack-agent-kit init . --platform generic
+npx --yes github:crazy-creator0/python-fullstack-agent-kit init . --platform cursor --dry-run
 ```
 
-The installer preserves existing files by default. Use `--force` only when you explicitly want to overwrite them.
+The installer preserves existing files by default. Use `--force` only when you explicitly want to overwrite them. npm documents that `npx` supports package specifiers from Git repositories; see its [Git package specifiers](https://docs.npmjs.com/cli/v11/commands/npm-install/#installing-a-package-from-a-git-repository) documentation.
+
+The shorter package-name command will be available after the package owner checks name availability, chooses and adds a license, and publishes it to the registry:
+
+```bash
+npx create-python-fullstack-agent-kit init .
+```
+
+See [PUBLISHING.md](https://github.com/crazy-creator0/python-fullstack-agent-kit/blob/main/PUBLISHING.md).
 
 ## Recommended setup
 
