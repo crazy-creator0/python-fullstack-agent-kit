@@ -11,6 +11,7 @@
   },
   "files": [
     "bin/",
+    "scripts/",
     "AGENTS.md",
     ".agents/",
     ".opencode/agents/",
