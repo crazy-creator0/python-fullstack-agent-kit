@@ -37,7 +37,7 @@ python scripts/sync_skills.py --target opencode --project-root /path/to/your/pro
 python scripts/sync_skills.py --target windsurf --project-root /path/to/your/project
 ```
 
-Use `--dry-run` to preview changes. Existing skill folders are skipped by default; pass `--force` only when you intend to update existing copies. Other hosts can use `--target custom --custom-dir .your-agent/skills`. See [PLATFORM-SETUP.md](PLATFORM-SETUP.md) for paths and limitations.
+Use `--dry-run` to preview changes. Existing skill folders are skipped by default; pass `--force` only when you intend to update existing copies. Other hosts can use `--target custom --custom-dir .your-agent/skills`. Run the utility tests with `python -m unittest discover -s tests -v`. See [PLATFORM-SETUP.md](PLATFORM-SETUP.md) for paths and limitations.
 
 ## Core principles
 
