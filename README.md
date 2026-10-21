@@ -1,41 +1,44 @@
-# Python Full-Stack Agent Kit for OpenCode
+# Python Full-Stack Agent Kit
 
-A beginner-friendly, production-minded OpenCode agent kit for Python full-stack development. It combines COSTAR-style mentorship, just-in-time skill discovery, security and testing practices, Cloudflare operations guidance, anti-hallucination checks, and UI quality guidance with Impeccable.
+A beginner-friendly, production-minded AI coding-agent kit that is not tied to one IDE. Use it with compatible coding assistants in editors, terminals, and hosted coding environments. Shared rules and skills are plain Markdown; lightweight adapter files help specific platforms discover them.
 
-## What's included
+## Start here
 
-- `AGENTS.md` — root instructions: read the detailed agent guide first, inspect the codebase, verify claims, avoid unnecessary abstractions, and prevent circular imports.
-- `.agents/AGENTS.md` — mentoring approach and engineering rules.
-- `.agents/skills/` — focused skills for Python, frontend, API/backend, databases, security, Cloudflare, debugging, testing/review, anti-slop, anti-hallucination, and adaptive skill routing.
-- `.agents/workflows/` — feature development, new project, bug investigation, and production deployment workflows.
-- `.opencode/agents/` — planner, reviewer, and verifier subagents.
-- `OPENCODE-SETUP.md` — setup and suggested workflow.
-- `IMPECCABLE-SETUP.md` — optional frontend design quality checks.
-- `ADAPTIVE-SKILLS.md` — how just-in-time skill selection works.
+**[Download ZIP](https://github.com/crazy-creator0/python-fullstack-agent-kit/archive/refs/heads/main.zip)** · **[Browse repository](https://github.com/crazy-creator0/python-fullstack-agent-kit)** · **[Platform setup guide](PLATFORM-SETUP.md)**
 
-## Install / use
+1. Download or clone this repository.
+2. Choose your coding assistant in PLATFORM-SETUP.md.
+3. Copy or merge the relevant files into your project root. Do not overwrite existing instruction files blindly; merge the guidance if your project already has its own rules.
+4. Open the project in your IDE/agent and confirm that its instruction file and skills are actually being loaded.
+5. Ask it to inspect the project first, then work on one small, testable change.
 
-1. Download the repository ZIP or clone this repo.
-2. Copy the contents into the root of your project. Keep `AGENTS.md`, `.agents/`, and `.opencode/` at the project root.
-3. Start OpenCode in that project. The root `AGENTS.md` tells the agent to immediately read `.agents/AGENTS.md`.
-4. For a coding task, the agent should inspect the project and load only relevant skills from `.agents/skills/`.
-5. Use `@planner`, `@reviewer`, and `@verifier` when their specialist roles are useful; they are not assumed to run automatically.
-6. For UI work, follow `IMPECCABLE-SETUP.md` if you choose to install Impeccable.
+## What is included
 
-## Design principles
+- AGENTS.md — common engineering rules and task workflow.
+- .agents/AGENTS.md — mentoring style and full-stack guidance.
+- .agents/skills/ — portable SKILL.md skills for Python, frontend, backend APIs, databases, security, Cloudflare, debugging, testing/review, anti-slop, anti-hallucination, and adaptive skill routing.
+- .agents/workflows/ — reusable workflows for projects, features, debugging, and deployment.
+- CLAUDE.md, GEMINI.md, .github/copilot-instructions.md, .cursor/rules/, .windsurf/rules/ — small platform adapters that point back to the shared rules.
+- .opencode/agents/ — optional OpenCode-specific planner, reviewer, and verifier subagents.
+- PLATFORM-SETUP.md — platform guidance and limitations.
+- IMPECCABLE-SETUP.md — optional frontend design quality checks.
+- OPENCODE-SETUP.md — extra setup notes for OpenCode users.
 
-- Mentor the developer instead of encouraging blind copy-paste.
-- Inspect before editing; make the smallest coherent change.
-- Never claim tests, documentation checks, or deployments happened unless verified.
-- Load skills just in time instead of applying every skill to every task.
-- Ask before adding or overwriting persistent third-party skills.
-- Avoid unnecessary dependencies, circular imports, generic boilerplate, fake tests, and unrelated refactors.
+## Core principles
 
-## Important note
+- Teach the developer to understand decisions rather than blindly copy code.
+- Inspect before editing; choose the smallest coherent change.
+- Load only relevant skills where the host supports them.
+- Keep platform-specific features optional; core instructions and workflows remain plain Markdown.
+- Avoid unnecessary dependencies, abstractions, circular imports, boilerplate, fake tests, and unrelated refactors.
+- Never claim a test, documentation check, build, or deployment succeeded unless it was actually verified.
 
-This is an instruction and skill pack, not a guarantee of correct generated code. Review the output, run the repository's actual checks, and validate behavior in your environment. The pack has been structurally inspected as an archive; runtime behavior in OpenCode has not been independently validated here.
+## Compatibility note
+
+This kit aims for broad compatibility; it cannot guarantee identical behavior in every IDE, model, version, or hosted coding service. Instruction and skill discovery differs by host. Use the platform-specific setup notes and verify discovery in your own environment. Specialist subagents under .opencode/agents/ run only on compatible OpenCode setups; other platforms can use the shared workflow files or their own subagent formats.
 
 ## Download
 
-- [Download ZIP from GitHub](https://github.com/crazy-creator0/python-fullstack-agent-kit/archive/refs/heads/main.zip)
-- [Browse files](https://github.com/crazy-creator0/python-fullstack-agent-kit)
+- [Download the current main-branch ZIP](https://github.com/crazy-creator0/python-fullstack-agent-kit/archive/refs/heads/main.zip)
+- [Open platform setup instructions](PLATFORM-SETUP.md)
+- [Browse all files](https://github.com/crazy-creator0/python-fullstack-agent-kit)
