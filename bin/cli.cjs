@@ -152,13 +152,38 @@ function parseArgs(argv) {
 
 function safeResolve(root, relativePath) {
   if (path.isAbsolute(relativePath)) {
-    throw new Error(`Refusing absolute template path: ${relativePath}`);
+    throw new Error(`Refusing absolute path: ${relativePath}`);
   }
-  const resolved = path.resolve(root, relativePath);
-  if (resolved !== root && !resolved.startsWith(root + path.sep)) {
+  const resolvedRoot = path.resolve(root);
+  const resolved = path.resolve(resolvedRoot, relativePath);
+  const relative = path.relative(resolvedRoot, resolved);
+  if (relative === ".." || relative.startsWith(`..${path.sep}`) || path.isAbsolute(relative)) {
     throw new Error(`Refusing path outside root: ${relativePath}`);
   }
   return resolved;
+}
+
+function assertNoSymlinkParents(projectRoot, destination) {
+  const relative = path.relative(projectRoot, destination);
+  const parts = relative.split(path.sep).slice(0, -1);
+  let current = projectRoot;
+
+  for (const part of parts) {
+    current = path.join(current, part);
+    let stat;
+    try {
+      stat = fs.lstatSync(current);
+    } catch (error) {
+      if (error.code === "ENOENT") break;
+      throw error;
+    }
+    if (stat.isSymbolicLink()) {
+      throw new Error(`Refusing to write through a symbolic-link directory: ${current}`);
+    }
+    if (!stat.isDirectory()) {
+      throw new Error(`Destination parent is not a directory: ${current}`);
+    }
+  }
 }
 
 function listSourceFiles(sourcePath) {
@@ -223,6 +248,7 @@ function installKit({
     let destination;
     try {
       destination = safeResolve(resolvedProjectRoot, item.destination);
+      assertNoSymlinkParents(resolvedProjectRoot, destination);
       const exists = fs.existsSync(destination);
       if (exists) {
         const destinationStat = fs.lstatSync(destination);
