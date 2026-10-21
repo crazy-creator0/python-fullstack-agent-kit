@@ -1,12 +1,10 @@
 ---
-description: Shared Python full-stack engineering, safe implementation, and verification rules
+description: Cursor-specific reminders for the shared Python Full-Stack Agent Kit
 alwaysApply: true
 ---
 
-@AGENTS.md
+The project's shared engineering instructions are in the root `AGENTS.md`; follow those rather than maintaining a conflicting second rule set.
 
-@.agents/AGENTS.md
+Before a substantial coding task, open `.agents/AGENTS.md` and only the relevant skill file under `.agents/skills/<name>/SKILL.md`. If Cursor's current version does not automatically discover a skill, add that exact file as context explicitly; do not claim automatic skill loading unless it is visible in Cursor's active context.
 
-These files are the shared source of truth. Before implementing a coding task, inspect the actual repository and load only relevant skills from `.agents/skills/<name>/SKILL.md`. If your Cursor version does not discover or automatically invoke skills from that location, reference the relevant SKILL.md file explicitly in chat; do not pretend automatic skill loading is supported.
-
-Keep changes focused, avoid circular imports and unnecessary abstractions, protect secrets, and report only checks actually performed. For UI work, see `IMPECCABLE-SETUP.md`.
+Use Cursor-supported context, tools, and agent workflows. The definitions under `.opencode/agents/` are OpenCode-specific and are not assumed to work in Cursor.
