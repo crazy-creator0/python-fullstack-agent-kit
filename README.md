@@ -12,6 +12,26 @@ A beginner-friendly, production-minded AI coding-agent kit that is not tied to o
 4. Open the project in your IDE/agent and confirm that its instruction file and skills are actually being loaded.
 5. Ask it to inspect the project first, then work on one small, testable change.
 
+## One-command installer (npm)
+
+The repository now includes an npm CLI package named `create-python-fullstack-agent-kit`. **It is not yet available from the public npm registry**; until it is published, use the ZIP/clone instructions above. Once the owner publishes it, users will be able to run:
+
+```bash
+npx create-python-fullstack-agent-kit init .
+```
+
+The CLI prompts for an IDE profile in interactive terminals, supports `--platform <name>` for automation, and offers a generic fallback for unlisted IDEs. It preserves existing files by default; `--force` explicitly allows overwriting. Preview changes first with `--dry-run`.
+
+Examples:
+
+```bash
+npx create-python-fullstack-agent-kit init . --platform cursor --dry-run
+npx create-python-fullstack-agent-kit init ../my-app --platform claude
+npx create-python-fullstack-agent-kit init . --platform generic
+```
+
+See [PUBLISHING.md](PUBLISHING.md) for the steps needed to check the npm name and publish it.
+
 ## What is included
 
 - `AGENTS.md` — common engineering rules and task workflow.
@@ -19,7 +39,9 @@ A beginner-friendly, production-minded AI coding-agent kit that is not tied to o
 - `.agents/skills/` — 11 portable `SKILL.md` skills for Python, frontend, backend APIs, databases, security, Cloudflare, debugging, testing/review, anti-slop, anti-hallucination, and adaptive skill routing.
 - `.agents/workflows/` — reusable workflows for projects, features, debugging, and deployment.
 - `CLAUDE.md`, `GEMINI.md`, `.github/copilot-instructions.md`, `.cursor/rules/`, `.devin/rules/`, `.windsurf/rules/`, `.junie/rules/`, `.aiassistant/rules/` — platform adapters where relevant.
-- `scripts/sync_skills.py` — optional sync from canonical skills to several host-native skill folders; skips existing skill folders unless `--force` is supplied.
+- `scripts/sync_skills.py` — optional Python utility to sync canonical skills to host-native folders.
+- `package.json` and `bin/cli.cjs` — dependency-free Node.js installer for `npx`; it preserves existing files unless `--force` is passed.
+- `tests/cli.test.cjs` — CLI behavior tests.
 - `.opencode/agents/` — optional OpenCode-specific planner, reviewer, and verifier subagents.
 - `PLATFORM-SETUP.md` — platform guidance, setup steps, and limitations.
 - `GENERIC-IDE-SETUP.md` — universal fallback for unlisted IDEs or agents.
@@ -38,7 +60,7 @@ python scripts/sync_skills.py --target opencode --project-root /path/to/your/pro
 python scripts/sync_skills.py --target windsurf --project-root /path/to/your/project
 ```
 
-Use `--dry-run` to preview changes. Existing skill folders are skipped by default; pass `--force` only when you intend to update existing copies. Other hosts can use `--target custom --custom-dir .your-agent/skills`. Run the utility tests with `python -m unittest discover -s tests -v`. See [PLATFORM-SETUP.md](PLATFORM-SETUP.md) for paths and limitations, or [GENERIC-IDE-SETUP.md](GENERIC-IDE-SETUP.md) if your IDE is not listed.
+Use `--dry-run` to preview changes. Existing skill folders are skipped by default; pass `--force` only when you intend to update existing copies. Other hosts can use `--target custom --custom-dir .your-agent/skills`. Run the Node.js CLI tests with `npm test` (Node.js 18 or newer). See [PLATFORM-SETUP.md](PLATFORM-SETUP.md) for paths and limitations, or [GENERIC-IDE-SETUP.md](GENERIC-IDE-SETUP.md) if your IDE is not listed.
 
 ## Core principles
 
@@ -56,6 +78,7 @@ This kit aims for broad compatibility; it cannot guarantee identical behavior in
 ## Download
 
 - [Download the current main-branch ZIP](https://github.com/crazy-creator0/python-fullstack-agent-kit/archive/refs/heads/main.zip)
+- [npm publishing guide](PUBLISHING.md)
 - [Open platform setup instructions](PLATFORM-SETUP.md)
 - [Universal setup for any IDE](GENERIC-IDE-SETUP.md)
 - [Browse all files](https://github.com/crazy-creator0/python-fullstack-agent-kit)
