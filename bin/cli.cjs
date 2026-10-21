@@ -1,0 +1,382 @@
+#!/usr/bin/env node
+"use strict";
+
+const fs = require("node:fs");
+const path = require("node:path");
+const readline = require("node:readline/promises");
+
+const CORE_ENTRIES = [
+  { source: "AGENTS.md", destination: "AGENTS.md" },
+  { source: ".agents/AGENTS.md", destination: ".agents/AGENTS.md" },
+  { source: ".agents/README.md", destination: ".agents/README.md" },
+  { source: ".agents/skills", destination: ".agents/skills" },
+  { source: ".agents/workflows", destination: ".agents/workflows" },
+  { source: "ADAPTIVE-SKILLS.md", destination: "ADAPTIVE-SKILLS.md" },
+  { source: "PLATFORM-SETUP.md", destination: "PLATFORM-SETUP.md" },
+  { source: "GENERIC-IDE-SETUP.md", destination: "GENERIC-IDE-SETUP.md" },
+  { source: "IMPECCABLE-SETUP.md", destination: "IMPECCABLE-SETUP.md" }
+];
+
+const PLATFORM_ENTRIES = {
+  generic: [],
+  codex: [],
+  cursor: [
+    { source: ".cursor/rules/python-fullstack-agent-kit.mdc", destination: ".cursor/rules/python-fullstack-agent-kit.mdc" }
+  ],
+  claude: [
+    { source: "CLAUDE.md", destination: "CLAUDE.md" },
+    { source: ".agents/skills", destination: ".claude/skills" }
+  ],
+  gemini: [
+    { source: "GEMINI.md", destination: "GEMINI.md" },
+    { source: ".agents/skills", destination: ".gemini/skills" }
+  ],
+  copilot: [
+    { source: ".github/copilot-instructions.md", destination: ".github/copilot-instructions.md" },
+    { source: ".agents/skills", destination: ".github/skills" }
+  ],
+  opencode: [
+    { source: "OPENCODE-SETUP.md", destination: "OPENCODE-SETUP.md" },
+    { source: ".opencode/agents", destination: ".opencode/agents" }
+  ],
+  windsurf: [
+    { source: ".devin/rules/python-fullstack-agent-kit.md", destination: ".devin/rules/python-fullstack-agent-kit.md" },
+    { source: ".agents/skills", destination: ".windsurf/skills" }
+  ],
+  junie: [
+    { source: ".junie/rules/python-fullstack-agent-kit.md", destination: ".junie/rules/python-fullstack-agent-kit.md" }
+  ],
+  jetbrains: [
+    { source: ".aiassistant/rules/python-fullstack-agent-kit.md", destination: ".aiassistant/rules/python-fullstack-agent-kit.md" }
+  ]
+};
+
+function printHelp() {
+  return `create-python-fullstack-agent-kit — install shared coding-agent rules into a project
+
+Usage:
+  npx create-python-fullstack-agent-kit
+  npx create-python-fullstack-agent-kit init [directory] [options]
+
+Options:
+  --dir, --project-root <path>   Destination project (default: current directory)
+  --platform <name>              generic, codex, cursor, claude, gemini, copilot,
+                                 opencode, windsurf, junie, jetbrains
+  --yes, -y                      Skip the platform prompt (defaults to generic)
+  --force                        Overwrite existing files (use carefully)
+  --dry-run                      Preview changes without writing files
+  --help, -h                     Show this help
+  --version                      Show package version
+
+Examples:
+  npx create-python-fullstack-agent-kit init .
+  npx create-python-fullstack-agent-kit init . --platform cursor
+  npx create-python-fullstack-agent-kit init ../my-app --platform claude
+  npx create-python-fullstack-agent-kit init . --platform generic --dry-run
+
+Existing files are preserved by default. The generic option also works with
+unlisted IDEs: use GENERIC-IDE-SETUP.md for manual instruction setup.
+`;
+}
+
+function parseArgs(argv) {
+  const options = {
+    dir: ".",
+    platform: null,
+    yes: false,
+    force: false,
+    dryRun: false,
+    help: false,
+    version: false
+  };
+  let positionalDirSeen = false;
+
+  for (let index = 0; index < argv.length; index += 1) {
+    const arg = argv[index];
+    if (arg === "init") continue;
+    if (arg === "--help" || arg === "-h") {
+      options.help = true;
+      continue;
+    }
+    if (arg === "--version") {
+      options.version = true;
+      continue;
+    }
+    if (arg === "--yes" || arg === "-y") {
+      options.yes = true;
+      continue;
+    }
+    if (arg === "--force") {
+      options.force = true;
+      continue;
+    }
+    if (arg === "--dry-run") {
+      options.dryRun = true;
+      continue;
+    }
+    if (arg === "--dir" || arg === "--project-root") {
+      const value = argv[index + 1];
+      if (!value || value.startsWith("--")) {
+        throw new Error(`Option ${arg} requires a path.`);
+      }
+      options.dir = value;
+      positionalDirSeen = true;
+      index += 1;
+      continue;
+    }
+    if (arg === "--platform") {
+      const value = argv[index + 1];
+      if (!value || value.startsWith("--")) {
+        throw new Error("Option --platform requires a platform name.");
+      }
+      if (!Object.hasOwn(PLATFORM_ENTRIES, value)) {
+        throw new Error(`Unknown platform "${value}". Choose: ${Object.keys(PLATFORM_ENTRIES).join(", ")}.`);
+      }
+      options.platform = value;
+      index += 1;
+      continue;
+    }
+    if (arg.startsWith("-")) {
+      throw new Error(`Unknown option: ${arg}`);
+    }
+    if (!positionalDirSeen) {
+      options.dir = arg;
+      positionalDirSeen = true;
+      continue;
+    }
+    throw new Error(`Unexpected extra argument: ${arg}`);
+  }
+
+  return options;
+}
+
+function safeResolve(root, relativePath) {
+  if (path.isAbsolute(relativePath)) {
+    throw new Error(`Refusing absolute template path: ${relativePath}`);
+  }
+  const resolved = path.resolve(root, relativePath);
+  if (resolved !== root && !resolved.startsWith(root + path.sep)) {
+    throw new Error(`Refusing path outside root: ${relativePath}`);
+  }
+  return resolved;
+}
+
+function listSourceFiles(sourcePath) {
+  const stat = fs.lstatSync(sourcePath);
+  if (stat.isSymbolicLink()) {
+    throw new Error(`Refusing to follow a template symlink: ${sourcePath}`);
+  }
+  if (stat.isFile()) return [sourcePath];
+  if (!stat.isDirectory()) {
+    throw new Error(`Unsupported template entry: ${sourcePath}`);
+  }
+
+  const files = [];
+  for (const child of fs.readdirSync(sourcePath).sort()) {
+    files.push(...listSourceFiles(path.join(sourcePath, child)));
+  }
+  return files;
+}
+
+function collectFiles(packageRoot, entries) {
+  const root = path.resolve(packageRoot);
+  const planned = [];
+  for (const entry of entries) {
+    const sourceRoot = safeResolve(root, entry.source);
+    if (!fs.existsSync(sourceRoot)) {
+      throw new Error(`Required template not found: ${entry.source}`);
+    }
+
+    for (const sourceFile of listSourceFiles(sourceRoot)) {
+      const relativeInsideSource = path.relative(sourceRoot, sourceFile);
+      const destinationRelative = fs.statSync(sourceRoot).isDirectory()
+        ? path.join(entry.destination, relativeInsideSource)
+        : entry.destination;
+      planned.push({
+        source: sourceFile,
+        destination: destinationRelative
+      });
+    }
+  }
+  return planned;
+}
+
+function installKit({
+  packageRoot,
+  projectRoot,
+  platform = "generic",
+  force = false,
+  dryRun = false,
+  log = () => {}
+}) {
+  if (!Object.hasOwn(PLATFORM_ENTRIES, platform)) {
+    throw new Error(`Unknown platform "${platform}". Choose: ${Object.keys(PLATFORM_ENTRIES).join(", ")}.`);
+  }
+
+  const resolvedPackageRoot = path.resolve(packageRoot);
+  const resolvedProjectRoot = path.resolve(projectRoot);
+  const entries = [...CORE_ENTRIES, ...PLATFORM_ENTRIES[platform]];
+  const files = collectFiles(resolvedPackageRoot, entries);
+  const summary = { copied: 0, overwritten: 0, skipped: 0, errors: 0 };
+
+  for (const item of files) {
+    let destination;
+    try {
+      destination = safeResolve(resolvedProjectRoot, item.destination);
+      const exists = fs.existsSync(destination);
+      if (exists) {
+        const destinationStat = fs.lstatSync(destination);
+        if (destinationStat.isSymbolicLink() || !destinationStat.isFile()) {
+          throw new Error(`Destination exists but is not a regular file: ${destination}`);
+        }
+        if (!force) {
+          log(`SKIP existing: ${path.relative(resolvedProjectRoot, destination)}`);
+          summary.skipped += 1;
+          continue;
+        }
+      }
+
+      if (dryRun) {
+        log(`${exists ? "OVERWRITE" : "COPY"}: ${path.relative(resolvedProjectRoot, destination)}`);
+        if (exists) summary.overwritten += 1;
+        else summary.copied += 1;
+        continue;
+      }
+
+      fs.mkdirSync(path.dirname(destination), { recursive: true });
+      fs.copyFileSync(item.source, destination);
+      log(`${exists ? "UPDATED" : "COPIED"}: ${path.relative(resolvedProjectRoot, destination)}`);
+      if (exists) summary.overwritten += 1;
+      else summary.copied += 1;
+    } catch (error) {
+      summary.errors += 1;
+      log(`ERROR: ${item.destination}: ${error.message}`);
+    }
+  }
+
+  return summary;
+}
+
+async function choosePlatform() {
+  const labels = [
+    ["generic", "Unknown IDE / universal manual setup (recommended for unlisted tools)"],
+    ["codex", "OpenAI Codex"],
+    ["cursor", "Cursor"],
+    ["claude", "Claude Code"],
+    ["gemini", "Gemini CLI"],
+    ["copilot", "GitHub Copilot"],
+    ["opencode", "OpenCode"],
+    ["windsurf", "Windsurf / Cascade"],
+    ["junie", "JetBrains Junie"],
+    ["jetbrains", "JetBrains AI Assistant"]
+  ];
+  const terminal = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+  });
+  try {
+    console.log("\nWhich coding tool do you use?");
+    labels.forEach(([key, description], index) => {
+      console.log(`  ${index + 1}. ${description} [${key}]`);
+    });
+    const answer = await terminal.question("Choose a number (default 1): ");
+    if (!answer.trim()) return "generic";
+    const choice = Number.parseInt(answer.trim(), 10);
+    if (!Number.isInteger(choice) || choice < 1 || choice > labels.length) {
+      throw new Error("Please enter a number from 1 to 10.");
+    }
+    return labels[choice - 1][0];
+  } finally {
+    terminal.close();
+  }
+}
+
+async function main(argv = process.argv.slice(2)) {
+  let options;
+  try {
+    options = parseArgs(argv);
+  } catch (error) {
+    console.error(`Error: ${error.message}\n\nRun with --help for usage.`);
+    return 2;
+  }
+
+  const packageRoot = path.resolve(__dirname, "..");
+  if (options.help) {
+    console.log(printHelp());
+    return 0;
+  }
+  if (options.version) {
+    const manifest = JSON.parse(fs.readFileSync(path.join(packageRoot, "package.json"), "utf8"));
+    console.log(manifest.version);
+    return 0;
+  }
+
+  if (!options.platform) {
+    if (process.stdin.isTTY && process.stdout.isTTY && !options.yes) {
+      try {
+        options.platform = await choosePlatform();
+      } catch (error) {
+        console.error(`Error: ${error.message}`);
+        return 2;
+      }
+    } else {
+      options.platform = "generic";
+    }
+  }
+
+  const projectRoot = path.resolve(process.cwd(), options.dir);
+  console.log(`\nInstalling Python Full-Stack Agent Kit into: ${projectRoot}`);
+  console.log(`Platform profile: ${options.platform}`);
+  if (options.force) {
+    console.warn("Warning: --force may overwrite existing instruction and skill files.");
+  } else {
+    console.log("Existing files will be preserved; conflicting files are skipped.");
+  }
+  if (options.dryRun) console.log("Dry-run enabled; no files will be changed.\n");
+  else console.log("");
+
+  let summary;
+  try {
+    summary = installKit({
+      packageRoot,
+      projectRoot,
+      platform: options.platform,
+      force: options.force,
+      dryRun: options.dryRun,
+      log: (message) => console.log(`  ${message}`)
+    });
+  } catch (error) {
+    console.error(`Install failed: ${error.message}`);
+    return 1;
+  }
+
+  console.log(
+    `\nSummary: ${summary.copied} copied, ${summary.overwritten} overwritten, ${summary.skipped} skipped, ${summary.errors} errors.`
+  );
+  if (summary.errors > 0) return 1;
+  if (options.platform === "generic") {
+    console.log("\nNext step: open GENERIC-IDE-SETUP.md and add its copy-paste instructions to your IDE.");
+  } else {
+    console.log("\nNext step: open the project in your IDE and verify its rules/skills are loaded.");
+  }
+  console.log("Review the copied files before committing them.");
+  return 0;
+}
+
+if (require.main === module) {
+  main().then((code) => {
+    process.exitCode = code;
+  }).catch((error) => {
+    console.error(error);
+    process.exitCode = 1;
+  });
+}
+
+module.exports = {
+  CORE_ENTRIES,
+  PLATFORM_ENTRIES,
+  collectFiles,
+  installKit,
+  parseArgs,
+  printHelp
+};
