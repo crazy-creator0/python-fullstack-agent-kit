@@ -1,11 +1,13 @@
 # Agent Kit Layout
 
-This folder contains the project-level mentoring instructions, focused skills, and reusable workflows.
+This folder contains platform-neutral mentoring instructions, Agent Skills, and reusable workflows.
 
-## Skills
-Skills live in .agents/skills/<skill-name>/SKILL.md. OpenCode can load them on demand; do not force every skill into every task.
+## Shared source of truth
+- `.agents/AGENTS.md` — mentoring style and engineering principles.
+- `.agents/skills/<skill-name>/SKILL.md` — focused reusable skills using the Agent Skills format.
+- `.agents/workflows/` — workflow documents that can be opened manually or adapted into native prompts, commands, or subagents.
 
-Included skill areas:
+## Skill areas
 - Python engineering
 - Backend/API engineering
 - Frontend engineering
@@ -18,8 +20,8 @@ Included skill areas:
 - Anti-hallucination
 - Progressive skill-gap routing
 
-## Workflows
-The workflows folder includes guides for new projects, feature implementation, bug investigation, and production deployment.
+## Portability
+Multiple coding agents support the `.agents/skills/` convention, but support and invocation vary by product, feature, and version. If a host does not discover a skill automatically, read that skill's `SKILL.md` directly or follow `PLATFORM-SETUP.md` to use the host's native location. Avoid keeping conflicting copies of shared skills without a clear sync process.
 
 ## Rules of use
-Inspect the current repository first, select only relevant skills, verify claims with actual output, and ask before installing or overwriting persistent third-party skills.
+Inspect the project first, select only relevant guidance, verify claims with actual output, and ask before installing or overwriting third-party or persistent skill files.
