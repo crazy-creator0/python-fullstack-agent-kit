@@ -249,17 +249,24 @@ function installKit({
     try {
       destination = safeResolve(resolvedProjectRoot, item.destination);
       assertNoSymlinkParents(resolvedProjectRoot, destination);
-      const exists = fs.existsSync(destination);
-      if (exists) {
+      let exists = false;
+      try {
         const destinationStat = fs.lstatSync(destination);
-        if (destinationStat.isSymbolicLink() || !destinationStat.isFile()) {
+        exists = true;
+        if (destinationStat.isSymbolicLink()) {
+          throw new Error(`Refusing to replace a symbolic link: ${destination}`);
+        }
+        if (!destinationStat.isFile()) {
           throw new Error(`Destination exists but is not a regular file: ${destination}`);
         }
-        if (!force) {
-          log(`SKIP existing: ${path.relative(resolvedProjectRoot, destination)}`);
-          summary.skipped += 1;
-          continue;
-        }
+      } catch (error) {
+        if (error.code !== "ENOENT") throw error;
+      }
+
+      if (exists && !force) {
+        log(`SKIP existing: ${path.relative(resolvedProjectRoot, destination)}`);
+        summary.skipped += 1;
+        continue;
       }
 
       if (dryRun) {
