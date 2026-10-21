@@ -1,0 +1,59 @@
+{
+  "name": "create-python-fullstack-agent-kit",
+  "version": "0.1.0",
+  "description": "Cross-IDE installer for the Python Full-Stack Agent Kit coding instructions, skills, and workflows",
+  "type": "commonjs",
+  "bin": {
+    "create-python-fullstack-agent-kit": "./bin/cli.cjs"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "files": [
+    "bin/",
+    "AGENTS.md",
+    ".agents/",
+    ".opencode/agents/",
+    ".github/copilot-instructions.md",
+    ".cursor/rules/",
+    ".devin/rules/",
+    ".windsurf/rules/",
+    ".junie/rules/",
+    ".aiassistant/rules/",
+    "CLAUDE.md",
+    "GEMINI.md",
+    "ADAPTIVE-SKILLS.md",
+    "GENERIC-IDE-SETUP.md",
+    "IMPECCABLE-SETUP.md",
+    "OPENCODE-SETUP.md",
+    "PLATFORM-SETUP.md"
+  ],
+  "scripts": {
+    "test": "node --test tests/*.test.cjs",
+    "check": "node --check bin/cli.cjs && npm test",
+    "pack:dry-run": "npm pack --dry-run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crazy-creator0/python-fullstack-agent-kit.git"
+  },
+  "homepage": "https://github.com/crazy-creator0/python-fullstack-agent-kit#readme",
+  "bugs": {
+    "url": "https://github.com/crazy-creator0/python-fullstack-agent-kit/issues"
+  },
+  "keywords": [
+    "agent-skills",
+    "coding-agent",
+    "cursor",
+    "claude-code",
+    "gemini-cli",
+    "github-copilot",
+    "opencode",
+    "windsurf",
+    "python",
+    "full-stack"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}
