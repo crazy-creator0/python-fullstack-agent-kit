@@ -14,7 +14,7 @@ A beginner-friendly, production-minded AI coding-agent kit that is not tied to o
 
 ## One-command installer (npm)
 
-The repository now includes an npm CLI package named `create-python-fullstack-agent-kit`. **It is not yet available from the public npm registry**; until it is published, use the ZIP/clone instructions above. Once the owner publishes it, users will be able to run:
+The repository now includes an npm CLI package named `create-python-fullstack-agent-kit`. **It is not yet published to the public npm registry**; until the owner checks package-name availability, chooses the license, and publishes it, use the ZIP/clone instructions above. Once the owner publishes it, users will be able to run:
 
 ```bash
 npx create-python-fullstack-agent-kit init .
@@ -78,7 +78,7 @@ This kit aims for broad compatibility; it cannot guarantee identical behavior in
 ## Download
 
 - [Download the current main-branch ZIP](https://github.com/crazy-creator0/python-fullstack-agent-kit/archive/refs/heads/main.zip)
-- [npm publishing guide](PUBLISHING.md)
+- [npm publishing guide](https://github.com/crazy-creator0/python-fullstack-agent-kit/blob/main/PUBLISHING.md)
 - [Open platform setup instructions](PLATFORM-SETUP.md)
 - [Universal setup for any IDE](GENERIC-IDE-SETUP.md)
 - [Browse all files](https://github.com/crazy-creator0/python-fullstack-agent-kit)
