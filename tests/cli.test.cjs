@@ -16,19 +16,14 @@ function makeKit(root) {
   const files = [
     "AGENTS.md",
     ".agents/AGENTS.md",
-    ".agents/README.md",
     ".agents/skills/python-engineering/SKILL.md",
     ".agents/workflows/new-project.md",
     ".agents/workflows/stack-migration.md",
     "AGENT-SKILL-MAP.md",
-    "ANALYSIS-DEPTH-AND-LOOPHOLE-CHECKS.md",
     "HOST-CAPABILITY-FALLBACK.md",
     "USAGE-PRIVACY.md",
     "scripts/uca-usage.cjs",
-    "ADAPTIVE-SKILLS.md",
-    "PLATFORM-SETUP.md",
     "GENERIC-IDE-SETUP.md",
-    "IMPECCABLE-SETUP.md",
     ".cursor/rules/universal-coding-agent-kit.mdc",
     ".cursor/agents/designer.md",
     ".cursor/agents/service-strategist.md",
@@ -91,6 +86,18 @@ test("help describes generic fallback and preservation behavior", () => {
   assert.match(help, /preserved by default/);
 });
 
+test("generic profile installs only the generic fallback guide from setup docs", () => {
+  withFixture(({ kitRoot, projectRoot }) => {
+    const summary = installKit({ packageRoot: kitRoot, projectRoot, platform: "generic" });
+    assert.equal(summary.errors, 0);
+    assert.ok(fs.existsSync(path.join(projectRoot, "GENERIC-IDE-SETUP.md")));
+    assert.equal(fs.existsSync(path.join(projectRoot, "PLATFORM-SETUP.md")), false);
+    assert.equal(fs.existsSync(path.join(projectRoot, "IMPECCABLE-SETUP.md")), false);
+    assert.equal(fs.existsSync(path.join(projectRoot, "ANALYSIS-DEPTH-AND-LOOPHOLE-CHECKS.md")), false);
+    assert.equal(fs.existsSync(path.join(projectRoot, "ADAPTIVE-SKILLS.md")), false);
+  });
+});
+
 test("installs shared core and selected Cursor adapter", () => {
   withFixture(({ kitRoot, projectRoot }) => {
     const summary = installKit({
@@ -111,7 +118,7 @@ test("installs shared core and selected Cursor adapter", () => {
       fs.readFileSync(path.join(projectRoot, ".agents/skills/python-engineering/SKILL.md"), "utf8"),
       "template:.agents/skills/python-engineering/SKILL.md\n"
     );
-    for (const relative of ["AGENT-SKILL-MAP.md", "ANALYSIS-DEPTH-AND-LOOPHOLE-CHECKS.md", "HOST-CAPABILITY-FALLBACK.md", ".agents/workflows/stack-migration.md", "USAGE-PRIVACY.md", "scripts/uca-usage.cjs", ".cursor/agents/designer.md", ".cursor/agents/service-strategist.md"]) {
+    for (const relative of ["AGENT-SKILL-MAP.md", "HOST-CAPABILITY-FALLBACK.md", ".agents/workflows/stack-migration.md", "USAGE-PRIVACY.md", "scripts/uca-usage.cjs", ".cursor/agents/designer.md", ".cursor/agents/service-strategist.md"]) {
       assert.ok(fs.existsSync(path.join(projectRoot, relative)), `Expected routing/usage file missing: ${relative}`);
     }
   });
