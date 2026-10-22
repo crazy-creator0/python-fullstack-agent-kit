@@ -88,3 +88,14 @@ This kit aims for broad compatibility; it cannot guarantee identical behavior in
 - [Open platform setup instructions](PLATFORM-SETUP.md)
 - [Universal setup for any IDE](GENERIC-IDE-SETUP.md)
 - [Browse all files](https://github.com/crazy-creator0/python-fullstack-agent-kit)
+
+## Project status and maintainer records
+
+This repository is evolving toward a universal, colleague-like AI development kit. The current tracker distinguishes capabilities already present from roadmap items that are not yet implemented:
+
+- [Project tracker and current status](PROJECT-TRACKER.md)
+- [Architecture plan and phased roadmap](docs/PROJECT-PLAN.md)
+- [Architecture and workflow decision log](docs/DECISIONS.md)
+- [Chronological work log and verification notes](docs/WORKLOG.md)
+
+These files are maintainer records for this GitHub repository. They are version-controlled and therefore public. They are not part of the npm installer's explicit package file allowlist; the release checks must continue to verify that planning records, tests, and local-only artifacts are not shipped in the installer tarball.
