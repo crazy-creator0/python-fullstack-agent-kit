@@ -14,7 +14,7 @@
 
 It is designed to help developers plan before coding, understand unfamiliar code, make focused changes, test carefully, protect existing behavior, and learn the reasoning behind engineering decisions.
 
-[Quick start](#quick-start) · [Features](#what-is-included) · [Agent/skill routing](AGENT-SKILL-MAP.md) · [Local usage meter](#local-usage-meter-and-budget-guard) · [Supported tools](#supported-coding-tools) · [License](#license) · [Generic IDE setup](GENERIC-IDE-SETUP.md) · [Platform guide](PLATFORM-SETUP.md)
+[Quick start](#quick-start) · [Features](#what-is-included) · [Agent/skill routing](AGENT-SKILL-MAP.md) · [Host capability fallback](HOST-CAPABILITY-FALLBACK.md) · [Local usage meter](#local-usage-meter-and-budget-guard) · [Supported tools](#supported-coding-tools) · [License](#license) · [Generic IDE setup](GENERIC-IDE-SETUP.md) · [Platform guide](PLATFORM-SETUP.md)
 
 ## Quick start
 
@@ -60,6 +60,7 @@ The installer preserves existing files by default. Use `--dry-run` to preview an
 - **Lightweight CLI** — dependency-free Node.js installer with platform selection, dry-run support, safe path checks, and preserve-existing-files behavior.
 - **Skill sync utility** — optional Python script to copy canonical skills into supported native locations.
 - **Role-to-skill routing** — a shared map for selecting the relevant specialist roles, canonical skills, optional tools, and verification steps without loading everything.
+- **Host capability fallback** — platform-agnostic rules to detect supported features and fall back to direct skill reading or sequential specialist work when an IDE lacks native agents/hooks.
 - **Local usage meter and budget guard** — an opt-in local ledger for aggregate usage counters, warning thresholds, and pre-call budget checks; see `USAGE-PRIVACY.md` for accuracy and privacy limits.
 - **Quality checks** — Node.js tests and GitHub Actions checks, including a check that maintainer-only files and test source do not leak into the npm package.
 
