@@ -73,6 +73,7 @@ test("rejects unknown platform names", () => {
 
 test("help describes generic fallback and preservation behavior", () => {
   const help = printHelp();
+  assert.match(help, /UCA Kit/);
   assert.match(help, /unlisted IDEs/);
   assert.match(help, /preserved by default/);
 });
