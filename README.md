@@ -14,7 +14,7 @@
 
 It is designed to help developers plan before coding, understand unfamiliar code, make focused changes, test carefully, protect existing behavior, and learn the reasoning behind engineering decisions.
 
-[Quick start](#quick-start) · [Features](#what-is-included) · [Supported tools](#supported-coding-tools) · [License](#license) · [Generic IDE setup](GENERIC-IDE-SETUP.md) · [Platform guide](PLATFORM-SETUP.md)
+[Quick start](#quick-start) · [Features](#what-is-included) · [Agent/skill routing](AGENT-SKILL-MAP.md) · [Local usage meter](#local-usage-meter-and-budget-guard) · [Supported tools](#supported-coding-tools) · [License](#license) · [Generic IDE setup](GENERIC-IDE-SETUP.md) · [Platform guide](PLATFORM-SETUP.md)
 
 ## Quick start
 
@@ -59,6 +59,8 @@ The installer preserves existing files by default. Use `--dry-run` to preview an
 - **Cross-IDE adapters** — configuration guidance for Cursor, Claude Code, Gemini CLI, GitHub Copilot, OpenCode, Windsurf, Devin, JetBrains tools, and unlisted IDEs using the generic setup.
 - **Lightweight CLI** — dependency-free Node.js installer with platform selection, dry-run support, safe path checks, and preserve-existing-files behavior.
 - **Skill sync utility** — optional Python script to copy canonical skills into supported native locations.
+- **Role-to-skill routing** — a shared map for selecting the relevant specialist roles, canonical skills, optional tools, and verification steps without loading everything.
+- **Local usage meter and budget guard** — an opt-in local ledger for aggregate usage counters, warning thresholds, and pre-call budget checks; see `USAGE-PRIVACY.md` for accuracy and privacy limits.
 - **Quality checks** — Node.js tests and GitHub Actions checks, including a check that maintainer-only files and test source do not leak into the npm package.
 
 ## Supported coding tools
@@ -78,6 +80,25 @@ The kit aims for broad compatibility, not identical behavior in every tool. Foll
 | JetBrains Junie / AI Assistant | Optional platform-specific rule files |
 | Other IDEs and coding assistants | Start with `GENERIC-IDE-SETUP.md` |
 
+## Local usage meter and budget guard
+
+After installation, you can track usage counters that your host exposes, or numbers you enter yourself:
+
+```bash
+# Configure local caps (example values)
+node scripts/uca-usage.cjs budget --max-total-tokens 20000 --max-agent-calls 4 --max-cost-usd 0.50
+
+# Record aggregate usage; use exact only for host/provider-reported or explicitly measured values
+node scripts/uca-usage.cjs record --source exact --input-tokens 1200 --output-tokens 350 --agent-calls 1 --skill-reads 2 --tool-calls 3
+
+# View summary, guard an optional call, or reset counters
+node scripts/uca-usage.cjs show
+node scripts/uca-usage.cjs guard --planned-tokens 900 --planned-agent-calls 1
+node scripts/uca-usage.cjs reset
+```
+
+The ledger is local by default at `~/.uca-kit/usage.json`; set `UCA_USAGE_FILE` to use another path. The utility has no telemetry/network client and stores aggregate counters only—not prompts, source code, credentials, or chat transcripts. **It is not a universal interceptor:** cross-IDE automatic usage capture and hard budget enforcement require a host integration that actually calls the utility and exposes usage metadata. Without that support, figures may undercount usage; estimates are clearly separated from provider-reported values. See [USAGE-PRIVACY.md](USAGE-PRIVACY.md).
+
 ## How it works
 
 1. Install or copy the common rules without overwriting your existing project guidance blindly.
@@ -85,6 +106,8 @@ The kit aims for broad compatibility, not identical behavior in every tool. Foll
 3. Ask it to load only the relevant skills for the task.
 4. Work in small, verifiable steps and review the actual diff before accepting changes.
 5. Verify behavior in your own IDE and environment; host capabilities vary.
+6. For substantial tasks, consult [the agent/skill routing map](AGENT-SKILL-MAP.md), suggest relevant skills up front, read only those skill files, and activate specialists only where the host supports them and the task benefits.
+7. When the local usage script is installed, use its budget guard before optional specialist calls when the host integration supports it; never skip essential safety checks to save tokens.
 
 ## Roadmap
 
