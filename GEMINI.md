@@ -1,4 +1,4 @@
-# Shared Python Full-Stack Agent Kit
+# Universal Coding Agent Kit — Shared Agent Instructions
 
 Import the common engineering instructions and mentoring guidance:
 
