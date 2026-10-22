@@ -72,7 +72,8 @@ temp/
 # Large generated ML/data artifacts
 data/raw/
 datasets/private/
-models/
+model_weights/
+models/checkpoints/
 *.pt
 *.pth
 *.ckpt
