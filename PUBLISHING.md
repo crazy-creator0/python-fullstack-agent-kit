@@ -17,7 +17,7 @@ The CLI source is maintained in [universal-coding-agent-kit](https://github.com/
 ## Before publishing
 
 1. Confirm availability and ownership of the name with `npm view create-universal-coding-agent-kit name`. If it exists, inspect ownership and select another name rather than overwriting another publisher.
-2. Choose and add an explicit software license. This repository currently has no declared license; do not assume MIT or another license.
+2. Confirm that the repository's original materials are yours to license and that any third-party skills/assets have compatible terms. The repository uses MIT; verify `LICENSE`, `package.json` (`"license": "MIT"`), README, and the npm tarball all agree. Do not apply the MIT license to third-party material that you do not have permission to relicense.
 3. Review the package file allowlist. Keep maintainer planning notes, test source, local-only files, credentials, and private project data out of the published tarball.
 4. Use Node.js 18+ and run:
 
