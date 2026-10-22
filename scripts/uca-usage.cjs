@@ -203,7 +203,7 @@ function help() {
     "  node scripts/uca-usage.cjs guard [planned metrics]\n" +
     "  node scripts/uca-usage.cjs reset\n\n" +
     "Budget: --max-total-tokens <integer|off> --max-agent-calls <integer|off> --max-cost-usd <number|off> --planned-agent-tokens <integer|off> --planned-agent-cost-usd <number|off>\n" +
-    "Record: --source exact|estimated --input-tokens N --output-tokens N --reasoning-tokens N --cache-read-tokens N --cache-write-tokens N --agent-calls N --skill-reads N --tool-calls N --cost-usd N\n" +
+    "Record: --source exact|estimated [--cost-source exact|estimated] --input-tokens N --output-tokens N --reasoning-tokens N --cache-read-tokens N --cache-write-tokens N --agent-calls N --skill-reads N --tool-calls N --cost-usd N\n" +
     "Guard: --planned-tokens N --planned-agent-calls N --planned-cost-usd N\n\n" +
     "Default file: ~/.uca-kit/usage.json; override with UCA_USAGE_FILE.\n" +
     "Exact describes the reported/entered source; UCA Kit does not independently verify it.\n" +
@@ -241,8 +241,10 @@ function main(argv) {
     return 0;
   }
   if (command === "record") {
-    allowed(opts, ["source", "input-tokens", "output-tokens", "reasoning-tokens", "cache-read-tokens", "cache-write-tokens", "agent-calls", "skill-reads", "tool-calls", "cost-usd"]);
+    allowed(opts, ["source", "cost-source", "input-tokens", "output-tokens", "reasoning-tokens", "cache-read-tokens", "cache-write-tokens", "agent-calls", "skill-reads", "tool-calls", "cost-usd"]);
     if (!["exact", "estimated"].includes(opts.source)) throw new Error("Provide --source exact or --source estimated.");
+    if (Object.hasOwn(opts, "cost-source") && !["exact", "estimated"].includes(opts["cost-source"])) throw new Error("Provide --cost-source exact or --cost-source estimated.");
+    if (Object.hasOwn(opts, "cost-source") && !Object.hasOwn(opts, "cost-usd")) throw new Error("--cost-source requires --cost-usd.");
     const keys = [
       ["input-tokens", "inputTokens", true],
       ["output-tokens", "outputTokens", true],
@@ -259,7 +261,8 @@ function main(argv) {
       if (!Object.hasOwn(opts, item[0])) continue;
       const n = numberOption(opts, item[0], item[2], false);
       if (n > 0) given = true;
-      ledger.totals[opts.source][item[1]] += n;
+      const bucket = item[1] === "costUsd" ? (opts["cost-source"] || opts.source) : opts.source;
+      ledger.totals[bucket][item[1]] += n;
     }
     if (!given) throw new Error("Provide at least one positive metric to record.");
     ledger.updatedAt = new Date().toISOString();
