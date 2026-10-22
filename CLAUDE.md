@@ -1,4 +1,4 @@
-# Shared Python Full-Stack Agent Kit
+# Universal Coding Agent Kit — Shared Agent Instructions
 
 The shared engineering rules and mentoring guidance are defined in these files. Keep this adapter small so the project does not grow conflicting copies of the same rules.
 
