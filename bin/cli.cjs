@@ -55,7 +55,7 @@ const PLATFORM_ENTRIES = {
 };
 
 function printHelp() {
-  return `create-universal-coding-agent-kit — install shared coding-agent rules into a project
+  return `create-universal-coding-agent-kit — UCA Kit installer for shared coding-agent rules
 
 Usage:
   npx create-universal-coding-agent-kit
@@ -362,7 +362,7 @@ async function main(argv = process.argv.slice(2)) {
   }
 
   const projectRoot = path.resolve(process.cwd(), options.dir);
-  console.log(`\nInstalling Universal Coding Agent Kit into: ${projectRoot}`);
+  console.log(`\nInstalling UCA Kit (Universal Coding Agent Kit) into: ${projectRoot}`);
   console.log(`Platform profile: ${options.platform}`);
   if (options.force) {
     console.warn("Warning: --force may overwrite existing instruction and skill files.");
