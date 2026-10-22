@@ -110,7 +110,7 @@ The ledger is local by default at `~/.uca-kit/usage.json`; set `UCA_USAGE_FILE` 
 5. Verify behavior in your own IDE and environment; host capabilities vary.
 6. For substantial tasks, consult [the agent/skill routing map](AGENT-SKILL-MAP.md), suggest relevant skills up front, read only those skill files, and activate specialists only where the host supports them and the task benefits.
 7. Use [Analysis Depth, Loophole Checks, and Honest Token Usage](ANALYSIS-DEPTH-AND-LOOPHOLE-CHECKS.md) to calibrate review depth and report verified findings, unknowns, and token/cost limits honestly.
-7. When the local usage script is installed, use its budget guard before optional specialist calls when the host integration supports it; never skip essential safety checks to save tokens.
+8. When the local usage script is installed, use its budget guard before optional specialist calls when the host integration supports it; never skip essential safety checks to save tokens.
 
 ## Roadmap
 
