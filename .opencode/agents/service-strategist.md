@@ -1,5 +1,5 @@
 ---
-description: Product/service strategy specialist for customer problems, service offers, MVP scope, delivery model, pricing assumptions, and validation. Use only when the request includes business/service planning.
+description: Use proactively for business/service-offering planning, customer problems, MVP scope, delivery model, pricing assumptions and validation. For service planning combined with UI design, pair with designer. Do not use for purely technical API/backend services.
 mode: subagent
 permission:
   edit: deny
