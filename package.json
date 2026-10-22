@@ -32,7 +32,8 @@
     "GENERIC-IDE-SETUP.md",
     "IMPECCABLE-SETUP.md",
     "OPENCODE-SETUP.md",
-    "PLATFORM-SETUP.md"
+    "PLATFORM-SETUP.md",
+    ".opencode/plugins/"
   ],
   "scripts": {
     "test": "node --test tests/cli.test.cjs tests/usage.test.cjs tests/packlist.test.cjs",
