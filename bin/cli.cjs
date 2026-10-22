@@ -12,6 +12,7 @@ const CORE_ENTRIES = [
   { source: ".agents/skills", destination: ".agents/skills" },
   { source: ".agents/workflows", destination: ".agents/workflows" },
   { source: "AGENT-SKILL-MAP.md", destination: "AGENT-SKILL-MAP.md" },
+  { source: "ANALYSIS-DEPTH-AND-LOOPHOLE-CHECKS.md", destination: "ANALYSIS-DEPTH-AND-LOOPHOLE-CHECKS.md" },
   { source: "HOST-CAPABILITY-FALLBACK.md", destination: "HOST-CAPABILITY-FALLBACK.md" },
   { source: "USAGE-PRIVACY.md", destination: "USAGE-PRIVACY.md" },
   { source: "scripts/uca-usage.cjs", destination: "scripts/uca-usage.cjs" },
