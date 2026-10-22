@@ -109,6 +109,7 @@ The following are **planned capabilities, not claims about features already impl
 - **Portable foundation:** shared Markdown instructions, reusable `SKILL.md` files, and workflows that do not require a single IDE.
 - **Cross-IDE expansion:** adapters and setup guidance for multiple coding assistants, plus a generic fallback for unlisted tools.
 - **Installer and checks:** a dependency-free Node.js CLI, dry-run and file-preservation behavior, automated tests, and GitHub Actions verification.
+- **Universal rebrand:** the repository is now called Universal Coding Agent Kit; package metadata, commands, adapters, and setup links use the broader cross-IDE identity.
 - **Current direction:** a universal coding-agent toolkit with stronger planning, beginner-friendly documentation, visual explanation, change-impact review, and release safety. These newer orchestration capabilities remain on the roadmap until implemented and verified.
 
 ## Contributing and support
