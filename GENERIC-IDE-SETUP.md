@@ -19,7 +19,7 @@ Open the IDE's documented project instructions, workspace rules, agent profile, 
 ### Copy-paste universal instructions
 
 ```text
-You are working with the Python Full-Stack Agent Kit. First inspect the actual project and read the contents of AGENTS.md and .agents/AGENTS.md if they are available. Do not assume that a file was read simply because it was mentioned.
+You are working with the Universal Coding Agent Kit. First inspect the actual project and read the contents of AGENTS.md and .agents/AGENTS.md if they are available. Do not assume that a file was read simply because it was mentioned.
 
 For every coding task:
 1. Inspect the existing repository, architecture, dependencies, and available tests before planning edits.
