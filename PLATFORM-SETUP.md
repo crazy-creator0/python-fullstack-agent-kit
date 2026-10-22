@@ -2,14 +2,14 @@
 
 UCA Kit is designed around shared Markdown instructions and reusable Agent Skills (`SKILL.md`), not a single IDE. Most of the engineering rules stay in one source of truth; small adapters and a skill-sync script handle platforms that expect native file locations.
 
-**No single configuration guarantees automatic loading in every IDE, agent, or version.** Follow the platform setup below and verify that files really appear in the host's active context.
+**No single configuration guarantees automatic loading in every IDE, agent, or version.** Follow the platform setup below and verify that files really appear in the host's active context. If a native feature is missing or uncertain, use [HOST-CAPABILITY-FALLBACK.md](HOST-CAPABILITY-FALLBACK.md) instead of assuming instructions, agents, skills, or usage hooks work.
 
 ## Quick compatibility overview
 
 | Platform / host | Instructions | Skills |
 |---|---|---|
 | OpenAI Codex / Codex CLI | Root `AGENTS.md` | `.agents/skills/` where supported |
-| Cursor | Root `AGENTS.md`; optional `.cursor/rules/` | Check your version's support; otherwise reference/read a specific `SKILL.md` manually |
+| Cursor | Root `AGENTS.md`; `.cursor/rules/` adapter; native subagents in `.cursor/agents/` | Check skill discovery; read the relevant `SKILL.md` directly if needed |
 | OpenCode | Root `AGENTS.md` | `.agents/skills/` or `.opencode/skills/` |
 | GitHub Copilot | `.github/copilot-instructions.md`; supported agent contexts also read `AGENTS.md` | `.agents/skills/` or `.github/skills/` |
 | Claude Code | `CLAUDE.md` | `.claude/skills/` |
@@ -93,7 +93,7 @@ Use the root `AGENTS.md` as the common instruction file. Codex and several other
 
 ### Cursor
 
-Cursor supports root `AGENTS.md` as a simple project instruction file and also supports project rules in `.cursor/rules/*.mdc`. This repository includes `.cursor/rules/universal-coding-agent-kit.mdc` as a small adapter. For skills, check current Cursor documentation/version. If the host does not discover `.agents/skills/`, reference and read the relevant `SKILL.md` manually rather than assuming unsupported automatic loading.
+Cursor supports root `AGENTS.md`, project rules in `.cursor/rules/*.mdc`, and project subagents in `.cursor/agents/*.md`. The Cursor profile installs focused `designer` and `service-strategist` agents. Cursor can automatically delegate based on task complexity and custom descriptions, but this depends on the host/model/session; it is not a guarantee that every role runs for every task. When the user asks for both UI design and a business/service offering, the intended roles are the designer and service-strategist; unrelated agents must not be launched. If no specialist is actually invoked, one lead should run the workstreams sequentially. For skills, check the current host's discovery. If `.agents/skills/` is not loaded, directly read only the relevant `SKILL.md`. See `HOST-CAPABILITY-FALLBACK.md`.
 
 ### OpenCode
 
