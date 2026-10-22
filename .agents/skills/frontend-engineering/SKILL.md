@@ -29,5 +29,7 @@ Identify the actual framework, routing, component and styling conventions, desig
 ## Performance and design quality
 Measure before optimizing. Inspect bundle size, large assets, unnecessary renders, waterfall requests, caching, and rendering strategy. Avoid premature memoization. For UI changes, use the existing design system and, if installed, Impeccable for critique/audit and deterministic checks. Do not claim a detector was run unless its output was actually observed.
 
+When the task specifically calls for advanced UI components, canvas effects, 3D, WebGPU, or large-codebase visualization, read `.agents/skills/frontend-visuals-and-3d/SKILL.md` and `UI-AND-CODEBASE-TOOLS.md`. Choose one appropriate resource rather than adding every tool. Never install a third-party package or persistent skill automatically.
+
 ## Review checklist
 Correct states, accessibility, responsive behavior, type safety, API failure handling, secret exposure, tests, and maintainability.
