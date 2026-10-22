@@ -43,7 +43,7 @@ test("npm installer package excludes maintainer planning and test files", () => 
     `Maintainer-only or test artifacts leaked into the npm package: ${forbidden.join(", ")}`
   );
 
-  for (const required of ["LICENSE", "bin/cli.cjs", "AGENTS.md", ".agents/AGENTS.md", "package.json"]) {
+  for (const required of ["LICENSE", "bin/cli.cjs", "scripts/uca-usage.cjs", "AGENT-SKILL-MAP.md", "USAGE-PRIVACY.md", "AGENTS.md", ".agents/AGENTS.md", "package.json"]) {
     assert.ok(paths.includes(required), `Expected installer file missing from package: ${required}`);
   }
 
