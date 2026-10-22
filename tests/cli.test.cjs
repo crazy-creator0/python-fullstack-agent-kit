@@ -143,11 +143,11 @@ test("preserves existing files by default while adding new files", () => {
 
 test("detects conflicts without changing the project", () => {
   withFixture(({ kitRoot, projectRoot }) => {
-    fs.writeFileSync(path.join(projectRoot, "AGENTS.md"), "user-owned instructions\\n", "utf8");
+    fs.writeFileSync(path.join(projectRoot, "AGENTS.md"), "user-owned instructions\n", "utf8");
     fs.mkdirSync(path.join(projectRoot, ".agents/skills/python-engineering"), { recursive: true });
     fs.writeFileSync(
       path.join(projectRoot, ".agents/skills/python-engineering/SKILL.md"),
-      "user-owned skill\\n",
+      "user-owned skill\n",
       "utf8"
     );
 
@@ -162,14 +162,14 @@ test("detects conflicts without changing the project", () => {
     assert.equal(fs.existsSync(path.join(projectRoot, ".agents/workflows/new-project.md")), false);
     assert.equal(
       fs.readFileSync(path.join(projectRoot, "AGENTS.md"), "utf8"),
-      "user-owned instructions\\n"
+      "user-owned instructions\n"
     );
   });
 });
 
 test("cancel on conflict leaves existing files intact and creates no UCA Kit files", () => {
   withFixture(({ kitRoot, projectRoot }) => {
-    fs.writeFileSync(path.join(projectRoot, "AGENTS.md"), "user-owned instructions\\n", "utf8");
+    fs.writeFileSync(path.join(projectRoot, "AGENTS.md"), "user-owned instructions\n", "utf8");
     const summary = installKit({
       packageRoot: kitRoot,
       projectRoot,
@@ -182,7 +182,7 @@ test("cancel on conflict leaves existing files intact and creates no UCA Kit fil
     assert.deepEqual(fs.readdirSync(projectRoot), ["AGENTS.md"]);
     assert.equal(
       fs.readFileSync(path.join(projectRoot, "AGENTS.md"), "utf8"),
-      "user-owned instructions\\n"
+      "user-owned instructions\n"
     );
     assert.equal(fs.existsSync(path.join(projectRoot, ".agents/skills/python-engineering/SKILL.md")), false);
   });
@@ -190,9 +190,9 @@ test("cancel on conflict leaves existing files intact and creates no UCA Kit fil
 
 test("explicit conflict override replaces matching files but keeps unrelated user skills", () => {
   withFixture(({ kitRoot, projectRoot }) => {
-    fs.writeFileSync(path.join(projectRoot, "AGENTS.md"), "old rules\\n", "utf8");
+    fs.writeFileSync(path.join(projectRoot, "AGENTS.md"), "old rules\n", "utf8");
     fs.mkdirSync(path.join(projectRoot, ".agents/skills/my-custom-skill"), { recursive: true });
-    fs.writeFileSync(path.join(projectRoot, ".agents/skills/my-custom-skill/SKILL.md"), "my own skill\\n", "utf8");
+    fs.writeFileSync(path.join(projectRoot, ".agents/skills/my-custom-skill/SKILL.md"), "my own skill\n", "utf8");
     const summary = installKit({
       packageRoot: kitRoot,
       projectRoot,
@@ -202,10 +202,10 @@ test("explicit conflict override replaces matching files but keeps unrelated use
 
     assert.equal(summary.errors, 0);
     assert.equal(summary.overwritten, 1);
-    assert.equal(fs.readFileSync(path.join(projectRoot, "AGENTS.md"), "utf8"), "template:AGENTS.md\\n");
+    assert.equal(fs.readFileSync(path.join(projectRoot, "AGENTS.md"), "utf8"), "template:AGENTS.md\n");
     assert.equal(
       fs.readFileSync(path.join(projectRoot, ".agents/skills/my-custom-skill/SKILL.md"), "utf8"),
-      "my own skill\\n"
+      "my own skill\n"
     );
   });
 });
