@@ -43,7 +43,10 @@ test("npm installer package excludes maintainer planning and test files", () => 
     `Maintainer-only or test artifacts leaked into the npm package: ${forbidden.join(", ")}`
   );
 
-  for (const required of ["bin/cli.cjs", "AGENTS.md", ".agents/AGENTS.md", "package.json"]) {
+  for (const required of ["LICENSE", "bin/cli.cjs", "AGENTS.md", ".agents/AGENTS.md", "package.json"]) {
     assert.ok(paths.includes(required), `Expected installer file missing from package: ${required}`);
   }
+
+  const packageJson = require(path.join(repoRoot, "package.json"));
+  assert.equal(packageJson.license, "MIT", "Package metadata should declare the MIT license.");
 });
