@@ -47,7 +47,7 @@ npx --yes github:crazy-creator0/universal-coding-agent-kit init . --platform win
 npx --yes github:crazy-creator0/universal-coding-agent-kit init . --platform devin
 ```
 
-The installer preserves existing files by default. Use `--dry-run` to preview and `--force` only when you explicitly intend to overwrite files. After installation, verify that your coding assistant actually loads the relevant instructions and skills; support differs by product and version.
+The installer preserves existing files by default. When run in an interactive terminal, detected conflicts offer three choices: keep existing files and add only non-conflicting UCA Kit files, override conflicting paths, or cancel without changing the project. Cancellation is checked before copying anything, so there is nothing to roll back. Non-interactive runs keep existing files by default; `--force` explicitly overrides matching paths. Use `--dry-run` to preview changes. After installation, verify that your coding assistant actually loads the relevant instructions and skills; support differs by product and version.
 
 > **npm registry note:** The source and MIT license are in this repository, but a public npm release is not yet confirmed. Verify the package name is available and the packed files are correct before publishing. Until then, use the GitHub-based commands above. After the public release is verified, the intended short command will be `npx create-universal-coding-agent-kit@latest init .`.
 
