@@ -1,8 +1,8 @@
-# Universal Coding Agent Kit
+# UCA Kit
 
 <p align="center">
   <strong>Written by Crazy Creators</strong><br>
-  <em>One reusable AI coding-agent toolkit. Multiple IDEs. Clearer engineering workflows.</em>
+  <em>UCA Kit — One reusable AI coding-agent toolkit. Multiple IDEs. Clearer engineering workflows.</em>
 </p>
 
 <p align="center">
@@ -10,7 +10,7 @@
   <a href="https://github.com/crazy-creator0/universal-coding-agent-kit/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/crazy-creator0/universal-coding-agent-kit?style=social"></a>
 </p>
 
-**Universal Coding Agent Kit** is an IDE-agnostic toolkit for AI coding assistants. It provides reusable agent instructions, portable skills, engineering workflows, platform adapters, and a lightweight installer so you can use consistent development guidance across supported coding tools.
+**UCA Kit (Universal Coding Agent Kit)** is an IDE-agnostic toolkit for AI coding assistants. It provides reusable agent instructions, portable skills, engineering workflows, platform adapters, and a lightweight installer so you can use consistent development guidance across supported coding tools.
 
 It is designed to help developers plan before coding, understand unfamiliar code, make focused changes, test carefully, protect existing behavior, and learn the reasoning behind engineering decisions.
 
@@ -113,7 +113,7 @@ This project is licensed under the [MIT License](LICENSE). The license applies t
 - **Portable foundation:** shared Markdown instructions, reusable `SKILL.md` files, and workflows that do not require a single IDE.
 - **Cross-IDE expansion:** adapters and setup guidance for multiple coding assistants, plus a generic fallback for unlisted tools.
 - **Installer and checks:** a dependency-free Node.js CLI, dry-run and file-preservation behavior, automated tests, and GitHub Actions verification.
-- **Universal rebrand:** the repository is now called Universal Coding Agent Kit; package metadata, commands, adapters, and setup links use the broader cross-IDE identity.
+- **UCA Kit branding:** UCA Kit is the short product name. The existing GitHub repository URL, npm package identifier, CLI command, and adapter filenames remain unchanged so current setup instructions keep working.
 - **Current direction:** a universal coding-agent toolkit with stronger planning, beginner-friendly documentation, visual explanation, change-impact review, and release safety. These newer orchestration capabilities remain on the roadmap until implemented and verified.
 
 ## Contributing and support
