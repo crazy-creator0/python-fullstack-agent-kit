@@ -14,7 +14,7 @@
 
 It is designed to help developers plan before coding, understand unfamiliar code, make focused changes, test carefully, protect existing behavior, and learn the reasoning behind engineering decisions.
 
-[Quick start](#quick-start) · [Features](#what-is-included) · [Supported tools](#supported-coding-tools) · [Generic IDE setup](GENERIC-IDE-SETUP.md) · [Platform guide](PLATFORM-SETUP.md)
+[Quick start](#quick-start) · [Features](#what-is-included) · [Supported tools](#supported-coding-tools) · [License](#license) · [Generic IDE setup](GENERIC-IDE-SETUP.md) · [Platform guide](PLATFORM-SETUP.md)
 
 ## Quick start
 
@@ -49,7 +49,7 @@ npx --yes github:crazy-creator0/universal-coding-agent-kit init . --platform dev
 
 The installer preserves existing files by default. Use `--dry-run` to preview and `--force` only when you explicitly intend to overwrite files. After installation, verify that your coding assistant actually loads the relevant instructions and skills; support differs by product and version.
 
-> **npm registry note:** The package source is in this repository, but the public npm release is not yet confirmed. After the package name is confirmed available, a license is chosen, and the package is published, the intended short command will be `npx create-universal-coding-agent-kit@latest init .`.
+> **npm registry note:** The source and MIT license are in this repository, but a public npm release is not yet confirmed. Verify the package name is available and the packed files are correct before publishing. Until then, use the GitHub-based commands above. After the public release is verified, the intended short command will be `npx create-universal-coding-agent-kit@latest init .`.
 
 ## What is included
 
@@ -103,6 +103,10 @@ The following are **planned capabilities, not claims about features already impl
 - Inspect third-party skills and packages before installing them.
 - Treat suggested commands as project-specific; verify them against your actual configuration.
 - The kit does not guarantee that every AI assistant automatically discovers every instruction or skill.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE). The license applies to this repository's original project materials; check any third-party skills, assets, or dependencies for their own license terms before reuse.
 
 ## Project history
 
