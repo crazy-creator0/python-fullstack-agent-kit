@@ -2,7 +2,7 @@
 
 These instructions are editor- and model-neutral. Start by reading `.agents/AGENTS.md` directly; do not assume a mention or link automatically loads that file's contents. Follow the user-facing language and skill level, explaining technical terms clearly. Do not force a specific natural language unless the user asks.
 
-For a coding task, inspect the project and choose only relevant skills from `.agents/skills/<skill-name>/SKILL.md`. Use the host's native skill loader when available; otherwise read the selected skill file directly. Never assume that all IDEs support the same skill discovery, agent definitions, commands, or metadata. For a greeting or vague request with no task yet, briefly ask what the user wants; do not start modifying files.
+For a coding task, inspect the project and choose only relevant skills from `.agents/skills/<skill-name>/SKILL.md`. For substantial work, consult `AGENT-SKILL-MAP.md`, tell the user up front which skills are selected and why, then actually read those `SKILL.md` files before relying on them. Use the host's native skill loader when available; otherwise read the selected skill file directly. Never assume that all IDEs support the same skill discovery, agent definitions, commands, or metadata. If `scripts/uca-usage.cjs` is present, use its local budget guard before optional agent calls when the host supports that integration; never claim it automatically captures usage unless the host actually calls it. For a greeting or vague request with no task yet, briefly ask what the user wants; do not start modifying files.
 
 ## Anti-slop
 - Inspect the repository before changing it.
