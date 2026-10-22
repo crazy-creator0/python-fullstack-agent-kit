@@ -1,4 +1,4 @@
-# Publishing the Universal Coding Agent Kit CLI
+# Publishing the UCA Kit CLI
 
 **Written by Crazy Creators**
 
