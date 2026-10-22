@@ -20,6 +20,7 @@ function makeKit(root) {
     ".agents/skills/python-engineering/SKILL.md",
     ".agents/workflows/new-project.md",
     "AGENT-SKILL-MAP.md",
+    "HOST-CAPABILITY-FALLBACK.md",
     "USAGE-PRIVACY.md",
     "scripts/uca-usage.cjs",
     "ADAPTIVE-SKILLS.md",
@@ -27,6 +28,8 @@ function makeKit(root) {
     "GENERIC-IDE-SETUP.md",
     "IMPECCABLE-SETUP.md",
     ".cursor/rules/universal-coding-agent-kit.mdc",
+    ".cursor/agents/designer.md",
+    ".cursor/agents/service-strategist.md",
     "CLAUDE.md",
     "GEMINI.md",
     ".github/copilot-instructions.md",
@@ -106,7 +109,7 @@ test("installs shared core and selected Cursor adapter", () => {
       fs.readFileSync(path.join(projectRoot, ".agents/skills/python-engineering/SKILL.md"), "utf8"),
       "template:.agents/skills/python-engineering/SKILL.md\n"
     );
-    for (const relative of ["AGENT-SKILL-MAP.md", "USAGE-PRIVACY.md", "scripts/uca-usage.cjs"]) {
+    for (const relative of ["AGENT-SKILL-MAP.md", "HOST-CAPABILITY-FALLBACK.md", "USAGE-PRIVACY.md", "scripts/uca-usage.cjs", ".cursor/agents/designer.md", ".cursor/agents/service-strategist.md"]) {
       assert.ok(fs.existsSync(path.join(projectRoot, relative)), `Expected routing/usage file missing: ${relative}`);
     }
   });
