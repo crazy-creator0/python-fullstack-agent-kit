@@ -60,6 +60,14 @@ Understand → inspect → plan → implement a small vertical slice → run rel
 - If native instructions are missing, prefer adding a short compatible adapter in the host's documented format. Preserve user-authored rules, avoid overwrites, and verify active context rather than trusting a model's unverified claim.
 - If usage metadata or pre-call hooks are unavailable, mark automatic tracking/enforcement unsupported or estimated; do not invent exact numbers or claim a hard limit is enforced.
 
+## Existing-project stack migration
+- For a requested existing-project stack change, use `.agents/workflows/stack-migration.md`; do not treat a tech preference as sufficient evidence for a rewrite.
+- Inspect the current stack, code boundaries, manifests/lockfiles, integrations, data/auth, tests, CI, config and deployment files relevant to the target. Report unknowns where evidence is inaccessible.
+- State the concrete problem, compare keeping the current stack against the target and a smaller/incremental alternative, and explain trade-offs/risks before implementation.
+- Distinguish a request for a migration recommendation/plan from authorization to implement it. Before broad/destructive/irreversible/production-impacting work, obtain explicit approval for the defined scope and present acceptance criteria plus backup/rollback strategy.
+- Prefer small slices/adapters, preserve behavior and data, inspect the diff, and verify contracts, tests, build, CI/deployment and rollback where relevant. Do not remove the old implementation or its dependencies until use is traced and the replacement is verified.
+- Report partial progress honestly. Planned, edited, tested, deployed and rollback-verified are distinct states.
+
 ## Context-loss recovery
 - If prior chat/context is missing, a session was reset, or remembered details conflict with current files, pause before meaningful edits and re-establish state from the current worktree, relevant source files, recent diffs/commits, and existing project records when available.
 - Distinguish confirmed facts, durable decisions, assumptions, and unknowns. Do not invent prior requirements, APIs, file contents, user preferences, or implementation history to fill gaps.
