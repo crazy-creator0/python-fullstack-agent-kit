@@ -41,7 +41,7 @@ npx --yes github:crazy-creator0/universal-coding-agent-kit init . --platform cur
 
 The installer preserves existing files by default. Use `--force` only when you explicitly want to overwrite them. npm documents that `npx` supports package specifiers from Git repositories; see its [Git package specifiers](https://docs.npmjs.com/cli/v11/commands/npm-install/#installing-a-package-from-a-git-repository) documentation.
 
-The shorter package-name command will be available after the package owner checks name availability, chooses and adds a license, and publishes it to the registry:
+The shorter package-name command will be available after the package owner confirms that the name is available and publishes the verified, MIT-licensed package to the registry:
 
 ```bash
 npx create-universal-coding-agent-kit init .
