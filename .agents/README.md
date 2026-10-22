@@ -1,9 +1,9 @@
 # UCA Kit (Universal Coding Agent Kit) — Agent Layout
 
-This folder contains platform-neutral mentoring instructions, reusable Agent Skills, and engineering workflows used by UCA Kit.
+This folder contains on-demand reusable Agent Skills and task-specific engineering workflows used by UCA Kit. This explanatory README is repository documentation, not a prompt to load the whole folder.
 
 ## Shared source of truth
-- `.agents/AGENTS.md` — mentoring style, general full-stack engineering, project-tracking boundaries, and safe workflows.
+- Root `AGENTS.md` — canonical concise policy. `.agents/AGENTS.md` is a compatibility fallback only.
 - `.agents/skills/<skill-name>/SKILL.md` — focused reusable skills using the Agent Skills format.
 - `.agents/workflows/` — workflows that can be opened manually or adapted into native prompts, commands, or subagents.
 - `AGENT-SKILL-MAP.md` — role-to-skill/tool routing, specialist activation and context-budget guidance.
