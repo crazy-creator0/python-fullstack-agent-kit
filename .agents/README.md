@@ -4,7 +4,7 @@ This folder contains on-demand reusable Agent Skills and task-specific engineeri
 
 ## Shared source of truth
 - Root `AGENTS.md` — canonical concise policy. `.agents/AGENTS.md` is a compatibility fallback only.
-- `.agents/skills/<skill-name>/SKILL.md` — focused reusable skills using the Agent Skills format.
+- `.agents/skills/<skill-name>/SKILL.md` — focused reusable skills using the Agent Skills format; open only the relevant ones.
 - `.agents/workflows/` — workflows that can be opened manually or adapted into native prompts, commands, or subagents.
 - `AGENT-SKILL-MAP.md` — role-to-skill/tool routing, specialist activation and context-budget guidance.
 - `HOST-CAPABILITY-FALLBACK.md` — detect supported host features and fall back when native instructions, skills, agents, hooks or usage APIs are missing.
