@@ -86,10 +86,10 @@ After installation, you can track usage counters that your host exposes, or numb
 
 ```bash
 # Configure local caps (example values)
-node scripts/uca-usage.cjs budget --max-total-tokens 20000 --max-agent-calls 4 --max-cost-usd 0.50
+node scripts/uca-usage.cjs budget --max-total-tokens 20000 --max-agent-calls 4 --max-cost-usd 0.50 --planned-agent-tokens 1500 --planned-agent-cost-usd 0.03
 
 # Record aggregate usage; use exact only for host/provider-reported or explicitly measured values
-node scripts/uca-usage.cjs record --source exact --input-tokens 1200 --output-tokens 350 --agent-calls 1 --skill-reads 2 --tool-calls 3
+node scripts/uca-usage.cjs record --source exact --input-tokens 1200 --output-tokens 350 --agent-calls 1 --skill-reads 2 --tool-calls 3 --cost-source estimated --cost-usd 0.015
 
 # View summary, guard an optional call, or reset counters
 node scripts/uca-usage.cjs show
@@ -97,7 +97,7 @@ node scripts/uca-usage.cjs guard --planned-tokens 900 --planned-agent-calls 1
 node scripts/uca-usage.cjs reset
 ```
 
-The ledger is local by default at `~/.uca-kit/usage.json`; set `UCA_USAGE_FILE` to use another path. The utility has no telemetry/network client and stores aggregate counters only—not prompts, source code, credentials, or chat transcripts. **It is not a universal interceptor:** cross-IDE automatic usage capture and hard budget enforcement require a host integration that actually calls the utility and exposes usage metadata. Without that support, figures may undercount usage; estimates are clearly separated from provider-reported values. See [USAGE-PRIVACY.md](USAGE-PRIVACY.md).
+The ledger is local by default at `~/.uca-kit/usage.json`; set `UCA_USAGE_FILE` to use another path. The utility has no telemetry/network client and stores aggregate counters only—not prompts, source code, credentials, or chat transcripts. The OpenCode profile includes a host plugin for supported completed-message usage metadata and pre-checks for optional task/subagent calls; other IDEs still require a separate integration or manual recording. Budget checks use explicit per-call reservations when token/cost limits are enabled. Without host support, the ledger may undercount usage. Provider-reported cost is not necessarily an invoice amount. See [USAGE-PRIVACY.md](USAGE-PRIVACY.md).
 
 ## How it works
 
