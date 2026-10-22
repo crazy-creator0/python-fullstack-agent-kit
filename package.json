@@ -14,7 +14,6 @@
   "files": [
     "LICENSE",
     "AGENT-SKILL-MAP.md",
-    "ANALYSIS-DEPTH-AND-LOOPHOLE-CHECKS.md",
     "USAGE-PRIVACY.md",
     "bin/",
     "scripts/",
@@ -29,11 +28,8 @@
     ".aiassistant/rules/",
     "CLAUDE.md",
     "GEMINI.md",
-    "ADAPTIVE-SKILLS.md",
     "GENERIC-IDE-SETUP.md",
-    "IMPECCABLE-SETUP.md",
     "OPENCODE-SETUP.md",
-    "PLATFORM-SETUP.md",
     ".opencode/plugins/",
     "HOST-CAPABILITY-FALLBACK.md",
     ".cursor/agents/"
