@@ -58,7 +58,7 @@ export const UcaUsagePlugin = async ({ directory }) => {
         "--cache-read-tokens", String(cacheRead),
         "--cache-write-tokens", String(cacheWrite)
       ];
-      if (cost > 0) args.push("--cost-usd", String(cost));
+      if (cost > 0) args.push("--cost-source", "estimated", "--cost-usd", String(cost));
       const result = ledgerCall(args);
       requireSuccess(result, "recording");
       seenMessageIds.add(info.id);
