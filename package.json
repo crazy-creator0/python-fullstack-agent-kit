@@ -33,7 +33,9 @@
     "IMPECCABLE-SETUP.md",
     "OPENCODE-SETUP.md",
     "PLATFORM-SETUP.md",
-    ".opencode/plugins/"
+    ".opencode/plugins/",
+    "HOST-CAPABILITY-FALLBACK.md",
+    ".cursor/agents/"
   ],
   "scripts": {
     "test": "node --test tests/cli.test.cjs tests/usage.test.cjs tests/opencode-plugin.test.cjs tests/packlist.test.cjs",
