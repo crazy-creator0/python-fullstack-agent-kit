@@ -97,7 +97,7 @@ Cursor supports root `AGENTS.md` as a simple project instruction file and also s
 
 ### OpenCode
 
-OpenCode supports `AGENTS.md` and skills in `.agents/skills/` or `.opencode/skills/`. Optional custom subagents in `.opencode/agents/` are OpenCode-specific. See `OPENCODE-SETUP.md` if you use them.
+OpenCode supports `AGENTS.md`, project skills and native subagents. The OpenCode profile includes role-focused `@designer` and `@service-strategist` agents plus `.opencode/plugins/uca-usage.mjs` for local usage accounting and optional-call budget checks when the host exposes the documented events. Read `OPENCODE-SETUP.md` for setup, configuration and limitations. Other IDE profiles do not yet have equivalent automatic usage capture.
 
 ### GitHub Copilot
 
