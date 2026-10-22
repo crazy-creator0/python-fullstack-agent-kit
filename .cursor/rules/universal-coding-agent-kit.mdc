@@ -3,7 +3,7 @@ description: Cursor-specific reminders for shared UCA Kit engineering instructio
 alwaysApply: true
 ---
 
-Use root `AGENTS.md`, `.agents/AGENTS.md`, `AGENT-SKILL-MAP.md`, and `HOST-CAPABILITY-FALLBACK.md` as the source of truth; keep this adapter short and non-conflicting.
+Use root `AGENTS.md` as the canonical policy. Open `AGENT-SKILL-MAP.md` only for ambiguous/cross-functional routing and `HOST-CAPABILITY-FALLBACK.md` only when host support is uncertain. Keep this adapter short.
 
 Before substantial work, select relevant skills up front, then actually read the selected `.agents/skills/<name>/SKILL.md` files. Do not load the whole skill catalog or assume a file was loaded merely because it exists.
 
