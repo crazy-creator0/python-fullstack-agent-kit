@@ -42,7 +42,7 @@ See the [npm publishing guide](https://github.com/crazy-creator0/python-fullstac
 
 - `AGENTS.md` — common engineering rules and task workflow.
 - `.agents/AGENTS.md` — mentoring style and full-stack guidance.
-- `.agents/skills/` — 11 portable `SKILL.md` skills for Python, frontend, backend APIs, databases, security, Cloudflare, debugging, testing/review, anti-slop, anti-hallucination, and adaptive skill routing.
+- `.agents/skills/` — 13 portable `SKILL.md` skills covering Python, frontend visuals/design taste, backend APIs, databases, security, Cloudflare, debugging, testing/review, anti-slop, anti-hallucination, and adaptive skill routing.
 - `.agents/workflows/` — reusable workflows for projects, features, debugging, and deployment.
 - `CLAUDE.md`, `GEMINI.md`, `.github/copilot-instructions.md`, `.cursor/rules/`, `.devin/rules/`, `.windsurf/rules/`, `.junie/rules/`, `.aiassistant/rules/` — platform adapters where relevant.
 - `scripts/sync_skills.py` — optional Python utility to sync canonical skills to host-native folders.
