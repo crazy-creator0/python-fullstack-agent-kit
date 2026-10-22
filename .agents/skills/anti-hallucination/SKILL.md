@@ -13,7 +13,7 @@ description: Ground engineering claims in files, tool output, tests, official do
 - Cite or link a source when making claims based on external documentation.
 
 ## Context recovery
-Follow the root `AGENTS.md` evidence/context-recovery policy. Prefer current files, Git state, explicit user instructions, and durable project records over unverified recollection. Do not repeat the full recovery checklist here.
+If the conversation or prior session summary is incomplete, follow the root `AGENTS.md` evidence/context-recovery policy. Prefer current files, Git state, explicit user instructions, and durable project records over unverified recollection. Search for an existing equivalent before creating files. Do not repeat the full recovery checklist here.
 
 ## Verification
 - Do not state that tests, lint, type checks, builds, migrations, deployments, or browser checks passed unless the relevant tool was run and its output supports the claim.
