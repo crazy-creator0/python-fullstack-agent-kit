@@ -14,7 +14,7 @@
 
 It is designed to help developers plan before coding, understand unfamiliar code, make focused changes, test carefully, protect existing behavior, and learn the reasoning behind engineering decisions.
 
-[Quick start](#quick-start) · [Features](#what-is-included) · [Analysis depth and loophole checks](ANALYSIS-DEPTH-AND-LOOPHOLE-CHECKS.md) · [Agent/skill routing](AGENT-SKILL-MAP.md) · [Host capability fallback](HOST-CAPABILITY-FALLBACK.md) · [Local usage meter](#local-usage-meter-and-budget-guard) · [Supported tools](#supported-coding-tools) · [License](#license) · [Generic IDE setup](GENERIC-IDE-SETUP.md) · [Platform guide](PLATFORM-SETUP.md)
+[Quick start](#quick-start) · [Features](#what-is-included) · [Agent/skill routing](AGENT-SKILL-MAP.md) · [Host capability fallback](HOST-CAPABILITY-FALLBACK.md) · [Local usage meter](#local-usage-meter-and-budget-guard) · [Supported tools](#supported-coding-tools) · [License](#license) · [Generic IDE setup](GENERIC-IDE-SETUP.md) · [Platform guide](PLATFORM-SETUP.md)
 
 ## Quick start
 
@@ -60,7 +60,6 @@ The installer preserves existing files by default. Use `--dry-run` to preview an
 - **Lightweight CLI** — dependency-free Node.js installer with platform selection, dry-run support, safe path checks, and preserve-existing-files behavior.
 - **Skill sync utility** — optional Python script to copy canonical skills into supported native locations.
 - **Role-to-skill routing** — a shared map for selecting the relevant specialist roles, canonical skills, optional tools, and verification steps without loading everything.
-- **Depth and loophole-check guide** — task-sized analysis levels, risk checklists, evidence-based finding reports, and honest token/cost usage expectations.
 - **Host capability fallback** — platform-agnostic rules to detect supported features and fall back to direct skill reading or sequential specialist work when an IDE lacks native agents/hooks.
 - **Local usage meter and budget guard** — an opt-in local ledger for aggregate usage counters, warning thresholds, and pre-call budget checks; see `USAGE-PRIVACY.md` for accuracy and privacy limits.
 - **Quality checks** — Node.js tests and GitHub Actions checks, including a check that maintainer-only files and test source do not leak into the npm package.
@@ -109,7 +108,7 @@ The ledger is local by default at `~/.uca-kit/usage.json`; set `UCA_USAGE_FILE` 
 4. Work in small, verifiable steps and review the actual diff before accepting changes.
 5. Verify behavior in your own IDE and environment; host capabilities vary.
 6. For substantial tasks, consult [the agent/skill routing map](AGENT-SKILL-MAP.md), suggest relevant skills up front, read only those skill files, and activate specialists only where the host supports them and the task benefits.
-7. Use [Analysis Depth, Loophole Checks, and Honest Token Usage](ANALYSIS-DEPTH-AND-LOOPHOLE-CHECKS.md) to calibrate review depth and report verified findings, unknowns, and token/cost limits honestly.
+7. Follow the compact risk-based policy in `AGENTS.md`; open only the specific workflow and skills required by the task.
 8. When the local usage script is installed, use its budget guard before optional specialist calls when the host integration supports it; never skip essential safety checks to save tokens.
 
 ## Roadmap
