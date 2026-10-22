@@ -8,22 +8,18 @@ const readline = require("node:readline/promises");
 const CORE_ENTRIES = [
   { source: "AGENTS.md", destination: "AGENTS.md" },
   { source: ".agents/AGENTS.md", destination: ".agents/AGENTS.md" },
-  { source: ".agents/README.md", destination: ".agents/README.md" },
   { source: ".agents/skills", destination: ".agents/skills" },
   { source: ".agents/workflows", destination: ".agents/workflows" },
   { source: "AGENT-SKILL-MAP.md", destination: "AGENT-SKILL-MAP.md" },
-  { source: "ANALYSIS-DEPTH-AND-LOOPHOLE-CHECKS.md", destination: "ANALYSIS-DEPTH-AND-LOOPHOLE-CHECKS.md" },
   { source: "HOST-CAPABILITY-FALLBACK.md", destination: "HOST-CAPABILITY-FALLBACK.md" },
   { source: "USAGE-PRIVACY.md", destination: "USAGE-PRIVACY.md" },
   { source: "scripts/uca-usage.cjs", destination: "scripts/uca-usage.cjs" },
-  { source: "ADAPTIVE-SKILLS.md", destination: "ADAPTIVE-SKILLS.md" },
-  { source: "PLATFORM-SETUP.md", destination: "PLATFORM-SETUP.md" },
-  { source: "GENERIC-IDE-SETUP.md", destination: "GENERIC-IDE-SETUP.md" },
-  { source: "IMPECCABLE-SETUP.md", destination: "IMPECCABLE-SETUP.md" }
 ];
 
 const PLATFORM_ENTRIES = {
-  generic: [],
+  generic: [
+    { source: "GENERIC-IDE-SETUP.md", destination: "GENERIC-IDE-SETUP.md" }
+  ],
   codex: [],
   cursor: [
     { source: ".cursor/rules/universal-coding-agent-kit.mdc", destination: ".cursor/rules/universal-coding-agent-kit.mdc" },
