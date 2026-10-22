@@ -60,6 +60,13 @@ Understand → inspect → plan → implement a small vertical slice → run rel
 - If native instructions are missing, prefer adding a short compatible adapter in the host's documented format. Preserve user-authored rules, avoid overwrites, and verify active context rather than trusting a model's unverified claim.
 - If usage metadata or pre-call hooks are unavailable, mark automatic tracking/enforcement unsupported or estimated; do not invent exact numbers or claim a hard limit is enforced.
 
+## Analysis depth and loophole checks
+- For substantial features, bugs, architecture, security, release, or audit requests, consult `ANALYSIS-DEPTH-AND-LOOPHOLE-CHECKS.md` and choose a depth appropriate to scope and risk; do not equate document length with analysis quality.
+- Trace the relevant code/data paths and run applicable checks. Use the loophole checklist selectively: inputs, errors, permissions, privacy, state/concurrency, integrations, data integrity, regressions, performance/cost, operations, and documentation when relevant.
+- For each material finding, give evidence, scenario/impact, severity, confidence, mitigation, and verification. Distinguish confirmed defects from suspected risks and unverified areas; never claim all loopholes are found.
+- Expand scope when evidence or risk warrants it, not by reading every file or loading every skill by default. Greeting/simple question stays lightweight.
+- Report actual checks and observed usage honestly. If usage metadata is unavailable, say `unknown` or give a clearly labeled estimate. See the analysis guide for the token/cost and provider-privacy limits.
+
 ## Skill and agent routing
 - Use `AGENT-SKILL-MAP.md` as the shared role-to-skill routing map. Start with one accountable lead and activate specialists only when their domain adds distinct value.
 - For substantial work, tell the user briefly which skills are selected and why before implementation; include optional tools only when task and stack justify them.
