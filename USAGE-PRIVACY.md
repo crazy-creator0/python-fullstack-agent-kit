@@ -4,7 +4,7 @@
 
 ## Privacy defaults
 
-- Store usage locally at `~/.uca-kit/usage.json` by default. Set `UCA_USAGE_FILE` to choose another local path.
+- Store usage locally at `~/.uca-kit/usage.json` by default. Set `UCA_USAGE_FILE` to choose another local path. Prefer a location outside the project/repository; if you choose a project-local path, add that exact path to the project's `.gitignore` before recording usage.
 - The ledger stores aggregate token/cost counters, configured limits, timestamps, and counts for agent calls, skill reads and tool calls. It must never store prompts, source code, file contents, credentials, private logs, or raw conversation transcripts.
 - The ledger utility uses local filesystem operations only; it has no telemetry endpoint, network client, account, login, or cloud sync.
 - The file is created with restrictive permissions where the operating system supports them. The utility refuses a symbolic link at its data-file path rather than following it.
@@ -39,7 +39,7 @@ node scripts/uca-usage.cjs show
 node scripts/uca-usage.cjs guard --planned-tokens 900 --planned-agent-calls 1
 ```
 
-`guard` returns a non-zero exit code when a configured hard limit would be exceeded. An agent host must actually call the guard and respect its result for it to enforce anything. If no budget is configured, it reports that the guard is inactive rather than pretending to enforce a limit.
+`guard` returns a non-zero exit code when a configured limit would be exceeded by the supplied recorded and planned metrics. An agent host must actually call the guard and respect its result for it to enforce anything. It does not reserve budget across parallel requests, so concurrent optional calls may each pass against the same prior total. If no budget is configured, it reports that the guard is inactive rather than pretending to enforce a limit.
 
 ## Suggested warning thresholds
 
