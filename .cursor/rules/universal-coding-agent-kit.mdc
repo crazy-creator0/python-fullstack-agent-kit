@@ -3,8 +3,10 @@ description: Cursor-specific reminders for shared UCA Kit engineering instructio
 alwaysApply: true
 ---
 
-The project's shared engineering instructions are in the root `AGENTS.md`; follow those rather than maintaining a conflicting second rule set.
+Use root `AGENTS.md`, `.agents/AGENTS.md`, `AGENT-SKILL-MAP.md`, and `HOST-CAPABILITY-FALLBACK.md` as the source of truth; keep this adapter short and non-conflicting.
 
-Before a substantial coding task, open `.agents/AGENTS.md` and only the relevant skill file under `.agents/skills/<name>/SKILL.md`. If Cursor's current version does not automatically discover a skill, add that exact file as context explicitly; do not claim automatic skill loading unless it is visible in Cursor's active context.
+Before substantial work, select relevant skills up front, then actually read the selected `.agents/skills/<name>/SKILL.md` files. Do not load the whole skill catalog or assume a file was loaded merely because it exists.
 
-Use Cursor-supported context, tools, and agent workflows. The definitions under `.opencode/agents/` are OpenCode-specific and are not assumed to work in Cursor.
+Cursor can automatically delegate to project subagents under `.cursor/agents/` when task complexity, context and the subagent descriptions justify it. Use `designer` for meaningful user-facing design work and `service-strategist` for business/service-offering planning; combine these for a joint design + service plan. Don't invoke unrelated agents on simple tasks. If Cursor does not expose or invoke subagents in the active session, carry the work out sequentially as the lead and say that delegation was unavailable.
+
+For usage, use a host-supported local budget integration only if it is available and verified. Never claim the OpenCode plugin works in Cursor; the included usage ledger can be used manually unless a tested Cursor-specific hook/plugin is added. Never store or transmit prompts/code for UCA Kit telemetry.
