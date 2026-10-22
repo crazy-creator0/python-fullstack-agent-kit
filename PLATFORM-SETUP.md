@@ -1,6 +1,6 @@
 # Multi-Platform Setup Guide
 
-This kit is designed around shared Markdown instructions and reusable Agent Skills (`SKILL.md`), not a single IDE. Most of the engineering rules stay in one source of truth; small adapters and a skill-sync script handle platforms that expect native file locations.
+UCA Kit is designed around shared Markdown instructions and reusable Agent Skills (`SKILL.md`), not a single IDE. Most of the engineering rules stay in one source of truth; small adapters and a skill-sync script handle platforms that expect native file locations.
 
 **No single configuration guarantees automatic loading in every IDE, agent, or version.** Follow the platform setup below and verify that files really appear in the host's active context.
 
