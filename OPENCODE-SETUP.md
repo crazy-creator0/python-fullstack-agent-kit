@@ -7,7 +7,7 @@
 
 ## UCA Kit role and skill routing
 
-Read `AGENT-SKILL-MAP.md` before substantial cross-functional tasks. For a combined visual design + business/service-offering plan, the primary agent should use `@designer` and `@service-strategist`, then synthesize one plan. If the request is about a backend/API service instead, choose `backend-api` and the relevant Python/database skills; involve the designer only when UI work is also requested. Always tell the user which skills are selected, read those actual skill files, and avoid loading every skill by default.
+Read `AGENT-SKILL-MAP.md` and `HOST-CAPABILITY-FALLBACK.md` before substantial cross-functional tasks. The latter is the common fallback policy for hosts where a native skill, agent, hook or usage API is absent. For a combined visual design + business/service-offering plan, the primary agent should use `@designer` and `@service-strategist`, then synthesize one plan. If the request is about a backend/API service instead, choose `backend-api` and the relevant Python/database skills; involve the designer only when UI work is also requested. Always tell the user which skills are selected, read those actual skill files, and avoid loading every skill by default.
 
 ## Local usage meter and subagent budget guard
 
