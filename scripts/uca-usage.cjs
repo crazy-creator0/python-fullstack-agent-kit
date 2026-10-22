@@ -20,7 +20,7 @@ function blank() {
   return {
     version: VERSION,
     updatedAt: null,
-    budget: { maxTotalTokens: null, maxAgentCalls: null, maxCostUsd: null, plannedTokensPerAgentCall: null, warningThresholds: THRESHOLDS.slice() },
+    budget: { maxTotalTokens: null, maxAgentCalls: null, maxCostUsd: null, plannedTokensPerAgentCall: null, plannedCostUsdPerAgentCall: null, warningThresholds: THRESHOLDS.slice() },
     totals: { exact: ZERO(), estimated: ZERO() }
   };
 }
@@ -34,6 +34,7 @@ function migrate(data) {
   // Add fields introduced by later local-ledger versions without discarding prior counters.
   if (!data || data.version !== VERSION || !data.budget || !data.totals) return;
   if (data.budget.plannedTokensPerAgentCall === undefined) data.budget.plannedTokensPerAgentCall = null;
+  if (data.budget.plannedCostUsdPerAgentCall === undefined) data.budget.plannedCostUsdPerAgentCall = null;
   for (const bucket of ["exact", "estimated"]) {
     if (!data.totals[bucket] || typeof data.totals[bucket] !== "object") continue;
     for (const key of ["reasoningTokens", "cacheReadTokens", "cacheWriteTokens"]) {
@@ -45,7 +46,7 @@ function validate(data) {
   if (!data || data.version !== VERSION || !data.budget || !data.totals) throw new Error("Unsupported or invalid usage ledger. It was not overwritten.");
   validateMetrics(data.totals.exact, "totals.exact");
   validateMetrics(data.totals.estimated, "totals.estimated");
-  for (const key of ["maxTotalTokens", "maxAgentCalls", "maxCostUsd", "plannedTokensPerAgentCall"]) {
+  for (const key of ["maxTotalTokens", "maxAgentCalls", "maxCostUsd", "plannedTokensPerAgentCall", "plannedCostUsdPerAgentCall"]) {
     const n = data.budget[key];
     if (n !== null && (!Number.isFinite(n) || n < 0)) throw new Error("Invalid usage ledger budget: " + key);
   }
@@ -167,6 +168,8 @@ function breaches(ledger, planned) {
   }
   if (ledger.budget.maxCostUsd !== null && planned.costUsd !== undefined && sums.costUsd + planned.costUsd > ledger.budget.maxCostUsd) {
     out.push("cost limit would be exceeded: $" + fmt(sums.costUsd) + " recorded + $" + fmt(planned.costUsd) + " planned > $" + fmt(ledger.budget.maxCostUsd));
+  } else if (ledger.budget.maxCostUsd !== null && planned.agentCalls > 0 && sums.costUsd >= ledger.budget.maxCostUsd) {
+    out.push("recorded cost has reached the configured limit; the next call cost is unknown, so this optional call is blocked");
   }
   return out;
 }
@@ -199,7 +202,7 @@ function help() {
     "  node scripts/uca-usage.cjs show\n" +
     "  node scripts/uca-usage.cjs guard [planned metrics]\n" +
     "  node scripts/uca-usage.cjs reset\n\n" +
-    "Budget: --max-total-tokens <integer|off> --max-agent-calls <integer|off> --max-cost-usd <number|off> --planned-agent-tokens <integer|off>\n" +
+    "Budget: --max-total-tokens <integer|off> --max-agent-calls <integer|off> --max-cost-usd <number|off> --planned-agent-tokens <integer|off> --planned-agent-cost-usd <number|off>\n" +
     "Record: --source exact|estimated --input-tokens N --output-tokens N --reasoning-tokens N --cache-read-tokens N --cache-write-tokens N --agent-calls N --skill-reads N --tool-calls N --cost-usd N\n" +
     "Guard: --planned-tokens N --planned-agent-calls N --planned-cost-usd N\n\n" +
     "Default file: ~/.uca-kit/usage.json; override with UCA_USAGE_FILE.\n" +
@@ -221,13 +224,14 @@ function main(argv) {
     return 0;
   }
   if (command === "budget") {
-    allowed(opts, ["max-total-tokens", "max-agent-calls", "max-cost-usd", "planned-agent-tokens"]);
+    allowed(opts, ["max-total-tokens", "max-agent-calls", "max-cost-usd", "planned-agent-tokens", "planned-agent-cost-usd"]);
     if (Object.keys(opts).length === 0) throw new Error("Set at least one limit. Run with --help.");
     const configs = [
       ["max-total-tokens", "maxTotalTokens", true],
       ["max-agent-calls", "maxAgentCalls", true],
       ["max-cost-usd", "maxCostUsd", false],
-      ["planned-agent-tokens", "plannedTokensPerAgentCall", true]
+      ["planned-agent-tokens", "plannedTokensPerAgentCall", true],
+      ["planned-agent-cost-usd", "plannedCostUsdPerAgentCall", false]
     ];
     for (const item of configs) if (Object.hasOwn(opts, item[0])) ledger.budget[item[1]] = numberOption(opts, item[0], item[2], true);
     ledger.updatedAt = new Date().toISOString();
@@ -275,12 +279,19 @@ function main(argv) {
       if (planned.tokens > 0) console.log("Budget estimate: reserving " + planned.tokens + " planned tokens for " + planned.agentCalls + " agent call(s).");
     }
     if (Object.hasOwn(opts, "planned-cost-usd")) planned.costUsd = numberOption(opts, "planned-cost-usd", false, false);
+    else if (planned.agentCalls > 0 && ledger.budget.plannedCostUsdPerAgentCall !== null) {
+      planned.costUsd = planned.agentCalls * ledger.budget.plannedCostUsdPerAgentCall;
+      if (planned.costUsd > 0) console.log("Budget estimate: reserving $" + fmt(planned.costUsd) + " planned cost for " + planned.agentCalls + " agent call(s).");
+    }
     const active = ledger.budget.maxTotalTokens !== null || ledger.budget.maxAgentCalls !== null || ledger.budget.maxCostUsd !== null;
     if (!active) {
       console.log("Budget guard inactive: no limits configured. No limit is being enforced.");
       return 0;
     }
     for (const message of warnings(ledger)) console.log(message);
+    if (ledger.budget.maxCostUsd !== null && planned.agentCalls > 0 && planned.costUsd === undefined) {
+      console.log("NOTICE: no per-agent cost estimate configured; this guard cannot predict the next call cost. Use --planned-agent-cost-usd to set an assumption.");
+    }
     const blocked = breaches(ledger, planned);
     if (blocked.length) {
       console.error("BLOCKED: configured local budget would be exceeded:");
