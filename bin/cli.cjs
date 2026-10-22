@@ -69,7 +69,7 @@ Options:
   --dir, --project-root <path>   Destination project (default: current directory)
   --platform <name>              generic, codex, cursor, claude, gemini, copilot,
                                  opencode, devin, windsurf, junie, jetbrains
-  --yes, -y                      Skip the platform prompt (defaults to generic)
+  --yes, -y                      Skip prompts; default to generic and keep conflicts
   --force                        Overwrite existing files without prompting (use carefully)
   --dry-run                      Preview changes without writing files
   --help, -h                     Show this help
