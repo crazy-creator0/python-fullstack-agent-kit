@@ -18,7 +18,7 @@
 - A dependency-free Node.js CLI source, CLI tests, skill-sync utility, and GitHub Actions workflow.
 - Optional design/codebase references, selected only when they fit the actual project.
 
-Earlier CI runs passed for prior commits. **Re-check the latest workflow run before claiming this current revision passes.** npm registry publication remains pending; the owner must make the license decision and complete package-name/release checks first.
+The latest GitHub Actions run passed after the tracker, ignore rules, and package-content guard were added: [run 39738547856](https://github.com/crazy-creator0/python-fullstack-agent-kit/actions/runs/39738547856). The package-content test verifies that maintainer planning files and test source are excluded from the npm tarball. npm registry publication remains pending; the owner must make the license decision and complete package-name/release checks first.
 
 ## Workstream tracker
 
@@ -35,6 +35,7 @@ Statuses: **DONE** = present and verified in the repository; **IN PROGRESS** = c
 | REVIEW-01 | Independent pre-push change-impact reviewer | PLANNED | Analyze the real Git diff/base, identify changed behavior and regression risk, report severity and evidence |
 | OPS-01 | DevOps/release workflow | PARTIAL | Deployment workflow guidance exists; unified release gates, rollback and monitoring integration remain planned |
 | TEST-01 | Regression, integration, security, and scenario tests for end-to-end agent behavior | PLANNED | Add tests per vertical slice; retain existing CLI tests |
+| DIST-02 | Ensure maintainer planning/docs and test source stay out of the npm installer tarball | DONE | tests/packlist.test.cjs checks the actual npm pack dry-run file list; latest CI passed |
 | DIST-01 | npm package-name/license review and registry release | BLOCKED | Confirm license and name availability, inspect package, test clean install, then owner publishes |
 | META-01 | Rename repository to match the broader product | PLANNED | Recommended candidate: universal-coding-agent-kit; owner should confirm before renaming |
 
