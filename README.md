@@ -71,7 +71,7 @@ The kit aims for broad compatibility, not identical behavior in every tool. Foll
 | Tool | Getting started |
 |---|---|
 | OpenAI Codex / Codex CLI | Root `AGENTS.md`; use skills where supported |
-| Cursor | Root `AGENTS.md` and optional `.cursor/rules/` adapter |
+| Cursor | Root `AGENTS.md`, `.cursor/rules/`, and native `.cursor/agents/` specialists |
 | Claude Code | `CLAUDE.md` and supported skill locations |
 | Gemini CLI | `GEMINI.md` and supported skill locations |
 | GitHub Copilot | `.github/copilot-instructions.md` and supported skills |
