@@ -31,3 +31,13 @@ test("anti-hallucination and anti-slop skills protect against guessed files", ()
   assert.match(antiHallucination, /search for an existing equivalent/i);
   assert.match(antiSlop, /Never create files just to cover a guessed requirement/i);
 });
+
+test("core policy stays language-neutral and skills are not a language gate", () => {
+  const instructions = read("AGENTS.md");
+  const map = read("AGENT-SKILL-MAP.md");
+  assert.match(instructions, /Do not restrict coding capability to languages, frameworks, tools, or skills explicitly listed/i);
+  assert.match(instructions, /absence of such a skill must never block work/i);
+  assert.match(map, /not a list of supported languages or a capability boundary/i);
+  assert.match(map, /lack of a dedicated skill is not a blocker/i);
+  assert.doesNotMatch(map, /\| Python change \|/i);
+});
