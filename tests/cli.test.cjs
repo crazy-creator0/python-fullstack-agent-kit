@@ -31,7 +31,12 @@ function makeKit(root) {
     "GEMINI.md",
     ".github/copilot-instructions.md",
     "OPENCODE-SETUP.md",
+    ".opencode/agents/planner.md",
     ".opencode/agents/reviewer.md",
+    ".opencode/agents/verifier.md",
+    ".opencode/agents/designer.md",
+    ".opencode/agents/service-strategist.md",
+    ".opencode/plugins/uca-usage.mjs",
     ".devin/rules/universal-coding-agent-kit.md",
     ".windsurf/rules/universal-coding-agent-kit.md",
     ".junie/rules/universal-coding-agent-kit.md",
@@ -197,6 +202,24 @@ test("Claude profile copies skills into the native skill directory", () => {
   });
 });
 
+
+test("OpenCode profile installs specialist agents and local usage plugin", () => {
+  withFixture(({ kitRoot, projectRoot }) => {
+    const summary = installKit({ packageRoot: kitRoot, projectRoot, platform: "opencode" });
+    assert.equal(summary.errors, 0);
+    for (const relative of [
+      ".opencode/agents/designer.md",
+      ".opencode/agents/service-strategist.md",
+      ".opencode/agents/planner.md",
+      ".opencode/plugins/uca-usage.mjs",
+      "scripts/uca-usage.cjs",
+      "AGENT-SKILL-MAP.md",
+      "USAGE-PRIVACY.md"
+    ]) {
+      assert.ok(fs.existsSync(path.join(projectRoot, relative)), `Expected OpenCode/routing/usage file missing: ${relative}`);
+    }
+  });
+});
 
 test("Devin profile copies its own adapter", () => {
   withFixture(({ kitRoot, projectRoot }) => {
