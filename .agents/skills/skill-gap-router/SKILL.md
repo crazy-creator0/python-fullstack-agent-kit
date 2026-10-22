@@ -19,6 +19,7 @@ Use skills just in time across coding agents. Do not load every skill for every 
    - Release/deploy → testing-and-code-review, application-security, cloudflare-operations when relevant
    - All code changes → apply anti-ai-slop and anti-hallucination principles
    For substantial work, state the selected skills and short reasons to the user before implementation. Then read those actual skill files. Mention only optional tools that fit the task; do not present them as installed unless verified.
+   For substantial work, use `ANALYSIS-DEPTH-AND-LOOPHOLE-CHECKS.md` to calibrate inspection and verification to task risk. Trace relevant dependencies, check only applicable failure modes, and report evidence, confidence, severity, and unknowns. Never equate answer length with depth or promise that all loopholes will be found.
 4. Check whether a needed skill exists. Inspect relevant SKILL.md files and any host skill listing. Do not assume a skill is installed just because it was mentioned earlier. If native instructions, skill loading, subagents, hooks, or usage metadata are missing/uncertain, follow `HOST-CAPABILITY-FALLBACK.md`: use a verified host-native format, read only the needed skill directly, and perform specialist work sequentially if delegation is unavailable.
 5. If a capability is missing, choose a path:
    - Small, task-specific guidance: write a short task plan and proceed without creating a permanent skill.
