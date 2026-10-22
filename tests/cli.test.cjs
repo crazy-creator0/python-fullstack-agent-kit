@@ -101,6 +101,9 @@ test("installs shared core and selected Cursor adapter", () => {
       fs.readFileSync(path.join(projectRoot, ".agents/skills/python-engineering/SKILL.md"), "utf8"),
       "template:.agents/skills/python-engineering/SKILL.md\n"
     );
+    for (const relative of ["AGENT-SKILL-MAP.md", "USAGE-PRIVACY.md", "scripts/uca-usage.cjs"]) {
+      assert.ok(fs.existsSync(path.join(projectRoot, relative)), `Expected routing/usage file missing: ${relative}`);
+    }
   });
 });
 
