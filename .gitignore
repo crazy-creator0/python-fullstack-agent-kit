@@ -80,6 +80,9 @@ models/checkpoints/
 *.safetensors
 
 # Local IDE and operating-system files
+# Private local UCA Kit usage ledger (including custom project-local paths)
+.uca-kit/usage.json
+.uca-kit/usage.json.tmp-*
 .idea/
 .DS_Store
 Thumbs.db
