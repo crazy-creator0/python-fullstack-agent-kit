@@ -19,6 +19,10 @@ Use [Analysis Depth, Loophole Checks, and Honest Token Usage](ANALYSIS-DEPTH-AND
 
 For substantial work, record applicable loophole categories checked and the material unknowns. Do not mark every category reviewed without evidence, do not invent bugs to fill a checklist, and never promise exhaustive detection. If the host provides no usage metadata, token use remains unknown or estimated—not exact.
 
+## Existing-project tech-stack migration
+
+For a request to replace or substantially change an existing language, framework, database, runtime, build or deployment stack, use `.agents/workflows/stack-migration.md` before broad edits. Route through `anti-hallucination`, `anti-ai-slop`, and `testing-and-code-review`; add the relevant backend/database/security/DevOps skill based on the actual migration boundary. Inspect current evidence, compare the target with keeping or incrementally changing the existing stack, and document compatibility, data, operations and rollback risks. Planning a migration is not authorization to implement it. Broad, destructive, irreversible or production-impacting work needs explicit scope approval unless the user has already clearly authorized that implementation. Prefer staged migration and report partial verification honestly.
+
 ## Role-to-skill map
 
 | Role / responsibility | Primary skills | Conditional skills or tools |
