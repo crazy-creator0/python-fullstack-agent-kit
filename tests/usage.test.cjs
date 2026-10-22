@@ -77,6 +77,58 @@ test("reset clears recorded counters but preserves the configured budget", () =>
   });
 });
 
+test("keeps cache/reasoning token counters and estimated host cost distinct", () => {
+  fixture(({ env, file }) => {
+    const result = invoke([
+      "record", "--source", "exact",
+      "--input-tokens", "100",
+      "--output-tokens", "20",
+      "--reasoning-tokens", "5",
+      "--cache-read-tokens", "10",
+      "--cache-write-tokens", "3",
+      "--cost-source", "estimated",
+      "--cost-usd", "0.025"
+    ], env);
+    assert.equal(result.status, 0, result.stderr);
+    const data = JSON.parse(fs.readFileSync(file, "utf8"));
+    assert.equal(data.totals.exact.inputTokens, 100);
+    assert.equal(data.totals.exact.outputTokens, 20);
+    assert.equal(data.totals.exact.reasoningTokens, 5);
+    assert.equal(data.totals.exact.cacheReadTokens, 10);
+    assert.equal(data.totals.exact.cacheWriteTokens, 3);
+    assert.equal(data.totals.exact.costUsd, 0);
+    assert.equal(data.totals.estimated.costUsd, 0.025);
+    const shown = invoke(["show"], env);
+    assert.equal(shown.status, 0, shown.stderr);
+    assert.match(shown.stdout, /Total recorded tokens \(exact \+ estimated\): 138/);
+    assert.match(shown.stdout, /\$0 exact-source \| \$0.025 estimated-source/);
+  });
+});
+
+test("uses per-agent token and cost reservations when checking a budget", () => {
+  fixture(({ env }) => {
+    const set = invoke([
+      "budget", "--max-total-tokens", "500",
+      "--max-agent-calls", "3",
+      "--max-cost-usd", "0.05",
+      "--planned-agent-tokens", "300",
+      "--planned-agent-cost-usd", "0.03"
+    ], env);
+    assert.equal(set.status, 0, set.stderr);
+    const record = invoke([
+      "record", "--source", "exact", "--input-tokens", "250",
+      "--cost-source", "estimated", "--cost-usd", "0.03"
+    ], env);
+    assert.equal(record.status, 0, record.stderr);
+    const blocked = invoke(["guard", "--planned-agent-calls", "1"], env);
+    assert.equal(blocked.status, 2);
+    assert.match(blocked.stderr, /token limit would be exceeded/);
+    assert.match(blocked.stderr, /cost limit would be exceeded/);
+    assert.match(blocked.stdout, /reserving 300 planned tokens/);
+    assert.match(blocked.stdout, /reserving \$0.03 planned cost/);
+  });
+});
+
 test("refuses a usage data-file symlink rather than following it", () => {
   fixture(({ dir, env }) => {
     const target = path.join(dir, "actual.json");
