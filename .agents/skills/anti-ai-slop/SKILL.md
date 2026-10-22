@@ -14,7 +14,7 @@ Code quality means satisfying real requirements with understandable, verifiable 
 4. State assumptions and acceptance criteria.
 5. Ask only when a missing fact materially changes the solution.
 
-Follow the root `AGENTS.md` evidence/context-recovery policy when context is incomplete; do not recreate its checklist here.
+Follow the root `AGENTS.md` evidence/context-recovery policy when context is incomplete; never create files just to cover a guessed requirement. Do not recreate its checklist here.
 
 ## Reject
 - Factories, registries, managers, wrappers, layers, or design patterns without a demonstrated use case.
