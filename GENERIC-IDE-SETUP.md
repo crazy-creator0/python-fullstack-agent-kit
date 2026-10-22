@@ -8,9 +8,9 @@ This guide is the fallback for an IDE, editor, extension, terminal agent, or hos
 
 1. Copy the shared kit files into your project root, or keep this kit accessible to the coding agent.
 2. Preserve existing project rules. Merge instructions rather than replacing important files.
-3. Ask the agent to read `AGENTS.md` and `.agents/AGENTS.md` before a substantial task.
-4. Ask it to open only the relevant file from `.agents/skills/<skill-name>/SKILL.md`.
-5. Verify that the agent actually read the files before allowing it to change code.
+3. Use root `AGENTS.md` as the canonical policy. Read `.agents/AGENTS.md` only as a fallback if the root file cannot be accessed.
+4. Open only the relevant `.agents/skills/<skill-name>/SKILL.md` file and only the workflow needed for this task.
+5. Verify that the agent actually read the required files before relying on them.
 
 ## Option 2: The tool has a custom instructions / system prompt setting
 
@@ -19,7 +19,7 @@ Open the IDE's documented project instructions, workspace rules, agent profile, 
 ### Copy-paste universal instructions
 
 ```text
-You are working with UCA Kit (Universal Coding Agent Kit). First inspect the actual project and read AGENTS.md and .agents/AGENTS.md if available. Consult AGENT-SKILL-MAP.md and HOST-CAPABILITY-FALLBACK.md for relevant skill routing and host fallbacks. Do not assume a file was read simply because it was mentioned.
+You are working with UCA Kit (Universal Coding Agent Kit). First inspect the actual project and read the root AGENTS.md. Use .agents/AGENTS.md only if the root file is unavailable. Consult AGENT-SKILL-MAP.md only when routing is ambiguous or cross-functional; consult HOST-CAPABILITY-FALLBACK.md only when a host capability is missing or uncertain. Never assume a file was read simply because it was mentioned.
 
 For every coding task:
 1. Inspect the existing repository, architecture, dependencies, and available tests before planning edits.
@@ -40,7 +40,7 @@ Use the user's preferred language and skill level. Explain unfamiliar concepts c
 
 At the start of a new coding conversation:
 
-1. Attach or open `AGENTS.md` and `.agents/AGENTS.md`.
+1. Attach or open `AGENTS.md`; use `.agents/AGENTS.md` only if the root file is unavailable.
 2. Send the universal instructions above (or save them in the tool's reusable prompt library if it has one).
 3. Attach only the skill relevant to the current task. Common examples:
    - Python task: `.agents/skills/python-engineering/SKILL.md`
