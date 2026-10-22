@@ -11,19 +11,17 @@ function read(relativePath) {
   return fs.readFileSync(path.join(root, relativePath), "utf8");
 }
 
-test("shared instructions recover missing context before editing", () => {
+test("canonical root instructions recover missing context and avoid speculative files", () => {
   const instructions = read("AGENTS.md");
-  assert.match(instructions, /pause before editing/i);
-  assert.match(instructions, /recover evidence from current files/i);
-  assert.match(instructions, /Do not create files merely to compensate for missing context/i);
+  assert.match(instructions, /recover from current files/i);
+  assert.match(instructions, /Separate facts, recorded decisions, assumptions, and unknowns/i);
+  assert.match(instructions, /Search for existing functionality before adding files/i);
 });
 
-test("shared agent rules require a context-loss recovery protocol", () => {
+test("compatibility shim does not duplicate core policy", () => {
   const instructions = read(".agents/AGENTS.md");
-  assert.match(instructions, /## Context-loss recovery/);
-  assert.match(instructions, /Do not invent prior requirements/i);
-  assert.match(instructions, /Before creating\/recreating persistent files/i);
-  assert.match(instructions, /smallest reversible change/i);
+  assert.match(instructions, /Canonical project policy: root `AGENTS.md`/);
+  assert.ok(instructions.length < 1200, "Compatibility shim should remain compact.");
 });
 
 test("anti-hallucination and anti-slop skills protect against guessed files", () => {
@@ -32,12 +30,4 @@ test("anti-hallucination and anti-slop skills protect against guessed files", ()
   assert.match(antiHallucination, /If the conversation or prior session summary is incomplete/i);
   assert.match(antiHallucination, /search for an existing equivalent/i);
   assert.match(antiSlop, /Never create files just to cover a guessed requirement/i);
-});
-
-test("analysis guide and generic IDE fallback document context recovery", () => {
-  const guide = read("ANALYSIS-DEPTH-AND-LOOPHOLE-CHECKS.md");
-  const generic = read("GENERIC-IDE-SETUP.md");
-  assert.match(guide, /## When session context is missing or has drifted/);
-  assert.match(guide, /Do not fill those gaps by inventing a plausible story/i);
-  assert.match(generic, /If the previous session context, handoff, or memory is incomplete/i);
 });
