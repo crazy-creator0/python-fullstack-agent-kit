@@ -268,10 +268,10 @@ async function chooseConflictMode(conflicts) {
     output: process.stdout
   });
   try {
-    console.log(`\\nFound ${conflicts.length} existing file conflict(s):`);
+    console.log(`\nFound ${conflicts.length} existing file conflict(s):`);
     for (const relative of conflicts.slice(0, 12)) console.log(`  - ${relative}`);
     if (conflicts.length > 12) console.log(`  ... and ${conflicts.length - 12} more`);
-    console.log("\\nChoose how to handle conflicts:");
+    console.log("\nChoose how to handle conflicts:");
     console.log("  1. Keep existing files (skip those UCA Kit files)");
     console.log("  2. Override existing files with UCA Kit versions");
     console.log("  3. Cancel installation (leave the project unchanged)");
@@ -444,7 +444,7 @@ async function main(argv = process.argv.slice(2)) {
       if (conflicts.length > 0) {
         conflictMode = await chooseConflictMode(conflicts);
         if (conflictMode === "cancel") {
-          console.log("\\nInstallation cancelled. No files were changed.");
+          console.log("\nInstallation cancelled. No files were changed.");
           return 0;
         }
       }
@@ -482,11 +482,11 @@ async function main(argv = process.argv.slice(2)) {
   }
 
   if (summary.cancelled) {
-    console.log("\\nInstallation cancelled. No files were changed.");
+    console.log("\nInstallation cancelled. No files were changed.");
     return 0;
   }
   console.log(
-    `\\nSummary: ${summary.copied} copied, ${summary.overwritten} overwritten, ${summary.skipped} skipped, ${summary.errors} errors.`
+    `\nSummary: ${summary.copied} copied, ${summary.overwritten} overwritten, ${summary.skipped} skipped, ${summary.errors} errors.`
   );
   if (summary.errors > 0) return 1;
   if (options.platform === "generic") {
