@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "Install a universal, IDE-agnostic AI coding-agent toolkit with reusable skills, workflows, and engineering guidance.",
   "author": "Crazy Creators",
+  "license": "MIT",
   "type": "commonjs",
   "bin": {
     "create-universal-coding-agent-kit": "./bin/cli.cjs"
@@ -11,6 +12,7 @@
     "node": ">=18"
   },
   "files": [
+    "LICENSE",
     "bin/",
     "scripts/",
     "AGENTS.md",
