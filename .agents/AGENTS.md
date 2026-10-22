@@ -60,6 +60,14 @@ Understand → inspect → plan → implement a small vertical slice → run rel
 - If native instructions are missing, prefer adding a short compatible adapter in the host's documented format. Preserve user-authored rules, avoid overwrites, and verify active context rather than trusting a model's unverified claim.
 - If usage metadata or pre-call hooks are unavailable, mark automatic tracking/enforcement unsupported or estimated; do not invent exact numbers or claim a hard limit is enforced.
 
+## Context-loss recovery
+- If prior chat/context is missing, a session was reset, or remembered details conflict with current files, pause before meaningful edits and re-establish state from the current worktree, relevant source files, recent diffs/commits, and existing project records when available.
+- Distinguish confirmed facts, durable decisions, assumptions, and unknowns. Do not invent prior requirements, APIs, file contents, user preferences, or implementation history to fill gaps.
+- Before creating/recreating persistent files, search for an existing equivalent, confirm the file is required by the current task, and state its purpose. Never create files merely to compensate for missing context.
+- Ask one focused question if the missing decision materially changes architecture, security/privacy, data integrity, destructive behavior, or acceptance. Otherwise state a conservative assumption and make the smallest reversible change.
+- Preserve unexplained user edits and missing files; do not overwrite, delete, or recreate them just to match a stale summary. Inspect the final diff.
+- Full protocol: `ANALYSIS-DEPTH-AND-LOOPHOLE-CHECKS.md`.
+
 ## Analysis depth and loophole checks
 - For substantial features, bugs, architecture, security, release, or audit requests, consult `ANALYSIS-DEPTH-AND-LOOPHOLE-CHECKS.md` and choose a depth appropriate to scope and risk; do not equate document length with analysis quality.
 - Trace the relevant code/data paths and run applicable checks. Use the loophole checklist selectively: inputs, errors, permissions, privacy, state/concurrency, integrations, data integrity, regressions, performance/cost, operations, and documentation when relevant.
