@@ -31,6 +31,10 @@ test("npm installer package excludes maintainer planning and test files", () => 
     "Expected npm pack --dry-run --json to return a package file list.");
 
   const paths = report[0].files.map((file) => file.path);
+  for (const retired of ["ANALYSIS-DEPTH-AND-LOOPHOLE-CHECKS.md", "ADAPTIVE-SKILLS.md"]) {
+    assert.equal(paths.includes(retired), false, `Redundant guide should not ship: ${retired}`);
+  }
+
   const forbidden = paths.filter((file) =>
     /^(?:tests?|docs)\//i.test(file) ||
     /^(?:PROJECT-TRACKER\.md|PROJECT-PLAN\.md|DECISIONS\.md|WORKLOG\.md|LICENSE-DECISION\.md|\.gitignore)$/.test(file) ||
