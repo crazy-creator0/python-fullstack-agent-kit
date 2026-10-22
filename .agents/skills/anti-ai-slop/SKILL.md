@@ -14,6 +14,13 @@ Code quality means satisfying real requirements with understandable, verifiable 
 4. State assumptions and acceptance criteria.
 5. Ask only when a missing fact materially changes the solution.
 
+## When context is incomplete
+1. Pause before editing when previous decisions or task scope are missing or contradictory.
+2. Inspect current files, working-tree status, recent diffs/commits, and relevant durable project records before reconstructing intent.
+3. Search for existing files or equivalent functionality before adding a file, duplicate abstraction, plan, or helper.
+4. Make an explicit known / assumption / unknown distinction. Ask one targeted question when uncertainty changes architecture, risk, destructive behavior, or acceptance.
+5. Never create files just to cover a guessed requirement, and never recreate missing files without evidence the user wants them restored.
+
 ## Reject
 - Factories, registries, managers, wrappers, layers, or design patterns without a demonstrated use case.
 - New dependencies for problems the existing stack can solve simply.
