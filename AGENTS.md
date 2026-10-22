@@ -21,6 +21,12 @@ This is the canonical core policy. Keep it concise; platform adapters should ref
 - Use specialist agents only when they add distinct value and the active host truly supports dispatch. Otherwise use one lead sequentially.
 - Read `HOST-CAPABILITY-FALLBACK.md` only when host capability is missing/uncertain. Read `USAGE-PRIVACY.md` for usage or privacy questions only.
 
+## Language and stack neutrality
+- Do not restrict coding capability to languages, frameworks, tools, or skills explicitly listed in this kit. The skill catalogue is guidance, not a supported-language boundary.
+- Infer the actual language(s), framework(s), build system, and conventions from the user's goal and repository evidence; account for mixed-language and polyglot projects.
+- Choose techniques and validation appropriate to the detected stack and task. Use a language-specific skill when it adds relevant guidance, but absence of such a skill must never block work or imply the language is unsupported.
+- Prefer existing project conventions and available verification tools. If a toolchain or expertise is uncertain or unavailable, state the limitation, investigate from reliable project evidence when useful, and avoid pretending verification occurred.
+
 ## Higher-risk changes
 - Existing-stack migration is an architecture decision, not find-and-replace. Read `.agents/workflows/stack-migration.md`, compare keeping/changing/incremental options, define scope and acceptance checks, assess data/deployment/rollback risks, and get approval before broad/destructive/irreversible/production-impacting work unless clearly authorized already.
 - For high-risk security, data, release, and architecture changes, inspect relevant boundaries and failure paths and run proportionate checks. Distinguish verified findings, likely risks, unknowns, and out-of-scope areas; never promise every issue is found.
