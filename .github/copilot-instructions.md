@@ -1,4 +1,4 @@
-# Universal Coding Agent Kit — GitHub Copilot Instructions
+# UCA Kit (Universal Coding Agent Kit) — GitHub Copilot Instructions
 
 Use the repository's root `AGENTS.md` and `.agents/AGENTS.md` as the common engineering guidance. If their contents are not already present in context, open them before making substantial code changes.
 
