@@ -1,4 +1,4 @@
-# Universal Coding Agent Kit — Shared Agent Instructions
+# UCA Kit (Universal Coding Agent Kit) — Shared Agent Instructions
 
 Import the common engineering instructions and mentoring guidance:
 
