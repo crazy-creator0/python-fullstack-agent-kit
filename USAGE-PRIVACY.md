@@ -1,6 +1,6 @@
 # UCA Kit Local Usage Meter and Privacy Contract
 
-**Status:** the local ledger utility can record and display usage that a user or host integration explicitly supplies. UCA Kit now includes an **OpenCode-specific plugin adapter** that records finalized message token metadata and checks local budgets before supported task/subagent calls. Its payload is simulated in CI but still needs verification in the installed OpenCode version. Other IDEs do **not** yet have automatic capture. Hard enforcement exists only where the integration actually calls the ledger and the host exposes the relevant events/metadata.
+**Status:** the local ledger utility can record and display usage that a user or host integration explicitly supplies. UCA Kit now includes an **OpenCode-specific plugin adapter** that records finalized message token metadata, shows local threshold/budget-block toast warnings, and checks local budgets before supported task/subagent calls. Its event payload and toast behavior are simulated in CI but still need verification in the installed OpenCode version. Other IDEs do **not** yet have automatic capture. Hard enforcement exists only where the integration actually calls the ledger and the host exposes the relevant events/metadata.
 
 ## Privacy defaults
 
