@@ -5,7 +5,7 @@ Use only when routing is ambiguous or work crosses domains. For an obvious small
 | Task | Read first | Add only when relevant |
 |---|---|---|
 | Greeting/simple question | None | Ask what help is needed; no project scan or edits |
-| Language-specific implementation | `language-engineering` when no obvious specialist applies | Inspect actual language, framework, build/test setup and repo conventions; a missing dedicated skill is not a blocker; add a specialist only when it contributes distinct, relevant guidance |
+| Language-specific implementation | `language-engineering` when no obvious specialist applies | Inspect actual language, framework, build/test setup and repo conventions; lack of a dedicated skill is not a blocker; add a specialist only when it contributes distinct, relevant guidance |
 | Backend/API | `backend-api` | Relevant language, database and security guidance based on the actual stack and boundaries |
 | Frontend/UI | `frontend-engineering` | `design-taste-discovery` for visual decisions; `frontend-visuals-and-3d` only for real advanced 3D/canvas/GPU work |
 | Bug | `debugging` | Skill for the affected domain, if useful |
