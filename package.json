@@ -36,7 +36,7 @@
     ".opencode/plugins/"
   ],
   "scripts": {
-    "test": "node --test tests/cli.test.cjs tests/usage.test.cjs tests/packlist.test.cjs",
+    "test": "node --test tests/cli.test.cjs tests/usage.test.cjs tests/opencode-plugin.test.cjs tests/packlist.test.cjs",
     "check": "node --check bin/cli.cjs && npm test",
     "pack:dry-run": "npm pack --dry-run",
     "prepublishOnly": "npm run check"
