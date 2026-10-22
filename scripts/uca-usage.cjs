@@ -237,7 +237,7 @@ function main(argv) {
     return 0;
   }
   if (command === "record") {
-    allowed(opts, ["source", "input-tokens", "output-tokens", "agent-calls", "skill-reads", "tool-calls", "cost-usd"]);
+    allowed(opts, ["source", "input-tokens", "output-tokens", "reasoning-tokens", "cache-read-tokens", "cache-write-tokens", "agent-calls", "skill-reads", "tool-calls", "cost-usd"]);
     if (!["exact", "estimated"].includes(opts.source)) throw new Error("Provide --source exact or --source estimated.");
     const keys = [
       ["input-tokens", "inputTokens", true],
