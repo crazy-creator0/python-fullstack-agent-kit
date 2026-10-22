@@ -5,20 +5,20 @@ Use only when routing is ambiguous or work crosses domains. For an obvious small
 | Task | Read first | Add only when relevant |
 |---|---|---|
 | Greeting/simple question | None | Ask what help is needed; no project scan or edits |
-| Python change | `python-engineering` | Backend/database/security if affected |
-| Backend/API | `backend-api` | `python-engineering`, `database-engineering`, `application-security` by boundary |
+| Language-specific implementation | Best matching available skill, if any | Inspect actual language, framework, build/test setup and repo conventions; lack of a dedicated skill is not a blocker |
+| Backend/API | `backend-api` | Relevant language, database and security guidance based on the actual stack and boundaries |
 | Frontend/UI | `frontend-engineering` | `design-taste-discovery` for visual decisions; `frontend-visuals-and-3d` only for real advanced 3D/canvas/GPU work |
-| Bug | `debugging` | Skill for the affected domain |
-| Database/schema | `database-engineering` | Backend/security for API, access, or privacy boundaries |
+| Bug | `debugging` | Skill for the affected domain, if useful |
+| Database/schema | `database-engineering` | Relevant implementation/security guidance for API, access or privacy boundaries |
 | Auth/security/privacy | `application-security` | Relevant implementation skill + `testing-and-code-review` |
 | Review/testing | `testing-and-code-review` | Affected domain skill; independent reviewer only if risk justifies it |
 | Release/deployment | `testing-and-code-review` | `application-security`; `cloudflare-operations` only for Cloudflare |
 | Existing-stack migration | `.agents/workflows/stack-migration.md` | `anti-hallucination`, `anti-ai-slop`, `testing-and-code-review`, plus affected domain skills |
-| Ambiguous task or missing capability | `skill-gap-router` | Only the relevant domain skills |
+| Ambiguous task or missing capability | `skill-gap-router` | Only relevant domain skills or reliable project documentation |
 | Design + business/service offer | `design-taste-discovery` | Task-specific strategy brief; there is no dedicated canonical business-strategy skill |
 | Documentation/codebase explanation | `anti-hallucination` | Domain skill only when source behavior needs analysis |
 
-Actually open each selected `.agents/skills/<name>/SKILL.md` before relying on it. A path or mention does not prove a skill was loaded. Do not invent capabilities when a skill/host feature is absent.
+Actually open each selected `.agents/skills/<name>/SKILL.md` before relying on it. A path or mention does not prove a skill was loaded. Do not invent capabilities when a skill/host feature is absent. The skill catalogue is optional guidance, not a list of supported languages or a capability boundary.
 
 ## Agent and context budget
 - Delegate only when the active host supports it and the benefit outweighs the coordination cost; otherwise work sequentially.
