@@ -1,3 +1,5 @@
+If the request changes or replaces the existing language/framework/database/runtime/deployment stack, stop the normal feature flow and use `.agents/workflows/stack-migration.md` to assess the migration and approval boundary first.
+
 # Workflow: Feature Development
 
 1. Restate the user-visible behavior and acceptance criteria.
