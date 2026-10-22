@@ -12,6 +12,7 @@ const CORE_ENTRIES = [
   { source: ".agents/skills", destination: ".agents/skills" },
   { source: ".agents/workflows", destination: ".agents/workflows" },
   { source: "AGENT-SKILL-MAP.md", destination: "AGENT-SKILL-MAP.md" },
+  { source: "HOST-CAPABILITY-FALLBACK.md", destination: "HOST-CAPABILITY-FALLBACK.md" },
   { source: "USAGE-PRIVACY.md", destination: "USAGE-PRIVACY.md" },
   { source: "scripts/uca-usage.cjs", destination: "scripts/uca-usage.cjs" },
   { source: "ADAPTIVE-SKILLS.md", destination: "ADAPTIVE-SKILLS.md" },
@@ -24,7 +25,9 @@ const PLATFORM_ENTRIES = {
   generic: [],
   codex: [],
   cursor: [
-    { source: ".cursor/rules/universal-coding-agent-kit.mdc", destination: ".cursor/rules/universal-coding-agent-kit.mdc" }
+    { source: ".cursor/rules/universal-coding-agent-kit.mdc", destination: ".cursor/rules/universal-coding-agent-kit.mdc" },
+    { source: ".cursor/agents/designer.md", destination: ".cursor/agents/designer.md" },
+    { source: ".cursor/agents/service-strategist.md", destination: ".cursor/agents/service-strategist.md" }
   ],
   claude: [
     { source: "CLAUDE.md", destination: "CLAUDE.md" },
