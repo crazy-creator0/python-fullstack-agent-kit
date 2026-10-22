@@ -2,7 +2,7 @@
 
 This guide is the fallback for an IDE, editor, extension, terminal agent, or hosted coding environment that is not named in this repository's platform list.
 
-**The IDE does not need to be listed here.** The shared instructions and skills are plain text. What varies is whether the tool automatically reads project instruction files or supports Agent Skills.
+**The IDE does not need to be listed here.** The shared instructions and skills are plain text. What varies is whether the tool automatically reads project instruction files or supports Agent Skills. Start with [HOST-CAPABILITY-FALLBACK.md](HOST-CAPABILITY-FALLBACK.md): inspect what this host actually supports, use its documented native format, then fall back safely instead of assuming features exist.
 
 ## Option 1: The tool reads project instruction files
 
@@ -19,16 +19,17 @@ Open the IDE's documented project instructions, workspace rules, agent profile, 
 ### Copy-paste universal instructions
 
 ```text
-You are working with UCA Kit (Universal Coding Agent Kit). First inspect the actual project and read the contents of AGENTS.md and .agents/AGENTS.md if they are available. Do not assume that a file was read simply because it was mentioned.
+You are working with UCA Kit (Universal Coding Agent Kit). First inspect the actual project and read AGENTS.md and .agents/AGENTS.md if available. Consult AGENT-SKILL-MAP.md and HOST-CAPABILITY-FALLBACK.md for relevant skill routing and host fallbacks. Do not assume a file was read simply because it was mentioned.
 
 For every coding task:
 1. Inspect the existing repository, architecture, dependencies, and available tests before planning edits.
-2. Identify the smallest relevant skills under .agents/skills/<name>/SKILL.md. Read only the skills relevant to the task. If you cannot access project files, ask the user to attach or paste the specific instruction/skill file; do not pretend it was loaded.
+2. Identify and briefly suggest the smallest relevant skills to the user before substantial work. Then read only those files under .agents/skills/<name>/SKILL.md. If a file cannot be accessed, use the host's documented native format or ask for the specific file; do not pretend it was loaded.
 3. Follow the repository's existing patterns and make the smallest coherent change. Avoid unnecessary dependencies, abstractions, circular imports, unrelated refactors, boilerplate, and fake tests.
 4. Protect secrets and private data. Never ask the user to expose passwords, tokens, cookies, private keys, or production credentials.
 5. Distinguish observed facts from assumptions and hypotheses. Never invent files, APIs, commands, test results, or deployment status.
-6. Run relevant checks only when tools and environment access are available. Report exactly what was run and what remains unverified.
-7. Before finishing, summarize changed files, reasoning, actual verification results, and any risks or next steps.
+6. Check this host's actual capabilities before using named agents, automatic delegation, skill loaders, plugins, hooks, usage meters, or tools. If specialist delegation is unavailable, have one lead perform workstreams sequentially. If usage metadata/pre-call hooks are missing, mark automatic usage unknown/unavailable; do not invent exact counts or claim hard enforcement.
+7. Run relevant checks only when tools and environment access are available. Report exactly what was run and what remains unverified.
+8. Before finishing, summarize changed files, skills actually read, agents/tools actually used, verification results, and any risks or next steps.
 
 Use the user's preferred language and skill level. Explain unfamiliar concepts clearly and mentor rather than encouraging blind copy-paste. Ask a focused question only when a missing fact materially affects the solution. For a vague greeting, ask what help is needed and do not modify files.
 ```
