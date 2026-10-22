@@ -31,14 +31,15 @@ test("OpenCode adapter records final usage once and consults local subagent budg
 
   try {
     const budget = run(localScript, [
-      "budget", "--max-total-tokens", "1000", "--max-agent-calls", "1",
-      "--max-cost-usd", "0.10", "--planned-agent-tokens", "100",
+      "budget", "--max-total-tokens", "150", "--max-agent-calls", "1",
+      "--max-cost-usd", "0.10", "--planned-agent-tokens", "10",
       "--planned-agent-cost-usd", "0.01"
     ]);
     assert.equal(budget.status, 0, budget.stderr);
 
     const { UcaUsagePlugin } = await import(pathToFileURL(PLUGIN).href);
-    const hooks = await UcaUsagePlugin({ directory: dir });
+    const toasts = [];
+    const hooks = await UcaUsagePlugin({ directory: dir, client: { tui: { showToast: async ({ body }) => toasts.push(body) } } });
     const event = {
       type: "message.updated",
       properties: {
@@ -79,6 +80,9 @@ test("OpenCode adapter records final usage once and consults local subagent budg
     assert.equal(ledger.totals.estimated.costUsd, 0.012);
     assert.equal(ledger.totals.exact.costUsd, 0);
     assert.equal(JSON.stringify(ledger).includes("message-test-id"), false);
+    assert.ok(toasts.some((toast) => /Usage heads-up/.test(toast.message)), "Expected a local usage-threshold toast.");
+    assert.ok(toasts.some((toast) => /Near budget limit/.test(toast.message)), "Expected a high agent-usage toast.");
+    assert.ok(toasts.some((toast) => toast.variant === "error" && /blocked an optional specialist call/.test(toast.message)), "Expected a toast when budget blocks a subagent.");
   } finally {
     if (previousUsageFile === undefined) delete process.env.UCA_USAGE_FILE;
     else process.env.UCA_USAGE_FILE = previousUsageFile;
