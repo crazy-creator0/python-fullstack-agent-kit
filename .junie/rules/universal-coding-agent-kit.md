@@ -1,4 +1,4 @@
-# Shared Python Full-Stack Agent Kit
+# Shared Universal Coding Agent Kit
 
 Follow the root `AGENTS.md` for shared coding rules and read `.agents/AGENTS.md` for the mentoring and engineering guidance before substantial changes.
 

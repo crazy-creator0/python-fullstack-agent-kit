@@ -21,7 +21,7 @@ const PLATFORM_ENTRIES = {
   generic: [],
   codex: [],
   cursor: [
-    { source: ".cursor/rules/python-fullstack-agent-kit.mdc", destination: ".cursor/rules/python-fullstack-agent-kit.mdc" }
+    { source: ".cursor/rules/universal-coding-agent-kit.mdc", destination: ".cursor/rules/universal-coding-agent-kit.mdc" }
   ],
   claude: [
     { source: "CLAUDE.md", destination: "CLAUDE.md" },
@@ -39,29 +39,32 @@ const PLATFORM_ENTRIES = {
     { source: "OPENCODE-SETUP.md", destination: "OPENCODE-SETUP.md" },
     { source: ".opencode/agents", destination: ".opencode/agents" }
   ],
+  devin: [
+    { source: ".devin/rules/universal-coding-agent-kit.md", destination: ".devin/rules/universal-coding-agent-kit.md" }
+  ],
   windsurf: [
-    { source: ".devin/rules/python-fullstack-agent-kit.md", destination: ".devin/rules/python-fullstack-agent-kit.md" },
+    { source: ".windsurf/rules/universal-coding-agent-kit.md", destination: ".windsurf/rules/universal-coding-agent-kit.md" },
     { source: ".agents/skills", destination: ".windsurf/skills" }
   ],
   junie: [
-    { source: ".junie/rules/python-fullstack-agent-kit.md", destination: ".junie/rules/python-fullstack-agent-kit.md" }
+    { source: ".junie/rules/universal-coding-agent-kit.md", destination: ".junie/rules/universal-coding-agent-kit.md" }
   ],
   jetbrains: [
-    { source: ".aiassistant/rules/python-fullstack-agent-kit.md", destination: ".aiassistant/rules/python-fullstack-agent-kit.md" }
+    { source: ".aiassistant/rules/universal-coding-agent-kit.md", destination: ".aiassistant/rules/universal-coding-agent-kit.md" }
   ]
 };
 
 function printHelp() {
-  return `create-python-fullstack-agent-kit — install shared coding-agent rules into a project
+  return `create-universal-coding-agent-kit — install shared coding-agent rules into a project
 
 Usage:
-  npx create-python-fullstack-agent-kit
-  npx create-python-fullstack-agent-kit init [directory] [options]
+  npx create-universal-coding-agent-kit
+  npx create-universal-coding-agent-kit init [directory] [options]
 
 Options:
   --dir, --project-root <path>   Destination project (default: current directory)
   --platform <name>              generic, codex, cursor, claude, gemini, copilot,
-                                 opencode, windsurf, junie, jetbrains
+                                 opencode, devin, windsurf, junie, jetbrains
   --yes, -y                      Skip the platform prompt (defaults to generic)
   --force                        Overwrite existing files (use carefully)
   --dry-run                      Preview changes without writing files
@@ -69,10 +72,10 @@ Options:
   --version                      Show package version
 
 Examples:
-  npx create-python-fullstack-agent-kit init .
-  npx create-python-fullstack-agent-kit init . --platform cursor
-  npx create-python-fullstack-agent-kit init ../my-app --platform claude
-  npx create-python-fullstack-agent-kit init . --platform generic --dry-run
+  npx create-universal-coding-agent-kit init .
+  npx create-universal-coding-agent-kit init . --platform cursor
+  npx create-universal-coding-agent-kit init ../my-app --platform claude
+  npx create-universal-coding-agent-kit init . --platform generic --dry-run
 
 Existing files are preserved by default. The generic option also works with
 unlisted IDEs: use GENERIC-IDE-SETUP.md for manual instruction setup.
@@ -299,6 +302,7 @@ async function choosePlatform() {
     ["gemini", "Gemini CLI"],
     ["copilot", "GitHub Copilot"],
     ["opencode", "OpenCode"],
+    ["devin", "Devin"],
     ["windsurf", "Windsurf / Cascade"],
     ["junie", "JetBrains Junie"],
     ["jetbrains", "JetBrains AI Assistant"]
@@ -316,7 +320,7 @@ async function choosePlatform() {
     if (!answer.trim()) return "generic";
     const choice = Number.parseInt(answer.trim(), 10);
     if (!Number.isInteger(choice) || choice < 1 || choice > labels.length) {
-      throw new Error("Please enter a number from 1 to 10.");
+      throw new Error(`Please enter a number from 1 to ${labels.length}.`);
     }
     return labels[choice - 1][0];
   } finally {
@@ -358,7 +362,7 @@ async function main(argv = process.argv.slice(2)) {
   }
 
   const projectRoot = path.resolve(process.cwd(), options.dir);
-  console.log(`\nInstalling Python Full-Stack Agent Kit into: ${projectRoot}`);
+  console.log(`\nInstalling Universal Coding Agent Kit into: ${projectRoot}`);
   console.log(`Platform profile: ${options.platform}`);
   if (options.force) {
     console.warn("Warning: --force may overwrite existing instruction and skill files.");

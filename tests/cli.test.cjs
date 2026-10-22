@@ -23,15 +23,16 @@ function makeKit(root) {
     "PLATFORM-SETUP.md",
     "GENERIC-IDE-SETUP.md",
     "IMPECCABLE-SETUP.md",
-    ".cursor/rules/python-fullstack-agent-kit.mdc",
+    ".cursor/rules/universal-coding-agent-kit.mdc",
     "CLAUDE.md",
     "GEMINI.md",
     ".github/copilot-instructions.md",
     "OPENCODE-SETUP.md",
     ".opencode/agents/reviewer.md",
-    ".devin/rules/python-fullstack-agent-kit.md",
-    ".junie/rules/python-fullstack-agent-kit.md",
-    ".aiassistant/rules/python-fullstack-agent-kit.md"
+    ".devin/rules/universal-coding-agent-kit.md",
+    ".windsurf/rules/universal-coding-agent-kit.md",
+    ".junie/rules/universal-coding-agent-kit.md",
+    ".aiassistant/rules/universal-coding-agent-kit.md"
   ];
   for (const relative of files) {
     const fullPath = path.join(root, relative);
@@ -89,8 +90,8 @@ test("installs shared core and selected Cursor adapter", () => {
       "template:AGENTS.md\n"
     );
     assert.equal(
-      fs.readFileSync(path.join(projectRoot, ".cursor/rules/python-fullstack-agent-kit.mdc"), "utf8"),
-      "template:.cursor/rules/python-fullstack-agent-kit.mdc\n"
+      fs.readFileSync(path.join(projectRoot, ".cursor/rules/universal-coding-agent-kit.mdc"), "utf8"),
+      "template:.cursor/rules/universal-coding-agent-kit.mdc\n"
     );
     assert.equal(
       fs.readFileSync(path.join(projectRoot, ".agents/skills/python-engineering/SKILL.md"), "utf8"),
@@ -186,5 +187,24 @@ test("Claude profile copies skills into the native skill directory", () => {
       fs.readFileSync(path.join(projectRoot, ".claude/skills/python-engineering/SKILL.md"), "utf8"),
       "template:.agents/skills/python-engineering/SKILL.md\n"
     );
+  });
+});
+
+
+test("Devin profile copies its own adapter", () => {
+  withFixture(({ kitRoot, projectRoot }) => {
+    const summary = installKit({ packageRoot: kitRoot, projectRoot, platform: "devin" });
+    assert.equal(summary.errors, 0);
+    assert.ok(fs.existsSync(path.join(projectRoot, ".devin/rules/universal-coding-agent-kit.md")));
+    assert.equal(fs.existsSync(path.join(projectRoot, ".windsurf/rules/universal-coding-agent-kit.md")), false);
+  });
+});
+
+test("Windsurf profile copies its own adapter, not the Devin adapter", () => {
+  withFixture(({ kitRoot, projectRoot }) => {
+    const summary = installKit({ packageRoot: kitRoot, projectRoot, platform: "windsurf" });
+    assert.equal(summary.errors, 0);
+    assert.ok(fs.existsSync(path.join(projectRoot, ".windsurf/rules/universal-coding-agent-kit.md")));
+    assert.equal(fs.existsSync(path.join(projectRoot, ".devin/rules/universal-coding-agent-kit.md")), false);
   });
 });

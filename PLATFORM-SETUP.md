@@ -14,7 +14,8 @@ This kit is designed around shared Markdown instructions and reusable Agent Skil
 | GitHub Copilot | `.github/copilot-instructions.md`; supported agent contexts also read `AGENTS.md` | `.agents/skills/` or `.github/skills/` |
 | Claude Code | `CLAUDE.md` | `.claude/skills/` |
 | Gemini CLI | `GEMINI.md` | `.agents/skills/` or `.gemini/skills/` |
-| Windsurf / Cascade | Root `AGENTS.md`, `.devin/rules/` or legacy `.windsurf/rules/` | `.agents/skills/` or `.windsurf/skills/` |
+| Devin | Root `AGENTS.md` and optional `.devin/rules/` adapter | Use relevant shared skills as host support allows |
+| Windsurf / Cascade | Root `AGENTS.md` and optional `.windsurf/rules/` adapter | `.agents/skills/` or `.windsurf/skills/` |
 | JetBrains Junie | Root `AGENTS.md` plus optional `.junie/rules/` | Skills are agent-dependent; check your Junie version |
 | JetBrains AI Assistant | Optional `.aiassistant/rules/` | Depends on the selected agent (for example, Codex and Claude Agent support skills) |
 | Other IDEs / agents | Use `AGENTS.md` if recognized; otherwise copy the common rules into the host's project instructions | If the Agent Skills standard is unsupported, open the relevant `SKILL.md` or use the host's documented custom-skill format |
@@ -28,14 +29,14 @@ A dependency-free Node.js CLI is included in the repository.
 **Available now via GitHub** (requires Node.js/npm and Git):
 
 ```bash
-npx --yes github:crazy-creator0/python-fullstack-agent-kit init .
+npx --yes github:crazy-creator0/universal-coding-agent-kit init .
 ```
 
 In an interactive terminal, the installer offers a platform picker. For scripted or unlisted IDE setups:
 
 ```bash
-npx --yes github:crazy-creator0/python-fullstack-agent-kit init . --platform generic
-npx --yes github:crazy-creator0/python-fullstack-agent-kit init . --platform cursor --dry-run
+npx --yes github:crazy-creator0/universal-coding-agent-kit init . --platform generic
+npx --yes github:crazy-creator0/universal-coding-agent-kit init . --platform cursor --dry-run
 ```
 
 The installer preserves existing files by default. Use `--force` only when you explicitly want to overwrite them. npm documents that `npx` supports package specifiers from Git repositories; see its [Git package specifiers](https://docs.npmjs.com/cli/v11/commands/npm-install/#installing-a-package-from-a-git-repository) documentation.
@@ -43,10 +44,10 @@ The installer preserves existing files by default. Use `--force` only when you e
 The shorter package-name command will be available after the package owner checks name availability, chooses and adds a license, and publishes it to the registry:
 
 ```bash
-npx create-python-fullstack-agent-kit init .
+npx create-universal-coding-agent-kit init .
 ```
 
-See [PUBLISHING.md](https://github.com/crazy-creator0/python-fullstack-agent-kit/blob/main/PUBLISHING.md).
+See [PUBLISHING.md](https://github.com/crazy-creator0/universal-coding-agent-kit/blob/main/PUBLISHING.md).
 
 ## Recommended setup
 
@@ -92,7 +93,7 @@ Use the root `AGENTS.md` as the common instruction file. Codex and several other
 
 ### Cursor
 
-Cursor supports root `AGENTS.md` as a simple project instruction file and also supports project rules in `.cursor/rules/*.mdc`. This repository includes `.cursor/rules/python-fullstack-agent-kit.mdc` as a small adapter. For skills, check current Cursor documentation/version. If the host does not discover `.agents/skills/`, reference and read the relevant `SKILL.md` manually rather than assuming unsupported automatic loading.
+Cursor supports root `AGENTS.md` as a simple project instruction file and also supports project rules in `.cursor/rules/*.mdc`. This repository includes `.cursor/rules/universal-coding-agent-kit.mdc` as a small adapter. For skills, check current Cursor documentation/version. If the host does not discover `.agents/skills/`, reference and read the relevant `SKILL.md` manually rather than assuming unsupported automatic loading.
 
 ### OpenCode
 
@@ -118,7 +119,7 @@ Use `GEMINI.md`; it imports the shared project instructions. Gemini CLI supports
 
 ### Windsurf / Cascade / Devin Desktop
 
-The included `.devin/rules/python-fullstack-agent-kit.md` uses the current rule format; `.windsurf/rules/` is provided for compatible legacy workflows. The shared `.agents/skills/` location is supported by current Cascade documentation; native copies can be placed under `.windsurf/skills/` with `--target windsurf`. Confirm paths against the documentation for the exact app/version you use.
+The included `.devin/rules/universal-coding-agent-kit.md` uses the current rule format; `.windsurf/rules/` is provided for compatible legacy workflows. The shared `.agents/skills/` location is supported by current Cascade documentation; native copies can be placed under `.windsurf/skills/` with `--target windsurf`. Confirm paths against the documentation for the exact app/version you use.
 
 ### JetBrains Junie and AI Assistant
 

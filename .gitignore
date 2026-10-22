@@ -93,3 +93,13 @@ Thumbs.db
 *.tar
 *.tar.gz
 *.tgz
+
+
+# Internal maintainer notes for this public repository.
+# Keep these files local/private; user-facing release history belongs in README.md.
+/PROJECT-TRACKER.md
+/LICENSE-DECISION.md
+/docs/PROJECT-PLAN.md
+/docs/DECISIONS.md
+/docs/WORKLOG.md
+/.private-maintenance/

@@ -1,101 +1,125 @@
-# Python Full-Stack Agent Kit
+# Universal Coding Agent Kit
 
-A beginner-friendly, production-minded AI coding-agent kit that is not tied to one IDE. Use it with compatible coding assistants in editors, terminals, and hosted coding environments. Shared rules and skills are plain Markdown; lightweight adapters and a native-skill sync utility help platforms discover the same guidance.
+<p align="center">
+  <strong>Written by Crazy Creators</strong><br>
+  <em>One reusable AI coding-agent toolkit. Multiple IDEs. Clearer engineering workflows.</em>
+</p>
 
-## Start here
+<p align="center">
+  <a href="https://github.com/crazy-creator0/universal-coding-agent-kit/actions/workflows/npm-cli.yml"><img alt="CI" src="https://github.com/crazy-creator0/universal-coding-agent-kit/actions/workflows/npm-cli.yml/badge.svg"></a>
+  <a href="https://github.com/crazy-creator0/universal-coding-agent-kit/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/crazy-creator0/universal-coding-agent-kit?style=social"></a>
+</p>
 
-**[Download ZIP](https://github.com/crazy-creator0/python-fullstack-agent-kit/archive/refs/heads/main.zip)** · **[Browse repository](https://github.com/crazy-creator0/python-fullstack-agent-kit)** · **[Platform setup guide](PLATFORM-SETUP.md)** · **[Unknown IDE? Start here](GENERIC-IDE-SETUP.md)**
+**Universal Coding Agent Kit** is an IDE-agnostic toolkit for AI coding assistants. It provides reusable agent instructions, portable skills, engineering workflows, platform adapters, and a lightweight installer so you can use consistent development guidance across supported coding tools.
 
-1. Download or clone this repository.
-2. Choose your coding assistant in `PLATFORM-SETUP.md`.
-3. Copy or merge the relevant files into your project root. Do not overwrite existing instruction files blindly; merge the guidance if your project already has its own rules.
-4. Open the project in your IDE/agent and confirm that its instruction file and skills are actually being loaded.
-5. Ask it to inspect the project first, then work on one small, testable change.
+It is designed to help developers plan before coding, understand unfamiliar code, make focused changes, test carefully, protect existing behavior, and learn the reasoning behind engineering decisions.
 
-## One-command installer (npm)
+[Quick start](#quick-start) · [Features](#what-is-included) · [Supported tools](#supported-coding-tools) · [Generic IDE setup](GENERIC-IDE-SETUP.md) · [Platform guide](PLATFORM-SETUP.md)
 
-The repository now includes a dependency-free npm CLI package named `create-python-fullstack-agent-kit`.
+## Quick start
 
-**Use it right now from GitHub** (requires Node.js/npm and Git installed):
+**Requirements:** Node.js 18 or newer, npm, and Git.
 
-```bash
-npx --yes github:crazy-creator0/python-fullstack-agent-kit init .
-```
-
-Interactive terminals let users choose an IDE profile. For an unlisted IDE or scripted setup, choose the generic fallback:
+Run the installer from GitHub in the root of your project:
 
 ```bash
-npx --yes github:crazy-creator0/python-fullstack-agent-kit init . --platform generic
-npx --yes github:crazy-creator0/python-fullstack-agent-kit init . --platform cursor --dry-run
-npx --yes github:crazy-creator0/python-fullstack-agent-kit init ../my-app --platform claude
+npx --yes github:crazy-creator0/universal-coding-agent-kit init . --platform generic
 ```
 
-The CLI preserves existing files by default; `--force` explicitly allows overwriting. Preview changes first with `--dry-run`. If you prefer the shorter package-name command, the npm registry release is a separate step and **has not been published yet**:
+For an interactive platform selection, omit `--platform`:
 
 ```bash
-npx create-python-fullstack-agent-kit init .
+npx --yes github:crazy-creator0/universal-coding-agent-kit init .
 ```
 
-See the [npm publishing guide](https://github.com/crazy-creator0/python-fullstack-agent-kit/blob/main/PUBLISHING.md) for package-name checking, licensing, and release steps.
+Preview the files before writing:
+
+```bash
+npx --yes github:crazy-creator0/universal-coding-agent-kit init . --platform cursor --dry-run
+```
+
+Choose a specific profile when you already know your coding assistant:
+
+```bash
+npx --yes github:crazy-creator0/universal-coding-agent-kit init . --platform claude
+npx --yes github:crazy-creator0/universal-coding-agent-kit init . --platform copilot
+npx --yes github:crazy-creator0/universal-coding-agent-kit init . --platform windsurf
+npx --yes github:crazy-creator0/universal-coding-agent-kit init . --platform devin
+```
+
+The installer preserves existing files by default. Use `--dry-run` to preview and `--force` only when you explicitly intend to overwrite files. After installation, verify that your coding assistant actually loads the relevant instructions and skills; support differs by product and version.
+
+> **npm registry note:** The package source is in this repository, but the public npm release is not yet confirmed. After the package name is confirmed available, a license is chosen, and the package is published, the intended short command will be `npx create-universal-coding-agent-kit@latest init .`.
 
 ## What is included
 
-- `AGENTS.md` — common engineering rules and task workflow.
-- `.agents/AGENTS.md` — mentoring style and full-stack guidance.
-- `.agents/skills/` — 13 portable `SKILL.md` skills covering Python, frontend visuals/design taste, backend APIs, databases, security, Cloudflare, debugging, testing/review, anti-slop, anti-hallucination, and adaptive skill routing.
-- `.agents/workflows/` — reusable workflows for projects, features, debugging, and deployment.
-- `CLAUDE.md`, `GEMINI.md`, `.github/copilot-instructions.md`, `.cursor/rules/`, `.devin/rules/`, `.windsurf/rules/`, `.junie/rules/`, `.aiassistant/rules/` — platform adapters where relevant.
-- `scripts/sync_skills.py` — optional Python utility to sync canonical skills to host-native folders.
-- `package.json` and `bin/cli.cjs` — dependency-free Node.js installer for `npx`; it preserves existing files unless `--force` is passed.
-- `tests/cli.test.cjs` — CLI behavior tests.
-- `.opencode/agents/` — optional OpenCode-specific planner, reviewer, and verifier subagents.
-- `PLATFORM-SETUP.md` — platform guidance, setup steps, and limitations.
-- `GENERIC-IDE-SETUP.md` — universal fallback for unlisted IDEs or agents.
-- `IMPECCABLE-SETUP.md` — optional frontend design quality checks.
-- `OPENCODE-SETUP.md` — additional notes for OpenCode users.
+- **Shared agent instructions** — consistent engineering principles, mentoring, safe editing, and verification guidance.
+- **13 portable skills** — Python engineering, frontend engineering and visual design discovery, backend APIs, databases, security, debugging, testing and review, and more.
+- **Reusable workflows** — new project setup, feature development, bug investigation, and production deployment.
+- **Cross-IDE adapters** — configuration guidance for Cursor, Claude Code, Gemini CLI, GitHub Copilot, OpenCode, Windsurf, Devin, JetBrains tools, and unlisted IDEs using the generic setup.
+- **Lightweight CLI** — dependency-free Node.js installer with platform selection, dry-run support, safe path checks, and preserve-existing-files behavior.
+- **Skill sync utility** — optional Python script to copy canonical skills into supported native locations.
+- **Quality checks** — Node.js tests and GitHub Actions checks, including a check that maintainer-only files and test source do not leak into the npm package.
 
-## Sync skills to another platform
+## Supported coding tools
 
-The shared skills remain under `.agents/skills/`. If your host expects a native directory, run the script from this kit repository:
+The kit aims for broad compatibility, not identical behavior in every tool. Follow the [platform setup guide](PLATFORM-SETUP.md), and use the [generic IDE guide](GENERIC-IDE-SETUP.md) when your assistant is not listed.
+
+| Tool | Getting started |
+|---|---|
+| OpenAI Codex / Codex CLI | Root `AGENTS.md`; use skills where supported |
+| Cursor | Root `AGENTS.md` and optional `.cursor/rules/` adapter |
+| Claude Code | `CLAUDE.md` and supported skill locations |
+| Gemini CLI | `GEMINI.md` and supported skill locations |
+| GitHub Copilot | `.github/copilot-instructions.md` and supported skills |
+| OpenCode | `AGENTS.md` plus optional OpenCode agents |
+| Windsurf / Cascade | Root instructions and optional `.windsurf/rules/` adapter |
+| Devin | Root instructions and optional `.devin/rules/` adapter |
+| JetBrains Junie / AI Assistant | Optional platform-specific rule files |
+| Other IDEs and coding assistants | Start with `GENERIC-IDE-SETUP.md` |
+
+## How it works
+
+1. Install or copy the common rules without overwriting your existing project guidance blindly.
+2. Let the agent inspect your real project, stack, test commands, and conventions.
+3. Ask it to load only the relevant skills for the task.
+4. Work in small, verifiable steps and review the actual diff before accepting changes.
+5. Verify behavior in your own IDE and environment; host capabilities vary.
+
+## Roadmap
+
+The following are **planned capabilities, not claims about features already implemented**:
+
+- A colleague-like project planner that maintains NOW / NEXT / LATER priorities and explains trade-offs.
+- A visual planning workspace using source-backed SVG diagrams, user journeys, architecture maps, and UI previews.
+- Repository-aware beginner documentation with embedded diagrams and evidence-based improvement suggestions.
+- An independent pre-push change-impact review to surface possible changes to existing logic and regression risks.
+- Stronger integrated DevOps guidance for CI, deployment, monitoring, and rollback.
+
+## Security and safe use
+
+- Never commit API keys, access tokens, passwords, private datasets, or customer data.
+- Review `git status` and staged changes before committing. `.gitignore` does not remove files that are already tracked.
+- Inspect third-party skills and packages before installing them.
+- Treat suggested commands as project-specific; verify them against your actual configuration.
+- The kit does not guarantee that every AI assistant automatically discovers every instruction or skill.
+
+## Project history
+
+- **Portable foundation:** shared Markdown instructions, reusable `SKILL.md` files, and workflows that do not require a single IDE.
+- **Cross-IDE expansion:** adapters and setup guidance for multiple coding assistants, plus a generic fallback for unlisted tools.
+- **Installer and checks:** a dependency-free Node.js CLI, dry-run and file-preservation behavior, automated tests, and GitHub Actions verification.
+- **Current direction:** a universal coding-agent toolkit with stronger planning, beginner-friendly documentation, visual explanation, change-impact review, and release safety. These newer orchestration capabilities remain on the roadmap until implemented and verified.
+
+## Contributing and support
+
+Bug reports and focused improvements are welcome through [GitHub Issues](https://github.com/crazy-creator0/universal-coding-agent-kit/issues). Please include reproducible steps, relevant environment details, and the checks you ran; do not post secrets or private project data.
+
+Before contributing, run:
 
 ```bash
-python scripts/sync_skills.py --target claude --project-root /path/to/your/project
-python scripts/sync_skills.py --target copilot --project-root /path/to/your/project
-python scripts/sync_skills.py --target gemini --project-root /path/to/your/project
-python scripts/sync_skills.py --target opencode --project-root /path/to/your/project
-python scripts/sync_skills.py --target windsurf --project-root /path/to/your/project
+npm run check
+npm pack --dry-run
 ```
 
-Use `--dry-run` to preview changes. Existing skill folders are skipped by default; pass `--force` only when you intend to update existing copies. Other hosts can use `--target custom --custom-dir .your-agent/skills`. Run the Node.js CLI tests with `npm test` (Node.js 18 or newer). See [PLATFORM-SETUP.md](PLATFORM-SETUP.md) for paths and limitations, or [GENERIC-IDE-SETUP.md](GENERIC-IDE-SETUP.md) if your IDE is not listed.
-
-## Core principles
-
-- Teach developers to understand decisions rather than blindly copy code.
-- Inspect before editing; choose the smallest coherent change.
-- Load only relevant skills where the host supports them.
-- Keep platform-specific features optional; core instructions and workflows remain plain Markdown.
-- Avoid unnecessary dependencies, abstractions, circular imports, boilerplate, fake tests, and unrelated refactors.
-- Never claim a test, documentation check, build, or deployment succeeded unless it was actually verified.
-
-## Compatibility note
-
-This kit aims for broad compatibility; it cannot guarantee identical behavior in every IDE, model, version, or hosted coding service. Instruction and skill discovery differs by host, so use platform-specific setup notes and verify discovery in your own environment. Specialist subagents under `.opencode/agents/` run only on compatible OpenCode setups; other platforms can use the shared workflow files or their native subagent formats.
-
-## Download
-
-- [Download the current main-branch ZIP](https://github.com/crazy-creator0/python-fullstack-agent-kit/archive/refs/heads/main.zip)
-- [npm publishing guide](https://github.com/crazy-creator0/python-fullstack-agent-kit/blob/main/PUBLISHING.md)
-- [Open platform setup instructions](PLATFORM-SETUP.md)
-- [Universal setup for any IDE](GENERIC-IDE-SETUP.md)
-- [Browse all files](https://github.com/crazy-creator0/python-fullstack-agent-kit)
-
-## Project status and maintainer records
-
-This repository is evolving toward a universal, colleague-like AI development kit. The current tracker distinguishes capabilities already present from roadmap items that are not yet implemented:
-
-- [Project tracker and current status](PROJECT-TRACKER.md)
-- [Architecture plan and phased roadmap](docs/PROJECT-PLAN.md)
-- [Architecture and workflow decision log](docs/DECISIONS.md)
-- [Chronological work log and verification notes](docs/WORKLOG.md)
-
-These files are maintainer records for this GitHub repository. They are version-controlled and therefore public. They are not part of the npm installer's explicit package file allowlist; the release checks must continue to verify that planning records, tests, and local-only artifacts are not shipped in the installer tarball.
+**Written by Crazy Creators.**

@@ -1,10 +1,11 @@
 {
-  "name": "create-python-fullstack-agent-kit",
+  "name": "create-universal-coding-agent-kit",
   "version": "0.1.0",
-  "description": "Cross-IDE installer for the Python Full-Stack Agent Kit coding instructions, skills, and workflows",
+  "description": "Install a universal, IDE-agnostic AI coding-agent toolkit with reusable skills, workflows, and engineering guidance.",
+  "author": "Crazy Creators",
   "type": "commonjs",
   "bin": {
-    "create-python-fullstack-agent-kit": "./bin/cli.cjs"
+    "create-universal-coding-agent-kit": "./bin/cli.cjs"
   },
   "engines": {
     "node": ">=18"
@@ -37,23 +38,33 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/crazy-creator0/python-fullstack-agent-kit.git"
+    "url": "git+https://github.com/crazy-creator0/universal-coding-agent-kit.git"
   },
-  "homepage": "https://github.com/crazy-creator0/python-fullstack-agent-kit#readme",
+  "homepage": "https://github.com/crazy-creator0/universal-coding-agent-kit#readme",
   "bugs": {
-    "url": "https://github.com/crazy-creator0/python-fullstack-agent-kit/issues"
+    "url": "https://github.com/crazy-creator0/universal-coding-agent-kit/issues"
   },
   "keywords": [
-    "agent-skills",
+    "ai-coding-agent",
     "coding-agent",
-    "cursor",
+    "ai-agents",
+    "agent-skills",
+    "developer-tools",
+    "ide-agnostic",
     "claude-code",
-    "gemini-cli",
+    "cursor",
     "github-copilot",
+    "gemini-cli",
     "opencode",
     "windsurf",
+    "devin",
+    "jetbrains",
+    "full-stack",
     "python",
-    "full-stack"
+    "code-review",
+    "devops",
+    "developer-workflow",
+    "coding-assistant"
   ],
   "publishConfig": {
     "access": "public"
