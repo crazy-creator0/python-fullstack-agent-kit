@@ -70,7 +70,7 @@ Options:
   --platform <name>              generic, codex, cursor, claude, gemini, copilot,
                                  opencode, devin, windsurf, junie, jetbrains
   --yes, -y                      Skip the platform prompt (defaults to generic)
-  --force                        Overwrite existing files (use carefully)
+  --force                        Overwrite existing files without prompting (use carefully)
   --dry-run                      Preview changes without writing files
   --help, -h                     Show this help
   --version                      Show package version
@@ -81,8 +81,11 @@ Examples:
   npx create-universal-coding-agent-kit init ../my-app --platform claude
   npx create-universal-coding-agent-kit init . --platform generic --dry-run
 
-Existing files are preserved by default. The generic option also works with
-unlisted IDEs: use GENERIC-IDE-SETUP.md for manual instruction setup.
+Existing files are preserved by default. In an interactive terminal, detected
+conflicts prompt you to keep existing files, override them, or cancel the install.
+Cancel leaves the project unchanged. --force explicitly overrides without prompting.
+The generic option also works with unlisted IDEs: use GENERIC-IDE-SETUP.md for
+manual instruction setup.
 `;
 }
 
@@ -233,12 +236,64 @@ function collectFiles(packageRoot, entries) {
   return planned;
 }
 
+function findExistingConflicts(projectRoot, files) {
+  const root = path.resolve(projectRoot);
+  const conflicts = [];
+
+  for (const item of files) {
+    const destination = safeResolve(root, item.destination);
+    assertNoSymlinkParents(root, destination);
+    let stat;
+    try {
+      stat = fs.lstatSync(destination);
+    } catch (error) {
+      if (error.code === "ENOENT") continue;
+      throw error;
+    }
+    if (stat.isSymbolicLink()) {
+      throw new Error(`Refusing to replace a symbolic link: ${destination}`);
+    }
+    if (!stat.isFile()) {
+      throw new Error(`Destination exists but is not a regular file: ${destination}`);
+    }
+    conflicts.push(path.relative(root, destination));
+  }
+
+  return conflicts;
+}
+
+async function chooseConflictMode(conflicts) {
+  const terminal = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+  });
+  try {
+    console.log(`\\nFound ${conflicts.length} existing file conflict(s):`);
+    for (const relative of conflicts.slice(0, 12)) console.log(`  - ${relative}`);
+    if (conflicts.length > 12) console.log(`  ... and ${conflicts.length - 12} more`);
+    console.log("\\nChoose how to handle conflicts:");
+    console.log("  1. Keep existing files (skip those UCA Kit files)");
+    console.log("  2. Override existing files with UCA Kit versions");
+    console.log("  3. Cancel installation (leave the project unchanged)");
+    while (true) {
+      const answer = (await terminal.question("Choose 1, 2, or 3 [1]: ")).trim();
+      if (!answer || answer === "1") return "skip";
+      if (answer === "2") return "overwrite";
+      if (answer === "3") return "cancel";
+      console.log("Please enter 1, 2, or 3.");
+    }
+  } finally {
+    terminal.close();
+  }
+}
+
 function installKit({
   packageRoot,
   projectRoot,
   platform = "generic",
   force = false,
   dryRun = false,
+  conflictMode = null,
   log = () => {}
 }) {
   if (!Object.hasOwn(PLATFORM_ENTRIES, platform)) {
@@ -249,7 +304,21 @@ function installKit({
   const resolvedProjectRoot = path.resolve(projectRoot);
   const entries = [...CORE_ENTRIES, ...PLATFORM_ENTRIES[platform]];
   const files = collectFiles(resolvedPackageRoot, entries);
-  const summary = { copied: 0, overwritten: 0, skipped: 0, errors: 0 };
+  const summary = { copied: 0, overwritten: 0, skipped: 0, errors: 0, cancelled: false };
+  const mode = conflictMode || (force ? "overwrite" : "skip");
+
+  if (!["skip", "overwrite", "cancel"].includes(mode)) {
+    throw new Error(`Unknown conflict mode "${mode}". Choose skip, overwrite, or cancel.`);
+  }
+  if (mode === "cancel") {
+    const conflicts = findExistingConflicts(resolvedProjectRoot, files);
+    if (conflicts.length > 0) {
+      summary.cancelled = true;
+      summary.conflicts = conflicts;
+      log("Installation cancelled. No files were changed.");
+      return summary;
+    }
+  }
 
   for (const item of files) {
     let destination;
@@ -270,7 +339,7 @@ function installKit({
         if (error.code !== "ENOENT") throw error;
       }
 
-      if (exists && !force) {
+      if (exists && mode !== "overwrite") {
         log(`SKIP existing: ${path.relative(resolvedProjectRoot, destination)}`);
         summary.skipped += 1;
         continue;
@@ -366,12 +435,32 @@ async function main(argv = process.argv.slice(2)) {
   }
 
   const projectRoot = path.resolve(process.cwd(), options.dir);
+  let conflictMode = options.force ? "overwrite" : "skip";
+  if (!options.force && !options.yes && !options.dryRun && process.stdin.isTTY && process.stdout.isTTY) {
+    try {
+      const plannedEntries = [...CORE_ENTRIES, ...PLATFORM_ENTRIES[options.platform]];
+      const plannedFiles = collectFiles(packageRoot, plannedEntries);
+      const conflicts = findExistingConflicts(projectRoot, plannedFiles);
+      if (conflicts.length > 0) {
+        conflictMode = await chooseConflictMode(conflicts);
+        if (conflictMode === "cancel") {
+          console.log("\\nInstallation cancelled. No files were changed.");
+          return 0;
+        }
+      }
+    } catch (error) {
+      console.error(`Cannot safely check installation conflicts: ${error.message}`);
+      return 1;
+    }
+  }
   console.log(`\nInstalling UCA Kit (Universal Coding Agent Kit) into: ${projectRoot}`);
   console.log(`Platform profile: ${options.platform}`);
   if (options.force) {
     console.warn("Warning: --force may overwrite existing instruction and skill files.");
+  } else if (conflictMode === "overwrite") {
+    console.warn("You chose to override conflicting files; review the copied files and diffs.");
   } else {
-    console.log("Existing files will be preserved; conflicting files are skipped.");
+    console.log("Existing files will be preserved; conflicts will be skipped.");
   }
   if (options.dryRun) console.log("Dry-run enabled; no files will be changed.\n");
   else console.log("");
@@ -384,6 +473,7 @@ async function main(argv = process.argv.slice(2)) {
       platform: options.platform,
       force: options.force,
       dryRun: options.dryRun,
+      conflictMode,
       log: (message) => console.log(`  ${message}`)
     });
   } catch (error) {
@@ -391,8 +481,12 @@ async function main(argv = process.argv.slice(2)) {
     return 1;
   }
 
+  if (summary.cancelled) {
+    console.log("\\nInstallation cancelled. No files were changed.");
+    return 0;
+  }
   console.log(
-    `\nSummary: ${summary.copied} copied, ${summary.overwritten} overwritten, ${summary.skipped} skipped, ${summary.errors} errors.`
+    `\\nSummary: ${summary.copied} copied, ${summary.overwritten} overwritten, ${summary.skipped} skipped, ${summary.errors} errors.`
   );
   if (summary.errors > 0) return 1;
   if (options.platform === "generic") {
@@ -417,6 +511,7 @@ module.exports = {
   CORE_ENTRIES,
   PLATFORM_ENTRIES,
   collectFiles,
+  findExistingConflicts,
   installKit,
   parseArgs,
   printHelp
