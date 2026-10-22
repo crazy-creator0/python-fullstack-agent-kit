@@ -11,7 +11,7 @@ Read `AGENT-SKILL-MAP.md` before substantial cross-functional tasks. For a combi
 
 ## Local usage meter and subagent budget guard
 
-The OpenCode profile installs `.opencode/plugins/uca-usage.mjs` and `scripts/uca-usage.cjs`. The plugin is designed to record finalized message token metadata locally, count calls made through supported task/subagent hooks, and consult the configured local budget before those optional calls. It stores aggregate counters only; it does not store prompts, outputs, message IDs, code, or credentials and has no UCA Kit telemetry endpoint.
+The OpenCode profile installs `.opencode/plugins/uca-usage.mjs` and `scripts/uca-usage.cjs`. The plugin is designed to record finalized message token metadata locally, count calls made through supported task/subagent hooks, consult the configured local budget before those optional calls, and show local threshold/budget-block toast warnings. It stores aggregate counters only; it does not store prompts, outputs, message IDs, code, or credentials and has no UCA Kit telemetry endpoint.
 
 Configure caps and a conservative per-call reservation (these are examples; choose values for your model/plan):
 
