@@ -7,6 +7,7 @@ This folder contains platform-neutral mentoring instructions, reusable Agent Ski
 - `.agents/skills/<skill-name>/SKILL.md` — focused reusable skills using the Agent Skills format.
 - `.agents/workflows/` — workflows that can be opened manually or adapted into native prompts, commands, or subagents.
 - `AGENT-SKILL-MAP.md` — role-to-skill/tool routing, specialist activation and context-budget guidance.
+- `HOST-CAPABILITY-FALLBACK.md` — detect supported host features and fall back when native instructions, skills, agents, hooks or usage APIs are missing.
 - `USAGE-PRIVACY.md` and `scripts/uca-usage.cjs` — local aggregate usage ledger and budget guard, with explicit host-integration limitations.
 
 ## Skill areas
