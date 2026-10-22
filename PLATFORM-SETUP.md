@@ -133,13 +133,13 @@ The workflow files in `.agents/workflows/` are plain Markdown and can be used as
 
 ## Universal fallback for an unlisted tool
 
-Open [GENERIC-IDE-SETUP.md](GENERIC-IDE-SETUP.md) and follow its copy-paste prompt. It works as a manual integration path for any IDE/agent that can accept project instructions or read attached Markdown files, even when the product has no native skill system.
+Open [GENERIC-IDE-SETUP.md](GENERIC-IDE-SETUP.md) and follow its copy-paste prompt. Also follow [HOST-CAPABILITY-FALLBACK.md](HOST-CAPABILITY-FALLBACK.md) to decide what the host actually supports and how to fall back when native skills, subagents, hooks or usage metadata are absent. This manual integration path works for IDEs/agents that can accept project instructions or read attached Markdown files, even when the product has no native skill system.
 
 ## Verify installation
 
 Ask the active agent:
 
-> Before coding, tell me which project instruction files you loaded and which relevant skills you can discover. Do not modify files yet.
+> Before coding, identify the host features available in this session. Tell me which project instruction files and relevant skills you actually accessed, whether native subagents/delegation are available, and whether exact usage metadata or pre-call budget hooks are supported. Use the documented fallback for anything missing. Do not modify files yet.
 
 Verify its response using the host's visible context, active-rule list, skill listing, or equivalent feature. If the host cannot show discovery, ask it to read a specific file path and confirm its key rules. A response claiming that instructions were loaded is not proof by itself.
 
@@ -147,6 +147,7 @@ Verify its response using the host's visible context, active-rule list, skill li
 
 - [Codex prompting guide — AGENTS.md](https://developers.openai.com/cookbook/examples/gpt-5/codex_prompting_guide)
 - [Cursor rules and AGENTS.md](https://docs.cursor.com/context/rules-for-ai)
+- [Cursor subagents and automatic delegation](https://cursor.com/docs/subagents)
 - [OpenCode rules](https://docs.opencode.ai/docs/rules/)
 - [OpenCode Agent Skills](https://docs.opencode.ai/docs/skills/)
 - [GitHub Copilot custom instructions](https://docs.github.com/en/copilot/concepts/prompting-and-context/custom-instructions)
