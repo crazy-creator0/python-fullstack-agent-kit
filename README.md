@@ -74,7 +74,7 @@ The kit aims for broad compatibility, not identical behavior in every tool. Foll
 | Claude Code | `CLAUDE.md` and supported skill locations |
 | Gemini CLI | `GEMINI.md` and supported skill locations |
 | GitHub Copilot | `.github/copilot-instructions.md` and supported skills |
-| OpenCode | `AGENTS.md` plus optional OpenCode agents |
+| OpenCode | `AGENTS.md`, skills, specialist subagents, and local usage plugin |
 | Windsurf / Cascade | Root instructions and optional `.windsurf/rules/` adapter |
 | Devin | Root instructions and optional `.devin/rules/` adapter |
 | JetBrains Junie / AI Assistant | Optional platform-specific rule files |
