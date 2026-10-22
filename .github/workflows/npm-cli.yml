@@ -2,9 +2,10 @@ name: npm CLI checks
 
 on:
   push:
-    branches: [main]
+    branches: [main, audit/skill-token-efficiency]
   pull_request:
     branches: [main]
+  workflow_dispatch:
 
 jobs:
   test:

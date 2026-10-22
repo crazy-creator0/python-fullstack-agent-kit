@@ -21,10 +21,8 @@ Use only when routing is ambiguous or work crosses domains. For an obvious small
 Actually open each selected `.agents/skills/<name>/SKILL.md` before relying on it. A path or mention does not prove a skill was loaded. Do not invent capabilities when a skill/host feature is absent.
 
 ## Agent and context budget
-- One lead by default. At most two specialists by default for genuinely distinct cross-functional work; no agent swarm/nested agents.
-- Delegate or parallelize only if the active host supports it and the benefit outweighs cost. Otherwise work sequentially.
+- Delegate only when the active host supports it and the benefit outweighs the coordination cost; otherwise work sequentially.
 - Give specialists a short brief: goal, constraints, relevant paths, deliverable and checks. Reuse conclusions; do not send all skills or the entire chat history.
-- For substantial work, briefly tell the user which skills were selected and why. Report only skills/agents actually used.
 
 ## Conditional guidance
 - Context loss: recover current files and durable project records; never invent missing decisions or create files merely to fill memory gaps.
