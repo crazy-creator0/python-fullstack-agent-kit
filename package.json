@@ -30,7 +30,7 @@
     "PLATFORM-SETUP.md"
   ],
   "scripts": {
-    "test": "node --test tests/cli.test.cjs",
+    "test": "node --test tests/cli.test.cjs tests/packlist.test.cjs",
     "check": "node --check bin/cli.cjs && npm test",
     "pack:dry-run": "npm pack --dry-run",
     "prepublishOnly": "npm run check"
