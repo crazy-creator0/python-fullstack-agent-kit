@@ -272,7 +272,7 @@ async function chooseConflictMode(conflicts) {
     for (const relative of conflicts.slice(0, 12)) console.log(`  - ${relative}`);
     if (conflicts.length > 12) console.log(`  ... and ${conflicts.length - 12} more`);
     console.log("\nChoose how to handle conflicts:");
-    console.log("  1. Keep existing files (skip those UCA Kit files)");
+    console.log("  1. Keep existing files; add only non-conflicting UCA Kit files");
     console.log("  2. Override existing files with UCA Kit versions");
     console.log("  3. Cancel installation (leave the project unchanged)");
     while (true) {
@@ -311,13 +311,10 @@ function installKit({
     throw new Error(`Unknown conflict mode "${mode}". Choose skip, overwrite, or cancel.`);
   }
   if (mode === "cancel") {
-    const conflicts = findExistingConflicts(resolvedProjectRoot, files);
-    if (conflicts.length > 0) {
-      summary.cancelled = true;
-      summary.conflicts = conflicts;
-      log("Installation cancelled. No files were changed.");
-      return summary;
-    }
+    summary.cancelled = true;
+    summary.conflicts = findExistingConflicts(resolvedProjectRoot, files);
+    log("Installation cancelled. No files were changed.");
+    return summary;
   }
 
   for (const item of files) {
