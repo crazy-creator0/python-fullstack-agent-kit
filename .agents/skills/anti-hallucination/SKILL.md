@@ -12,6 +12,15 @@ description: Ground engineering claims in files, tool output, tests, official do
 - When external or version-sensitive behavior matters, consult the current official documentation or run a minimal reproducible check.
 - Cite or link a source when making claims based on external documentation.
 
+## Context recovery after a session reset
+- If the conversation or prior session summary is incomplete, do not invent the missing requirements, decisions, filenames, APIs, or progress.
+- Rebuild state from evidence: current project files, working-tree status, relevant diffs/commits, and existing project records such as README, issue, plan, decision log, tracker, or work log when applicable.
+- Treat current files and explicit user instructions as stronger evidence than unverified recollection. Clearly separate known facts, durable recorded decisions, assumptions, and unknowns.
+- Before creating a new file, search for an existing equivalent and verify that the current task requires it. Do not create artifacts just to fill gaps in memory or make a speculative plan look complete.
+- If a missing detail affects architecture, security/privacy, data integrity, destructive actions, or acceptance, ask one focused question. For low-impact uncertainty, state a conservative assumption and make a reversible minimal change.
+- Never recreate or overwrite a file merely because an old summary says it should exist. Investigate discrepancies and preserve unexplained user changes.
+- After recovering, inspect the diff and report which decisions were verified versus assumed.
+
 ## Verification
 - Do not state that tests, lint, type checks, builds, migrations, deployments, or browser checks passed unless the relevant tool was run and its output supports the claim.
 - Distinguish suggested commands from commands actually executed.
