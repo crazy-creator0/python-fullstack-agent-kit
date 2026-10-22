@@ -5,7 +5,7 @@ Use only when routing is ambiguous or work crosses domains. For an obvious small
 | Task | Read first | Add only when relevant |
 |---|---|---|
 | Greeting/simple question | None | Ask what help is needed; no project scan or edits |
-| Language-specific implementation | Best matching available skill, if any | Inspect actual language, framework, build/test setup and repo conventions; lack of a dedicated skill is not a blocker |
+| Language-specific implementation | `language-engineering` when no obvious specialist applies | Inspect actual language, framework, build/test setup and repo conventions; add a specialist only when it contributes distinct, relevant guidance |
 | Backend/API | `backend-api` | Relevant language, database and security guidance based on the actual stack and boundaries |
 | Frontend/UI | `frontend-engineering` | `design-taste-discovery` for visual decisions; `frontend-visuals-and-3d` only for real advanced 3D/canvas/GPU work |
 | Bug | `debugging` | Skill for the affected domain, if useful |
@@ -31,4 +31,4 @@ Actually open each selected `.agents/skills/<name>/SKILL.md` before relying on i
 - Existing stack change: inspect current state, compare keeping/changing/incremental alternatives, plan compatibility/data/operations/rollback, and obtain approval for high-impact scope unless explicitly authorized. Use the migration workflow.
 - Optional tools/third-party skills are not assumed installed. Inspect and ask before persistent installs.
 
-Canonical skills: `anti-ai-slop`, `anti-hallucination`, `application-security`, `backend-api`, `cloudflare-operations`, `database-engineering`, `debugging`, `design-taste-discovery`, `frontend-engineering`, `frontend-visuals-and-3d`, `python-engineering`, `skill-gap-router`, `testing-and-code-review`.
+Canonical skills: `anti-ai-slop`, `anti-hallucination`, `application-security`, `backend-api`, `cloudflare-operations`, `database-engineering`, `debugging`, `design-taste-discovery`, `frontend-engineering`, `frontend-visuals-and-3d`, `language-engineering`, `python-engineering`, `skill-gap-router`, `testing-and-code-review`.
