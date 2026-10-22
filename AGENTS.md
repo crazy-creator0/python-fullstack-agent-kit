@@ -50,3 +50,10 @@ Apply these rules whenever reading, writing, reviewing, or refactoring code:
 - Report import-cycle risks that could not be verified.
 
 These are default project-wide requirements. If a rule conflicts with actual project constraints, explain the conflict and choose the smallest safe solution.
+
+## Durable project memory and privacy
+- For meaningful multi-step work, consult any existing project tracker, plan, decision log, and work log before proposing changes. If these files exist, keep them accurate after significant work; do not create a large paperwork system for a trivial fix.
+- For this kit repository, the maintainer records are `PROJECT-TRACKER.md`, `docs/PROJECT-PLAN.md`, `docs/DECISIONS.md`, and `docs/WORKLOG.md`. In other repositories, use their existing conventions and only create equivalents when they add real value.
+- Distinguish accepted plans from implemented/verified capabilities. Record actual commands and test results; never claim checks passed unless the output supports it.
+- When the user requests documentation only, do not edit application source, configuration, or business logic. Report code issues separately and ask before fixing them.
+- Never put credentials, tokens, private customer data, or personal notes into tracked files. `.gitignore` is not a secret scanner and does not hide files already tracked. Inspect `git status` and staged files before committing.
