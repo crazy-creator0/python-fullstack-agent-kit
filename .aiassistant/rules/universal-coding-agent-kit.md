@@ -1,4 +1,4 @@
-# Universal Coding Agent Kit — JetBrains AI Assistant
+# UCA Kit (Universal Coding Agent Kit) — JetBrains AI Assistant
 
 Before making substantial changes, read the root `AGENTS.md` and `.agents/AGENTS.md`. Treat them as the shared engineering guidance. Inspect the actual project structure and conventions before editing.
 
