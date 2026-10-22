@@ -111,7 +111,7 @@ For an ordinary one-line fix, do not create a large paperwork system if one is n
 
 - [x] Add tracker, plan, decision record, and work log.
 - [x] Add baseline ignores for secrets, local-only files, caches, and generated test output.
-- [ ] Confirm the latest CI run after the governance updates.
+- [x] Confirm latest CI run after governance updates — [run 39738547856 passed](https://github.com/crazy-creator0/python-fullstack-agent-kit/actions/runs/39738547856).
 - [ ] Confirm public repository description/topics and decide final repository/package naming.
 - [ ] Choose the software license before registry publication.
 
@@ -170,7 +170,7 @@ For an ordinary one-line fix, do not create a large paperwork system if one is n
 - [ ] Review README, quick start, examples, license, package metadata, and package allowlist.
 - [ ] Confirm package-name availability and compatibility with the final repo name.
 - [ ] Test CLI from a clean disposable project on supported environments.
-- [ ] Verify npm pack --dry-run excludes maintainer trackers, private notes, local files, secrets, and test output.
+- [x] Add a package-list test that verifies npm pack --dry-run excludes maintainer trackers/docs, tests, local files, and the root .gitignore; latest CI passed. Secrets still require staged-file review and must never be committed.
 - [ ] Have the package owner authenticate and publish; verify the actual registry entry afterward.
 
 **Exit criteria:** New users can discover, install, run, test, and understand the kit without misleading claims.
