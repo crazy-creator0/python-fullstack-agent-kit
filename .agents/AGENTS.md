@@ -54,6 +54,12 @@ Understand → inspect → plan → implement a small vertical slice → run rel
 - When asked for documentation only, inspect source code and modify documentation only. Report code issues separately rather than silently editing code, configuration, or business logic.
 - Keep actual test source in version control when it is part of the project. Exclude generated test reports, caches, secrets, private datasets, and local-only notes.
 
+## Host capability fallback
+- Before relying on an IDE-specific instruction path, skill loader, named subagent, plugin, hook, usage API, or command, verify that the active host/version supports it and that it is available in this session. Follow `HOST-CAPABILITY-FALLBACK.md` for the complete fallback policy.
+- If the host has no native skill loader, read only the task-relevant `.agents/skills/<name>/SKILL.md` directly or use the documented native skill path. If there is no subagent dispatch, one lead agent performs the specialist workstreams sequentially.
+- If native instructions are missing, prefer adding a short compatible adapter in the host's documented format. Preserve user-authored rules, avoid overwrites, and verify active context rather than trusting a model's unverified claim.
+- If usage metadata or pre-call hooks are unavailable, mark automatic tracking/enforcement unsupported or estimated; do not invent exact numbers or claim a hard limit is enforced.
+
 ## Skill and agent routing
 - Use `AGENT-SKILL-MAP.md` as the shared role-to-skill routing map. Start with one accountable lead and activate specialists only when their domain adds distinct value.
 - For substantial work, tell the user briefly which skills are selected and why before implementation; include optional tools only when task and stack justify them.
