@@ -11,12 +11,14 @@ Use skills just in time across coding agents. Do not load every skill for every 
 ## On every new task
 1. Understand the requested outcome. If a key requirement is ambiguous and affects architecture, safety, cost, or deliverables, ask one focused question. Otherwise state a reasonable assumption and proceed.
 2. Inspect the current project. Read its instruction files, identify stack/framework, inspect affected files, and check available scripts/tests before choosing skills.
-3. Map the task to relevant skills. Examples:
+3. Map the task to relevant skills using `AGENT-SKILL-MAP.md` when available. Examples:
    - Python feature/API → python-engineering, backend-api, and optionally database-engineering
-   - UI/frontend → frontend-engineering, and optional UI design audit skill if installed
+   - UI/frontend → frontend-engineering; use design-taste-discovery for meaningful visual choices; use frontend-visuals-and-3d only for justified advanced visuals
+   - Business/service offering → use a bounded task-specific strategy brief; do not pretend a dedicated business-strategy skill exists if it does not
    - Bug → debugging plus the relevant implementation skill
    - Release/deploy → testing-and-code-review, application-security, cloudflare-operations when relevant
    - All code changes → apply anti-ai-slop and anti-hallucination principles
+   For substantial work, state the selected skills and short reasons to the user before implementation. Then read those actual skill files. Mention only optional tools that fit the task; do not present them as installed unless verified.
 4. Check whether a needed skill exists. Inspect relevant SKILL.md files and any host skill listing. Do not assume a skill is installed just because it was mentioned earlier.
 5. If a capability is missing, choose a path:
    - Small, task-specific guidance: write a short task plan and proceed without creating a permanent skill.
