@@ -129,17 +129,27 @@ test("installs shared core and selected Cursor adapter", () => {
   });
 });
 
-test("preserves existing files by default while adding new files", () => {
+test("preserves existing files and same-name user skills while adding non-conflicting files", () => {
   withFixture(({ kitRoot, projectRoot }) => {
     fs.writeFileSync(path.join(projectRoot, "AGENTS.md"), "my existing rules\n", "utf8");
+    fs.mkdirSync(path.join(projectRoot, ".agents/skills/python-engineering"), { recursive: true });
+    fs.writeFileSync(
+      path.join(projectRoot, ".agents/skills/python-engineering/SKILL.md"),
+      "my custom Python skill\n",
+      "utf8"
+    );
     const summary = installKit({ packageRoot: kitRoot, projectRoot, platform: "generic" });
     assert.equal(summary.errors, 0);
     assert.equal(
       fs.readFileSync(path.join(projectRoot, "AGENTS.md"), "utf8"),
       "my existing rules\n"
     );
-    assert.ok(summary.skipped >= 1);
-    assert.ok(fs.existsSync(path.join(projectRoot, ".agents/skills/python-engineering/SKILL.md")));
+    assert.ok(summary.skipped >= 2);
+    assert.equal(
+      fs.readFileSync(path.join(projectRoot, ".agents/skills/python-engineering/SKILL.md"), "utf8"),
+      "my custom Python skill\n"
+    );
+    assert.ok(fs.existsSync(path.join(projectRoot, ".agents/workflows/new-project.md")));
   });
 });
 
