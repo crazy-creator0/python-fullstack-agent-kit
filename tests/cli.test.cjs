@@ -88,6 +88,8 @@ test("help describes generic fallback and preservation behavior", () => {
   assert.match(help, /UCA Kit/);
   assert.match(help, /unlisted IDEs/);
   assert.match(help, /preserved by default/);
+  assert.match(help, /keep existing files, override them, or cancel the install/i);
+  assert.match(help, /Cancel leaves the project unchanged/i);
 });
 
 test("generic profile installs only the generic fallback guide from setup docs", () => {
