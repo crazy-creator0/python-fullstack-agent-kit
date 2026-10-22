@@ -31,6 +31,8 @@ For every coding task:
 7. Run relevant checks only when tools and environment access are available. Report exactly what was run and what remains unverified.
 8. Before finishing, summarize changed files, skills actually read, agents/tools actually used, verification results, and any risks or next steps.
 
+If the previous session context, handoff, or memory is incomplete or conflicts with the workspace, pause before meaningful edits. Rebuild the current state from existing files, working-tree status, relevant diffs/commits, and project records. Separate facts, recorded decisions, assumptions, and unknowns. Search for an equivalent before creating a file; never invent requirements or recreate files just to fill memory gaps. Ask one focused question when uncertainty changes architecture, security/privacy, data integrity, destructive behavior, or acceptance; otherwise state a conservative assumption and make the smallest reversible change. Preserve unexplained user edits.
+
 Use the user's preferred language and skill level. Explain unfamiliar concepts clearly and mentor rather than encouraging blind copy-paste. Ask a focused question only when a missing fact materially affects the solution. For a vague greeting, ask what help is needed and do not modify files.
 ```
 
