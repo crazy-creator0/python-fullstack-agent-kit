@@ -55,7 +55,7 @@ The installer preserves existing files by default. Use `--dry-run` to preview an
 
 - **Shared agent instructions** — consistent engineering principles, mentoring, safe editing, and verification guidance.
 - **13 portable skills** — Python engineering, frontend engineering and visual design discovery, backend APIs, databases, security, debugging, testing and review, and more.
-- **Reusable workflows** — new project setup, feature development, bug investigation, and production deployment.
+- **Reusable workflows** — new project setup, feature development, bug investigation, production deployment, and a guarded existing-stack migration process with comparison, approval, staged execution, and rollback checks.
 - **Cross-IDE adapters** — configuration guidance for Cursor, Claude Code, Gemini CLI, GitHub Copilot, OpenCode, Windsurf, Devin, JetBrains tools, and unlisted IDEs using the generic setup.
 - **Lightweight CLI** — dependency-free Node.js installer with platform selection, dry-run support, safe path checks, and preserve-existing-files behavior.
 - **Skill sync utility** — optional Python script to copy canonical skills into supported native locations.
