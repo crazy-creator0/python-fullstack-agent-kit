@@ -11,7 +11,7 @@ const crypto = require("node:crypto");
 
 const VERSION = 1;
 const THRESHOLDS = [0.6, 0.8, 0.95];
-const ZERO = () => ({ inputTokens: 0, outputTokens: 0, agentCalls: 0, skillReads: 0, toolCalls: 0, costUsd: 0 });
+const ZERO = () => ({ inputTokens: 0, outputTokens: 0, reasoningTokens: 0, cacheReadTokens: 0, cacheWriteTokens: 0, agentCalls: 0, skillReads: 0, toolCalls: 0, costUsd: 0 });
 
 function ledgerPath() {
   return path.resolve(process.env.UCA_USAGE_FILE || path.join(os.homedir(), ".uca-kit", "usage.json"));
@@ -20,7 +20,7 @@ function blank() {
   return {
     version: VERSION,
     updatedAt: null,
-    budget: { maxTotalTokens: null, maxAgentCalls: null, maxCostUsd: null, warningThresholds: THRESHOLDS.slice() },
+    budget: { maxTotalTokens: null, maxAgentCalls: null, maxCostUsd: null, plannedTokensPerAgentCall: null, warningThresholds: THRESHOLDS.slice() },
     totals: { exact: ZERO(), estimated: ZERO() }
   };
 }
@@ -30,11 +30,22 @@ function validateMetrics(metrics, label) {
     if (!Number.isFinite(metrics[key]) || metrics[key] < 0) throw new Error("Invalid usage ledger metric: " + label + "." + key);
   }
 }
+function migrate(data) {
+  // Add fields introduced by later local-ledger versions without discarding prior counters.
+  if (!data || data.version !== VERSION || !data.budget || !data.totals) return;
+  if (data.budget.plannedTokensPerAgentCall === undefined) data.budget.plannedTokensPerAgentCall = null;
+  for (const bucket of ["exact", "estimated"]) {
+    if (!data.totals[bucket] || typeof data.totals[bucket] !== "object") continue;
+    for (const key of ["reasoningTokens", "cacheReadTokens", "cacheWriteTokens"]) {
+      if (data.totals[bucket][key] === undefined) data.totals[bucket][key] = 0;
+    }
+  }
+}
 function validate(data) {
   if (!data || data.version !== VERSION || !data.budget || !data.totals) throw new Error("Unsupported or invalid usage ledger. It was not overwritten.");
   validateMetrics(data.totals.exact, "totals.exact");
   validateMetrics(data.totals.estimated, "totals.estimated");
-  for (const key of ["maxTotalTokens", "maxAgentCalls", "maxCostUsd"]) {
+  for (const key of ["maxTotalTokens", "maxAgentCalls", "maxCostUsd", "plannedTokensPerAgentCall"]) {
     const n = data.budget[key];
     if (n !== null && (!Number.isFinite(n) || n < 0)) throw new Error("Invalid usage ledger budget: " + key);
   }
@@ -51,6 +62,7 @@ function readLedger() {
   if (!stat.isFile()) throw new Error("The usage path exists but is not a regular file.");
   try {
     const data = JSON.parse(fs.readFileSync(file, "utf8"));
+    migrate(data);
     validate(data);
     return data;
   } catch (error) {
@@ -112,7 +124,7 @@ function numberOption(options, name, integer, optional) {
   }
   return n;
 }
-function totalTokens(metrics) { return metrics.inputTokens + metrics.outputTokens; }
+function totalTokens(metrics) { return metrics.inputTokens + metrics.outputTokens + metrics.reasoningTokens + metrics.cacheReadTokens + metrics.cacheWriteTokens; }
 function combined(ledger) {
   const sum = ZERO();
   for (const source of ["exact", "estimated"]) for (const key of Object.keys(sum)) sum[key] += ledger.totals[source][key];
@@ -165,8 +177,10 @@ function printSummary(ledger) {
   console.log("UCA Kit — local usage summary");
   console.log("Ledger: " + ledgerPath());
   console.log("Privacy: aggregate counters only; this utility does not store prompts, code, credentials or chat transcripts.");
-  console.log("Input tokens: exact " + fmt(exact.inputTokens) + " | estimated " + fmt(estimated.inputTokens));
-  console.log("Output tokens: exact " + fmt(exact.outputTokens) + " | estimated " + fmt(estimated.outputTokens));
+  console.log("Input tokens (excluding cache): exact " + fmt(exact.inputTokens) + " | estimated " + fmt(estimated.inputTokens));
+  console.log("Cached input tokens: exact read " + fmt(exact.cacheReadTokens) + " + write " + fmt(exact.cacheWriteTokens) + " | estimated read " + fmt(estimated.cacheReadTokens) + " + write " + fmt(estimated.cacheWriteTokens));
+  console.log("Output tokens (excluding reasoning): exact " + fmt(exact.outputTokens) + " | estimated " + fmt(estimated.outputTokens));
+  console.log("Reasoning tokens: exact " + fmt(exact.reasoningTokens) + " | estimated " + fmt(estimated.reasoningTokens));
   console.log("Total recorded tokens (exact + estimated): " + fmt(totalTokens(sums)));
   console.log("Agent calls: " + fmt(sums.agentCalls) + " | skill reads: " + fmt(sums.skillReads) + " | tool calls: " + fmt(sums.toolCalls));
   console.log("Cost values supplied: $" + fmt(exact.costUsd) + " exact-source | $" + fmt(estimated.costUsd) + " estimated-source");
@@ -185,12 +199,13 @@ function help() {
     "  node scripts/uca-usage.cjs show\n" +
     "  node scripts/uca-usage.cjs guard [planned metrics]\n" +
     "  node scripts/uca-usage.cjs reset\n\n" +
-    "Budget: --max-total-tokens <integer|off> --max-agent-calls <integer|off> --max-cost-usd <number|off>\n" +
-    "Record: --source exact|estimated --input-tokens N --output-tokens N --agent-calls N --skill-reads N --tool-calls N --cost-usd N\n" +
+    "Budget: --max-total-tokens <integer|off> --max-agent-calls <integer|off> --max-cost-usd <number|off> --planned-agent-tokens <integer|off>\n" +
+    "Record: --source exact|estimated --input-tokens N --output-tokens N --reasoning-tokens N --cache-read-tokens N --cache-write-tokens N --agent-calls N --skill-reads N --tool-calls N --cost-usd N\n" +
     "Guard: --planned-tokens N --planned-agent-calls N --planned-cost-usd N\n\n" +
     "Default file: ~/.uca-kit/usage.json; override with UCA_USAGE_FILE.\n" +
     "Exact describes the reported/entered source; UCA Kit does not independently verify it.\n" +
     "Budget checks add exact and estimated counters. Do not record the same usage twice.\n" +
+    "Use --planned-agent-tokens to set a per-agent token reservation estimate for host budget guards.\n" +
     "Reset clears counters but preserves budget. This ledger is not a provider billing dashboard.");
 }
 function main(argv) {
@@ -206,12 +221,13 @@ function main(argv) {
     return 0;
   }
   if (command === "budget") {
-    allowed(opts, ["max-total-tokens", "max-agent-calls", "max-cost-usd"]);
+    allowed(opts, ["max-total-tokens", "max-agent-calls", "max-cost-usd", "planned-agent-tokens"]);
     if (Object.keys(opts).length === 0) throw new Error("Set at least one limit. Run with --help.");
     const configs = [
       ["max-total-tokens", "maxTotalTokens", true],
       ["max-agent-calls", "maxAgentCalls", true],
-      ["max-cost-usd", "maxCostUsd", false]
+      ["max-cost-usd", "maxCostUsd", false],
+      ["planned-agent-tokens", "plannedTokensPerAgentCall", true]
     ];
     for (const item of configs) if (Object.hasOwn(opts, item[0])) ledger.budget[item[1]] = numberOption(opts, item[0], item[2], true);
     ledger.updatedAt = new Date().toISOString();
@@ -226,6 +242,9 @@ function main(argv) {
     const keys = [
       ["input-tokens", "inputTokens", true],
       ["output-tokens", "outputTokens", true],
+      ["reasoning-tokens", "reasoningTokens", true],
+      ["cache-read-tokens", "cacheReadTokens", true],
+      ["cache-write-tokens", "cacheWriteTokens", true],
       ["agent-calls", "agentCalls", true],
       ["skill-reads", "skillReads", true],
       ["tool-calls", "toolCalls", true],
@@ -251,6 +270,10 @@ function main(argv) {
       tokens: numberOption(opts, "planned-tokens", true, false) || 0,
       agentCalls: numberOption(opts, "planned-agent-calls", true, false) || 0
     };
+    if (!Object.hasOwn(opts, "planned-tokens") && ledger.budget.plannedTokensPerAgentCall !== null) {
+      planned.tokens = planned.agentCalls * ledger.budget.plannedTokensPerAgentCall;
+      if (planned.tokens > 0) console.log("Budget estimate: reserving " + planned.tokens + " planned tokens for " + planned.agentCalls + " agent call(s).");
+    }
     if (Object.hasOwn(opts, "planned-cost-usd")) planned.costUsd = numberOption(opts, "planned-cost-usd", false, false);
     const active = ledger.budget.maxTotalTokens !== null || ledger.budget.maxAgentCalls !== null || ledger.budget.maxCostUsd !== null;
     if (!active) {
