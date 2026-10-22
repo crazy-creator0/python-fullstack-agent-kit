@@ -133,13 +133,6 @@ The following are **planned capabilities, not claims about features already impl
 
 This project is licensed under the [MIT License](LICENSE). The license applies to this repository's original project materials; check any third-party skills, assets, or dependencies for their own license terms before reuse.
 
-## Project history
-
-- **Portable foundation:** shared Markdown instructions, reusable `SKILL.md` files, and workflows that do not require a single IDE.
-- **Cross-IDE expansion:** adapters and setup guidance for multiple coding assistants, plus a generic fallback for unlisted tools.
-- **Installer and checks:** a dependency-free Node.js CLI, dry-run and file-preservation behavior, automated tests, and GitHub Actions verification.
-- **UCA Kit branding:** UCA Kit is the short product name. The existing GitHub repository URL, npm package identifier, CLI command, and adapter filenames remain unchanged so current setup instructions keep working.
-- **Current direction:** a universal coding-agent toolkit with stronger planning, beginner-friendly documentation, visual explanation, change-impact review, and release safety. These newer orchestration capabilities remain on the roadmap until implemented and verified.
 
 ## Contributing and support
 
