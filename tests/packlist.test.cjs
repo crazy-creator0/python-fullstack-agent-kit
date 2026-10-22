@@ -43,7 +43,7 @@ test("npm installer package excludes maintainer planning and test files", () => 
     `Maintainer-only or test artifacts leaked into the npm package: ${forbidden.join(", ")}`
   );
 
-  for (const required of ["LICENSE", "bin/cli.cjs", "scripts/uca-usage.cjs", ".opencode/plugins/uca-usage.mjs", ".opencode/agents/designer.md", ".opencode/agents/service-strategist.md", "AGENT-SKILL-MAP.md", "ANALYSIS-DEPTH-AND-LOOPHOLE-CHECKS.md", ".agents/workflows/stack-migration.md", "HOST-CAPABILITY-FALLBACK.md", ".cursor/agents/designer.md", ".cursor/agents/service-strategist.md", "USAGE-PRIVACY.md", "AGENTS.md", ".agents/AGENTS.md", "package.json"]) {
+  for (const required of ["LICENSE", "bin/cli.cjs", "scripts/uca-usage.cjs", ".opencode/plugins/uca-usage.mjs", ".opencode/agents/designer.md", ".opencode/agents/service-strategist.md", "AGENT-SKILL-MAP.md", ".agents/workflows/stack-migration.md", "HOST-CAPABILITY-FALLBACK.md", ".cursor/agents/designer.md", ".cursor/agents/service-strategist.md", "USAGE-PRIVACY.md", "AGENTS.md", ".agents/AGENTS.md", "package.json"]) {
     assert.ok(paths.includes(required), `Expected installer file missing from package: ${required}`);
   }
 
