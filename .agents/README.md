@@ -1,6 +1,6 @@
-# Universal Coding Agent Kit — Agent Layout
+# UCA Kit (Universal Coding Agent Kit) — Agent Layout
 
-This folder contains platform-neutral mentoring instructions, reusable Agent Skills, and engineering workflows used by the Universal Coding Agent Kit.
+This folder contains platform-neutral mentoring instructions, reusable Agent Skills, and engineering workflows used by UCA Kit.
 
 ## Shared source of truth
 - `.agents/AGENTS.md` — mentoring style, general full-stack engineering, project-tracking boundaries, and safe workflows.
