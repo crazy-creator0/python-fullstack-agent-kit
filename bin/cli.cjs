@@ -272,7 +272,7 @@ async function chooseConflictMode(conflicts) {
     for (const relative of conflicts.slice(0, 12)) console.log(`  - ${relative}`);
     if (conflicts.length > 12) console.log(`  ... and ${conflicts.length - 12} more`);
     console.log("\nChoose how to handle conflicts:");
-    console.log("  1. Keep existing files; add only non-conflicting UCA Kit files");
+    console.log("  1. Remove conflicting UCA Kit files from this install; keep user files and add the rest");
     console.log("  2. Override existing files with UCA Kit versions");
     console.log("  3. Cancel installation (leave the project unchanged)");
     while (true) {
