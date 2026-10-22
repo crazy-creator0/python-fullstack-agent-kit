@@ -16,6 +16,7 @@ function makeKit(root) {
   const files = [
     "AGENTS.md",
     ".agents/AGENTS.md",
+    ".agents/README.md",
     ".agents/skills/python-engineering/SKILL.md",
     ".agents/workflows/new-project.md",
     ".agents/workflows/stack-migration.md",
@@ -24,6 +25,8 @@ function makeKit(root) {
     "USAGE-PRIVACY.md",
     "scripts/uca-usage.cjs",
     "GENERIC-IDE-SETUP.md",
+    "PLATFORM-SETUP.md",
+    "IMPECCABLE-SETUP.md",
     ".cursor/rules/universal-coding-agent-kit.mdc",
     ".cursor/agents/designer.md",
     ".cursor/agents/service-strategist.md",
@@ -93,8 +96,7 @@ test("generic profile installs only the generic fallback guide from setup docs",
     assert.ok(fs.existsSync(path.join(projectRoot, "GENERIC-IDE-SETUP.md")));
     assert.equal(fs.existsSync(path.join(projectRoot, "PLATFORM-SETUP.md")), false);
     assert.equal(fs.existsSync(path.join(projectRoot, "IMPECCABLE-SETUP.md")), false);
-    assert.equal(fs.existsSync(path.join(projectRoot, "ANALYSIS-DEPTH-AND-LOOPHOLE-CHECKS.md")), false);
-    assert.equal(fs.existsSync(path.join(projectRoot, "ADAPTIVE-SKILLS.md")), false);
+    assert.equal(fs.existsSync(path.join(projectRoot, ".agents/README.md")), false);
   });
 });
 
