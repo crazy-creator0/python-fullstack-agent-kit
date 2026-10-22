@@ -1,5 +1,5 @@
 ---
-description: UX and visual design specialist for user journeys, interface direction, and UI design tasks. Use only when the request has a meaningful design/UX scope.
+description: Use proactively for meaningful UX/visual design tasks, interface direction, user journeys, accessibility, or UI redesign. For design plus business/service-offering planning, pair with service-strategist. Do not use for backend-only tasks.
 mode: subagent
 permission:
   edit: deny
