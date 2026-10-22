@@ -1,6 +1,6 @@
 # UCA Kit Local Usage Meter and Privacy Contract
 
-**Status:** the local ledger utility can record and display usage that a user or host integration explicitly supplies. It does **not** automatically intercept all IDE/model calls. Automatic capture and hard enforcement are available only where an integration actually invokes the ledger and the host exposes the relevant metadata.
+**Status:** the local ledger utility can record and display usage that a user or host integration explicitly supplies. UCA Kit now includes an **OpenCode-specific plugin adapter** that records finalized message token metadata and checks local budgets before supported task/subagent calls. Its payload is simulated in CI but still needs verification in the installed OpenCode version. Other IDEs do **not** yet have automatic capture. Hard enforcement exists only where the integration actually calls the ledger and the host exposes the relevant events/metadata.
 
 ## Privacy defaults
 
@@ -13,7 +13,8 @@
 
 ## Actual vs estimated values
 
-- `exact` means a host/provider reported the token/cost value or the user explicitly entered a measured value. Keep the source explanation honest; the utility does not independently verify the source.
+- `exact` on token counters means the host exposed those token counts. The utility does not independently verify host data.
+- Cost is stored separately via `--cost-source exact|estimated`. OpenCode's reported `info.cost` is kept as **estimated**, not treated as an invoice or verified charge.
 - `estimated` means approximate values entered by a user/integration. Never present an estimate as provider billing data.
 - Cost remains unknown unless supplied; the utility does not assume a model, plan, cache policy, exchange rate, or current provider price.
 - Context-window occupancy and subscription-plan credits are separate metrics. Do not infer them from cumulative token totals.
@@ -24,10 +25,10 @@ From a project where the UCA Kit usage script is installed:
 
 ```bash
 # Set local warning/enforcement limits (example values; tune for your model/plan)
-node scripts/uca-usage.cjs budget --max-total-tokens 20000 --max-agent-calls 4 --max-cost-usd 0.50
+node scripts/uca-usage.cjs budget --max-total-tokens 20000 --max-agent-calls 4 --max-cost-usd 0.50 --planned-agent-tokens 1500 --planned-agent-cost-usd 0.03
 
 # Record host-reported usage (numbers only; no prompts/code)
-node scripts/uca-usage.cjs record --source exact --input-tokens 1200 --output-tokens 350 --agent-calls 1 --skill-reads 2 --tool-calls 3 --cost-usd 0.015
+node scripts/uca-usage.cjs record --source exact --input-tokens 1200 --output-tokens 350 --agent-calls 1 --skill-reads 2 --tool-calls 3 --cost-source estimated --cost-usd 0.015
 
 # Record an estimate, kept separate from exact totals
 node scripts/uca-usage.cjs record --source estimated --input-tokens 1500 --output-tokens 400 --agent-calls 1
@@ -39,7 +40,7 @@ node scripts/uca-usage.cjs show
 node scripts/uca-usage.cjs guard --planned-tokens 900 --planned-agent-calls 1
 ```
 
-`guard` returns a non-zero exit code when a configured limit would be exceeded by the supplied recorded and planned metrics. An agent host must actually call the guard and respect its result for it to enforce anything. It does not reserve budget across parallel requests, so concurrent optional calls may each pass against the same prior total. If no budget is configured, it reports that the guard is inactive rather than pretending to enforce a limit.
+`guard` returns a non-zero exit code when a configured limit would be exceeded by the supplied recorded and planned metrics. If a token or cost limit is enabled, configure `--planned-agent-tokens` and `--planned-agent-cost-usd` so an optional call has an explicit reservation assumption; otherwise the guard blocks calls whose future consumption cannot be assessed. These values are estimates, not guarantees. An agent host must call the guard and respect its result for it to enforce anything. It does not atomically reserve budget across parallel requests, so concurrent optional calls may still race. If no hard limit is configured, it reports that the guard is inactive.
 
 ## Suggested warning thresholds
 
