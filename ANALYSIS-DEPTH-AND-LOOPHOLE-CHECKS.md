@@ -39,6 +39,26 @@ For substantial work, the lead agent should use this loop and repeat only the st
 
 Use one accountable lead by default. A cross-functional task can use at most two specialist agents by default; use more only when scope and risk justify the added cost. If the host cannot dispatch real subagents, perform specialist work sequentially. A file defining an agent is not proof that the agent ran.
 
+## When session context is missing or has drifted
+
+A new session may not contain earlier decisions, constraints, file edits, or user preferences. **Do not fill those gaps by inventing a plausible story.** The current repository and verifiable artifacts are the source of truth for repository state; prior chat is only evidence when it is actually available.
+
+Use this recovery protocol before making meaningful changes after a context reset, summary handoff, or a contradiction between memory and the workspace:
+
+1. **Pause edits.** Do not immediately "continue where we left off" based on a vague recollection.
+2. **Recover durable evidence.** Inspect the current branch and working-tree status where available; examine the relevant files and their current contents; review recent diffs/commits and existing README, issue, plan, decision log, tracker, or work log when those already exist and are relevant.
+3. **Rebuild the task state.** Separate confirmed facts, decisions supported by durable records, assumptions, and unknowns. Do not treat an earlier model-generated summary as stronger than the current source or an explicit user instruction.
+4. **Check before creating files.** Search for an existing equivalent, inspect naming/layout conventions, confirm the task requires a new persistent file, and state the intended path and purpose in the plan. A remembered filename is not proof the file is missing, needed, or safe to recreate.
+5. **Handle important missing decisions safely.** If the missing detail affects architecture, destructive edits, data integrity, privacy/security, cost, or acceptance criteria, ask one focused question. If it is low impact, state a conservative assumption and continue with the smallest reversible change.
+6. **Plan the smallest change.** List the intended files and why each must change. Do not create extra plans, helpers, docs, migrations, or components merely to compensate for uncertainty.
+7. **Verify after recovery.** Re-check the diff and generated files, run relevant available tests, and report what was recovered from evidence versus assumed or left unknown.
+
+If the working tree has user changes or files disappeared unexpectedly, do not overwrite, delete, or recreate them to make the project match an old summary. First investigate the discrepancy. Treat current user edits as intentional unless there is evidence otherwise.
+
+### Practical context-recovery note
+
+A concise update to the user may say: "I don't have reliable evidence for the earlier decision. I'll inspect the current files and recent changes first; I'll ask before making any irreversible or scope-changing assumption." Do not repeatedly ask the user to restate details that can be recovered from the repository.
+
 ## Loophole checklist
 
 Select the categories that apply to the task. A tiny documentation correction does not need a full security audit; a permission change does.
