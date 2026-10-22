@@ -296,6 +296,13 @@ function main(argv) {
       console.log("NOTICE: no per-agent cost estimate configured; this guard cannot predict the next call cost. Use --planned-agent-cost-usd to set an assumption.");
     }
     const blocked = breaches(ledger, planned);
+    if (planned.agentCalls > 0 && ledger.budget.maxTotalTokens !== null &&
+        !Object.hasOwn(opts, "planned-tokens") && ledger.budget.plannedTokensPerAgentCall === null) {
+      blocked.push("token limit is enabled but planned tokens for the next agent call are unknown; set --planned-agent-tokens or supply --planned-tokens");
+    }
+    if (planned.agentCalls > 0 && ledger.budget.maxCostUsd !== null && planned.costUsd === undefined) {
+      blocked.push("cost limit is enabled but planned cost for the next agent call is unknown; set --planned-agent-cost-usd or supply --planned-cost-usd");
+    }
     if (blocked.length) {
       console.error("BLOCKED: configured local budget would be exceeded:");
       for (const message of blocked) console.error("- " + message);
