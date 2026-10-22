@@ -13,6 +13,12 @@ For every meaningful task:
 5. If the task changes, re-route only the delta. Do not reload all skills or resend the entire conversation.
 6. Before finishing, report skills actually read, tools actually used, verification actually run, and important unknowns.
 
+## Analysis depth and coverage
+
+Use [Analysis Depth, Loophole Checks, and Honest Token Usage](ANALYSIS-DEPTH-AND-LOOPHOLE-CHECKS.md) to calibrate how much inspection and verification a task deserves. A greeting/simple query should stay lightweight; a feature or bug should trace relevant code paths and regressions; security, data-integrity, release, and explicit audit tasks warrant broader risk-based checks. The guide's D0–D4 levels are a decision aid, not a fixed page count or an automatic guarantee.
+
+For substantial work, record applicable loophole categories checked and the material unknowns. Do not mark every category reviewed without evidence, do not invent bugs to fill a checklist, and never promise exhaustive detection. If the host provides no usage metadata, token use remains unknown or estimated—not exact.
+
 ## Role-to-skill map
 
 | Role / responsibility | Primary skills | Conditional skills or tools |
