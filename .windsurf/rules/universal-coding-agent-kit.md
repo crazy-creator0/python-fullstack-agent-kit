@@ -1,6 +1,6 @@
 ---
 trigger: always_on
-description: Shared full-stack engineering constraints and safe implementation workflow
+description: UCA Kit full-stack engineering constraints and safe implementation workflow
 ---
 
 Use the common engineering rules in root `AGENTS.md` and the mentoring guidance in `.agents/AGENTS.md` as the source of truth. Inspect the actual repository before making changes.
