@@ -105,6 +105,26 @@ test("keeps cache/reasoning token counters and estimated host cost distinct", ()
   });
 });
 
+test("blocks unknown future consumption when a hard budget has no call reservation", () => {
+  fixture(({ env }) => {
+    const set = invoke(["budget", "--max-total-tokens", "500", "--max-cost-usd", "0.10"], env);
+    assert.equal(set.status, 0, set.stderr);
+    const blocked = invoke(["guard", "--planned-agent-calls", "1"], env);
+    assert.equal(blocked.status, 2);
+    assert.match(blocked.stderr, /planned tokens for the next agent call are unknown/);
+    assert.match(blocked.stderr, /planned cost for the next agent call is unknown/);
+
+    const reserve = invoke([
+      "budget", "--planned-agent-tokens", "100", "--planned-agent-cost-usd", "0.02"
+    ], env);
+    assert.equal(reserve.status, 0, reserve.stderr);
+    const pass = invoke(["guard", "--planned-agent-calls", "1"], env);
+    assert.equal(pass.status, 0, pass.stderr);
+    assert.match(pass.stdout, /reserving 100 planned tokens/);
+    assert.match(pass.stdout, /reserving \$0.02 planned cost/);
+  });
+});
+
 test("uses per-agent token and cost reservations when checking a budget", () => {
   fixture(({ env }) => {
     const set = invoke([
