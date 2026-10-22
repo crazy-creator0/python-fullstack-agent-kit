@@ -27,6 +27,10 @@ Test meaningful edge cases: empty input/results, malformed data, duplicate reque
 9. Observability and operational impact.
 10. Maintainability and documentation.
 
+## Risk coverage when relevant
+
+Choose only the checks justified by the change. Consider requirements/scope, invalid inputs, error/timeouts, authentication/authorization, privacy/secrets, data integrity/migrations, retries/concurrency/partial writes, API/dependency contracts, UI states/accessibility, performance/cost, regressions, and operational rollback/monitoring. For a small isolated change, do not turn this into a full-system audit.
+
 ## Severity
 - Critical: exploitable security issue, severe data-loss risk, or major outage risk.
 - High: broken core behavior or significant security/reliability defect.
