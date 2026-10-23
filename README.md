@@ -18,7 +18,9 @@ It is designed to help developers plan before coding, understand unfamiliar code
 
 ## Quick start
 
-**Requirements:** Node.js 18 or newer, npm, and Git.
+**Requirements:** Node.js 18 or newer and npm. Git is recommended for project history, reviewing diffs, recovering from mistakes, and collaboration—but it is not required to keep working locally. The GitHub-based `npx` installer may require Git to fetch this repository.
+
+If the project is not already a Git repository, UCA Kit should explain the benefits and ask before running `git init`. If you prefer not to use Git, continue with local files; Git initialization and commits are never assumed.
 
 Run the installer from GitHub in the root of your project:
 
@@ -54,7 +56,7 @@ The installer preserves existing files by default. When run in an interactive te
 ## What is included
 
 - **Shared agent instructions** — consistent engineering principles, mentoring, safe editing, and verification guidance.
-- **13 portable skills** — Python engineering, frontend engineering and visual design discovery, backend APIs, databases, security, debugging, testing and review, and more.
+- **13 portable skills** — universal language engineering, frontend engineering and visual design discovery, backend APIs, databases, security, debugging, testing and review, and more.
 - **Reusable workflows** — new project setup, feature development, bug investigation, production deployment, and a guarded existing-stack migration process with comparison, approval, staged execution, and rollback checks.
 - **Cross-IDE adapters** — configuration guidance for Cursor, Claude Code, Gemini CLI, GitHub Copilot, OpenCode, Windsurf, Devin, JetBrains tools, and unlisted IDEs using the generic setup.
 - **Lightweight CLI** — dependency-free Node.js installer with platform selection, dry-run support, safe path checks, and preserve-existing-files behavior.
