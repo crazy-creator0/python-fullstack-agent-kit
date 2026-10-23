@@ -67,6 +67,23 @@ function withFixture(run) {
   }
 }
 
+test("documents Git as optional and preserves local-first project workflow", () => {
+  const root = path.join(__dirname, "..");
+  const instructions = fs.readFileSync(path.join(root, "AGENTS.md"), "utf8");
+  const readme = fs.readFileSync(path.join(root, "README.md"), "utf8");
+  const workflow = fs.readFileSync(path.join(root, ".agents/workflows/new-project.md"), "utf8");
+  const map = fs.readFileSync(path.join(root, "AGENT-SKILL-MAP.md"), "utf8");
+
+  assert.match(instructions, /Git is recommended, not mandatory for local work/i);
+  assert.match(instructions, /ask before initializing a repository/i);
+  assert.match(instructions, /If the user declines or Git is unavailable, continue with local files/i);
+  assert.match(readme, /Git is recommended.*not required to keep working locally/i);
+  assert.match(workflow, /do not assume a language or framework in advance/i);
+  assert.doesNotMatch(workflow, /Python backend/i);
+  assert.match(workflow, /if they decline, continue locally/i);
+  assert.match(map, /New project \/ local-first setup/);
+});
+
 test("parses platform, directory, and safety flags", () => {
   assert.deepEqual(parseArgs(["init", "../app", "--platform", "cursor", "--dry-run"]), {
     dir: "../app",
