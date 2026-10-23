@@ -6,6 +6,7 @@ Use only when routing is ambiguous or work crosses domains. For an obvious small
 |---|---|---|
 | Greeting/simple question | None | Ask what help is needed; no project scan or edits |
 | Language-specific implementation | `language-engineering` when no genuinely additive specialist applies | Inspect actual language(s), framework(s), build/test setup and repository conventions; lack of a dedicated skill is not a blocker |
+| New project / local-first setup | `.agents/workflows/new-project.md` | Recommend Git and explain benefits; ask before `git init`; if declined or unavailable, continue locally |
 | Backend/API | `backend-api` | Relevant language, database and security guidance based on the actual stack and boundaries |
 | Frontend/UI | `frontend-engineering` | `design-taste-discovery` for visual decisions; `frontend-visuals-and-3d` only for real advanced 3D/canvas/GPU work |
 | Bug | `debugging` | Skill for the affected domain, if useful |
