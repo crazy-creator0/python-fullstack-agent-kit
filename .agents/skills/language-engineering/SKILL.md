@@ -1,29 +1,34 @@
 ---
 name: language-engineering
-description: Apply maintainable engineering practices to the repository's detected language and stack; use for coding tasks when no obvious specialist skill is a better fit.
+description: Apply maintainable engineering practices across programming languages and stacks; use for coding tasks when no more specific, genuinely additive skill is needed.
 ---
 
-# Language-Neutral Engineering
+# Universal Language Engineering
 
-Use this as a reusable baseline for `{Lang}`; do not treat the placeholder as a literal language name. Infer the actual language and stack from the task and repository evidence.
+This skill is language-agnostic. Apply it to the language(s) actually present in the task and repository; do not treat placeholders or examples as literal language names. It is the shared baseline for all supported languages, not a claim that the project uses one language or that every language needs a separate skill.
 
 ## Inspect first
-- Inspect nearby source, project configuration, dependency manifests, build scripts, tests, and existing conventions before choosing an implementation.
-- Identify the language(s), framework(s), runtime/version constraints, package manager, and available verification commands. Polyglot repositories may require more than one stack.
-- Follow established project conventions; do not assume a tool or skill exists just because it is familiar.
+- Inspect nearby source, public APIs, project configuration, dependency manifests, build scripts, tests, and established conventions before choosing an implementation.
+- Identify all relevant languages, frameworks, runtimes and version constraints, package managers, and available verification commands. Polyglot repositories may require more than one toolchain.
+- Follow the repository's conventions; do not assume a tool, dependency, or skill exists just because it is familiar.
+- Check existing imports and dependency relationships before moving code. Preserve clear dependency direction and avoid introducing cycles.
 
 ## Implementation
-- Prefer the smallest clear change that solves the requested problem.
-- Use idioms and standard library features appropriate to the detected language and version.
-- Keep names clear, responsibilities cohesive, and control flow straightforward. Avoid speculative abstractions, unnecessary dependencies, and unrelated refactors.
-- Handle expected failures explicitly; do not swallow errors or fabricate successful defaults.
-- Respect API compatibility, security boundaries, secrets, and user-owned changes.
-- Use language-specific typing, memory/resource management, error handling, formatting, and packaging practices when relevant to the detected stack.
+- Prefer the smallest clear change that solves the requested problem. Avoid speculative abstractions, unnecessary dependencies, and unrelated refactors.
+- Use idioms and standard-library capabilities appropriate to the detected language and version.
+- Keep names clear, responsibilities cohesive, and control flow straightforward.
+- Use types, schemas, or explicit contracts where they improve correctness and maintainability; do not add noisy annotations that conceal uncertainty.
+- Handle expected failures specifically. Do not swallow errors, silently hide failures, or fabricate successful defaults.
+- Manage resources and lifetimes explicitly using the language's established mechanisms (for example, scoped cleanup, disposal, or context management).
+- Avoid hidden global state, unsafe shared mutable state, surprising default values, and premature abstraction. Make state ownership and side effects clear.
+- Respect API compatibility, security boundaries, secrets, privacy, and user-owned changes.
+- Follow the project's established formatting, linting, typing, build, testing, and packaging conventions where relevant.
 
-## Verify
+## Testing and verification
 - Derive checks from the repository's actual toolchain: focused tests first, then relevant broader tests, lint, type checks, builds, or static analysis when available.
+- Test behavior, important edge cases, and regression risks. Use mocks at external boundaries when appropriate, not as a substitute for testing the behavior itself.
 - If a command or toolchain is unavailable, investigate a reliable alternative when useful and state the limitation honestly.
 - Report only checks actually run and their observed outcomes.
 
 ## Specialist guidance
-Load a language- or framework-specific skill only when it adds concrete guidance beyond this baseline and is relevant to the task. A missing specialist skill never means the language is unsupported. Do not load this skill and a specialist skill that merely repeats the same baseline; use the specialist as an addition where appropriate.
+Use a language-, framework-, or domain-specific skill only when it adds concrete, relevant guidance beyond this baseline. Do not load a specialist that merely repeats this guidance. A missing specialist skill never means a language is unsupported; use repository evidence and reliable project documentation to proceed.
