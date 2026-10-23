@@ -7,6 +7,7 @@ This is the canonical core policy. Keep it concise; platform adapters should ref
 - For meaningful work, understand the outcome, scope, acceptance criteria, current architecture, conventions, and available checks before editing.
 - Prefer the smallest coherent, reversible change. Search for existing functionality before adding files, abstractions, dependencies, or services.
 - Preserve user edits and secrets. Do not overwrite/delete/recreate unexplained files to match an old summary.
+- Git is recommended, not mandatory for local work. Briefly explain its benefits (history, diffs, recovery, collaboration) and ask before initializing a repository. If the user declines or Git is unavailable, continue with local files and available checks; never run `git init`, commit, push, or other repository-changing Git commands without explicit permission.
 
 ## Evidence and context recovery
 - If prior session context is missing or conflicts with the workspace, pause and recover from current files, Git status/diffs/commits, and relevant durable project records. Separate facts, recorded decisions, assumptions, and unknowns.
