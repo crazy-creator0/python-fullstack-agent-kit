@@ -18,7 +18,7 @@ function makeKit(root) {
     "AGENTS.md",
     ".agents/AGENTS.md",
     ".agents/README.md",
-    ".agents/skills/python-engineering/SKILL.md",
+    ".agents/skills/language-engineering/SKILL.md",
     ".agents/workflows/new-project.md",
     ".agents/workflows/stack-migration.md",
     "AGENT-SKILL-MAP.md",
@@ -120,8 +120,8 @@ test("installs shared core and selected Cursor adapter", () => {
       "template:.cursor/rules/universal-coding-agent-kit.mdc\n"
     );
     assert.equal(
-      fs.readFileSync(path.join(projectRoot, ".agents/skills/python-engineering/SKILL.md"), "utf8"),
-      "template:.agents/skills/python-engineering/SKILL.md\n"
+      fs.readFileSync(path.join(projectRoot, ".agents/skills/language-engineering/SKILL.md"), "utf8"),
+      "template:.agents/skills/language-engineering/SKILL.md\n"
     );
     for (const relative of ["AGENT-SKILL-MAP.md", "HOST-CAPABILITY-FALLBACK.md", ".agents/workflows/stack-migration.md", "USAGE-PRIVACY.md", "scripts/uca-usage.cjs", ".cursor/agents/designer.md", ".cursor/agents/service-strategist.md"]) {
       assert.ok(fs.existsSync(path.join(projectRoot, relative)), `Expected routing/usage file missing: ${relative}`);
@@ -132,10 +132,10 @@ test("installs shared core and selected Cursor adapter", () => {
 test("preserves existing files and same-name user skills while adding non-conflicting files", () => {
   withFixture(({ kitRoot, projectRoot }) => {
     fs.writeFileSync(path.join(projectRoot, "AGENTS.md"), "my existing rules\n", "utf8");
-    fs.mkdirSync(path.join(projectRoot, ".agents/skills/python-engineering"), { recursive: true });
+    fs.mkdirSync(path.join(projectRoot, ".agents/skills/language-engineering"), { recursive: true });
     fs.writeFileSync(
-      path.join(projectRoot, ".agents/skills/python-engineering/SKILL.md"),
-      "my custom Python skill\n",
+      path.join(projectRoot, ".agents/skills/language-engineering/SKILL.md"),
+      "my custom language skill\n",
       "utf8"
     );
     const summary = installKit({ packageRoot: kitRoot, projectRoot, platform: "generic" });
@@ -146,8 +146,8 @@ test("preserves existing files and same-name user skills while adding non-confli
     );
     assert.ok(summary.skipped >= 2);
     assert.equal(
-      fs.readFileSync(path.join(projectRoot, ".agents/skills/python-engineering/SKILL.md"), "utf8"),
-      "my custom Python skill\n"
+      fs.readFileSync(path.join(projectRoot, ".agents/skills/language-engineering/SKILL.md"), "utf8"),
+      "my custom language skill\n"
     );
     assert.ok(fs.existsSync(path.join(projectRoot, ".agents/workflows/new-project.md")));
   });
@@ -156,9 +156,9 @@ test("preserves existing files and same-name user skills while adding non-confli
 test("detects conflicts without changing the project", () => {
   withFixture(({ kitRoot, projectRoot }) => {
     fs.writeFileSync(path.join(projectRoot, "AGENTS.md"), "user-owned instructions\n", "utf8");
-    fs.mkdirSync(path.join(projectRoot, ".agents/skills/python-engineering"), { recursive: true });
+    fs.mkdirSync(path.join(projectRoot, ".agents/skills/language-engineering"), { recursive: true });
     fs.writeFileSync(
-      path.join(projectRoot, ".agents/skills/python-engineering/SKILL.md"),
+      path.join(projectRoot, ".agents/skills/language-engineering/SKILL.md"),
       "user-owned skill\n",
       "utf8"
     );
@@ -170,7 +170,7 @@ test("detects conflicts without changing the project", () => {
     );
 
     assert.ok(conflicts.includes("AGENTS.md"));
-    assert.ok(conflicts.includes(".agents/skills/python-engineering/SKILL.md"));
+    assert.ok(conflicts.includes(".agents/skills/language-engineering/SKILL.md"));
     assert.equal(fs.existsSync(path.join(projectRoot, ".agents/workflows/new-project.md")), false);
     assert.equal(
       fs.readFileSync(path.join(projectRoot, "AGENTS.md"), "utf8"),
@@ -196,7 +196,7 @@ test("cancel on conflict leaves existing files intact and creates no UCA Kit fil
       fs.readFileSync(path.join(projectRoot, "AGENTS.md"), "utf8"),
       "user-owned instructions\n"
     );
-    assert.equal(fs.existsSync(path.join(projectRoot, ".agents/skills/python-engineering/SKILL.md")), false);
+    assert.equal(fs.existsSync(path.join(projectRoot, ".agents/skills/language-engineering/SKILL.md")), false);
   });
 });
 
@@ -292,8 +292,8 @@ test("Claude profile copies skills into the native skill directory", () => {
     assert.equal(summary.errors, 0);
     assert.ok(fs.existsSync(path.join(projectRoot, "CLAUDE.md")));
     assert.equal(
-      fs.readFileSync(path.join(projectRoot, ".claude/skills/python-engineering/SKILL.md"), "utf8"),
-      "template:.agents/skills/python-engineering/SKILL.md\n"
+      fs.readFileSync(path.join(projectRoot, ".claude/skills/language-engineering/SKILL.md"), "utf8"),
+      "template:.agents/skills/language-engineering/SKILL.md\n"
     );
   });
 });
