@@ -44,11 +44,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/crazy-creator0/universal-coding-agent-kit.git"
+    "url": "git+https://github.com/crazy-creator0/uca-kit.git"
   },
-  "homepage": "https://github.com/crazy-creator0/universal-coding-agent-kit#readme",
+  "homepage": "https://github.com/crazy-creator0/uca-kit#readme",
   "bugs": {
-    "url": "https://github.com/crazy-creator0/universal-coding-agent-kit/issues"
+    "url": "https://github.com/crazy-creator0/uca-kit/issues"
   },
   "keywords": [
     "ai-coding-agent",

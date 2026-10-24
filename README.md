@@ -6,8 +6,8 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/crazy-creator0/universal-coding-agent-kit/actions/workflows/npm-cli.yml"><img alt="CI" src="https://github.com/crazy-creator0/universal-coding-agent-kit/actions/workflows/npm-cli.yml/badge.svg"></a>
-  <a href="https://github.com/crazy-creator0/universal-coding-agent-kit/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/crazy-creator0/universal-coding-agent-kit?style=social"></a>
+  <a href="https://github.com/crazy-creator0/uca-kit/actions/workflows/npm-cli.yml"><img alt="CI" src="https://github.com/crazy-creator0/uca-kit/actions/workflows/npm-cli.yml/badge.svg"></a>
+  <a href="https://github.com/crazy-creator0/uca-kit/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/crazy-creator0/uca-kit?style=social"></a>
 </p>
 
 **UCA Kit (Universal Coding Agent Kit)** is an IDE-agnostic toolkit for AI coding assistants. It provides reusable agent instructions, portable skills, engineering workflows, platform adapters, and a lightweight installer so you can use consistent development guidance across supported coding tools.
@@ -18,33 +18,35 @@ It is designed to help developers plan before coding, understand unfamiliar code
 
 ## Quick start
 
-**Requirements:** Node.js 18 or newer, npm, and Git.
+**Requirements:** Node.js 18 or newer and npm. Git is recommended for project history, reviewing diffs, recovering from mistakes, and collaboration—but it is not required to keep working locally. The GitHub-based `npx` installer may require Git to fetch this repository.
+
+If the project is not already a Git repository, UCA Kit should explain the benefits and ask before running `git init`. If you prefer not to use Git, continue with local files; Git initialization and commits are never assumed.
 
 Run the installer from GitHub in the root of your project:
 
 ```bash
-npx --yes github:crazy-creator0/universal-coding-agent-kit init . --platform generic
+npx --yes github:crazy-creator0/uca-kit init . --platform generic
 ```
 
 For an interactive platform selection, omit `--platform`:
 
 ```bash
-npx --yes github:crazy-creator0/universal-coding-agent-kit init .
+npx --yes github:crazy-creator0/uca-kit init .
 ```
 
 Preview the files before writing:
 
 ```bash
-npx --yes github:crazy-creator0/universal-coding-agent-kit init . --platform cursor --dry-run
+npx --yes github:crazy-creator0/uca-kit init . --platform cursor --dry-run
 ```
 
 Choose a specific profile when you already know your coding assistant:
 
 ```bash
-npx --yes github:crazy-creator0/universal-coding-agent-kit init . --platform claude
-npx --yes github:crazy-creator0/universal-coding-agent-kit init . --platform copilot
-npx --yes github:crazy-creator0/universal-coding-agent-kit init . --platform windsurf
-npx --yes github:crazy-creator0/universal-coding-agent-kit init . --platform devin
+npx --yes github:crazy-creator0/uca-kit init . --platform claude
+npx --yes github:crazy-creator0/uca-kit init . --platform copilot
+npx --yes github:crazy-creator0/uca-kit init . --platform windsurf
+npx --yes github:crazy-creator0/uca-kit init . --platform devin
 ```
 
 The installer preserves existing files by default. When run in an interactive terminal, detected conflicts offer three choices: keep existing files and add only non-conflicting UCA Kit files, override conflicting paths, or cancel without changing the project. Cancellation is checked before copying anything, so there is nothing to roll back. Non-interactive runs keep existing files by default; `--force` explicitly overrides matching paths. Use `--dry-run` to preview changes. After installation, verify that your coding assistant actually loads the relevant instructions and skills; support differs by product and version.
@@ -54,7 +56,7 @@ The installer preserves existing files by default. When run in an interactive te
 ## What is included
 
 - **Shared agent instructions** — consistent engineering principles, mentoring, safe editing, and verification guidance.
-- **13 portable skills** — Python engineering, frontend engineering and visual design discovery, backend APIs, databases, security, debugging, testing and review, and more.
+- **13 portable skills** — universal language engineering, frontend engineering and visual design discovery, backend APIs, databases, security, debugging, testing and review, and more.
 - **Reusable workflows** — new project setup, feature development, bug investigation, production deployment, and a guarded existing-stack migration process with comparison, approval, staged execution, and rollback checks.
 - **Cross-IDE adapters** — configuration guidance for Cursor, Claude Code, Gemini CLI, GitHub Copilot, OpenCode, Windsurf, Devin, JetBrains tools, and unlisted IDEs using the generic setup.
 - **Lightweight CLI** — dependency-free Node.js installer with platform selection, dry-run support, safe path checks, and preserve-existing-files behavior.
@@ -136,7 +138,7 @@ This project is licensed under the [MIT License](LICENSE). The license applies t
 
 ## Contributing and support
 
-Bug reports and focused improvements are welcome through [GitHub Issues](https://github.com/crazy-creator0/universal-coding-agent-kit/issues). Please include reproducible steps, relevant environment details, and the checks you ran; do not post secrets or private project data.
+Bug reports and focused improvements are welcome through [GitHub Issues](https://github.com/crazy-creator0/uca-kit/issues). Please include reproducible steps, relevant environment details, and the checks you ran; do not post secrets or private project data.
 
 Before contributing, run:
 

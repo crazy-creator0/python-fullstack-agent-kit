@@ -2,7 +2,7 @@ name: npm CLI checks
 
 on:
   push:
-    branches: [main, audit/skill-token-efficiency]
+    branches: [main, audit/skill-token-efficiency, audit/universal-language-skill-consolidation]
   pull_request:
     branches: [main]
   workflow_dispatch:

@@ -11,7 +11,7 @@ This folder contains on-demand reusable Agent Skills and task-specific engineeri
 - `USAGE-PRIVACY.md` and `scripts/uca-usage.cjs` — local aggregate usage ledger and budget guard, with explicit host-integration limitations.
 
 ## Skill areas
-- Python engineering
+- Universal language engineering across programming languages and stacks
 - Frontend engineering and design-taste discovery
 - Backend/API engineering
 - Database engineering
