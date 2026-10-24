@@ -6,8 +6,8 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/crazy-creator0/universal-coding-agent-kit/actions/workflows/npm-cli.yml"><img alt="CI" src="https://github.com/crazy-creator0/universal-coding-agent-kit/actions/workflows/npm-cli.yml/badge.svg"></a>
-  <a href="https://github.com/crazy-creator0/universal-coding-agent-kit/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/crazy-creator0/universal-coding-agent-kit?style=social"></a>
+  <a href="https://github.com/crazy-creator0/uca-kit/actions/workflows/npm-cli.yml"><img alt="CI" src="https://github.com/crazy-creator0/uca-kit/actions/workflows/npm-cli.yml/badge.svg"></a>
+  <a href="https://github.com/crazy-creator0/uca-kit/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/crazy-creator0/uca-kit?style=social"></a>
 </p>
 
 **UCA Kit (Universal Coding Agent Kit)** is an IDE-agnostic toolkit for AI coding assistants. It provides reusable agent instructions, portable skills, engineering workflows, platform adapters, and a lightweight installer so you can use consistent development guidance across supported coding tools.
@@ -25,28 +25,28 @@ If the project is not already a Git repository, UCA Kit should explain the benef
 Run the installer from GitHub in the root of your project:
 
 ```bash
-npx --yes github:crazy-creator0/universal-coding-agent-kit init . --platform generic
+npx --yes github:crazy-creator0/uca-kit init . --platform generic
 ```
 
 For an interactive platform selection, omit `--platform`:
 
 ```bash
-npx --yes github:crazy-creator0/universal-coding-agent-kit init .
+npx --yes github:crazy-creator0/uca-kit init .
 ```
 
 Preview the files before writing:
 
 ```bash
-npx --yes github:crazy-creator0/universal-coding-agent-kit init . --platform cursor --dry-run
+npx --yes github:crazy-creator0/uca-kit init . --platform cursor --dry-run
 ```
 
 Choose a specific profile when you already know your coding assistant:
 
 ```bash
-npx --yes github:crazy-creator0/universal-coding-agent-kit init . --platform claude
-npx --yes github:crazy-creator0/universal-coding-agent-kit init . --platform copilot
-npx --yes github:crazy-creator0/universal-coding-agent-kit init . --platform windsurf
-npx --yes github:crazy-creator0/universal-coding-agent-kit init . --platform devin
+npx --yes github:crazy-creator0/uca-kit init . --platform claude
+npx --yes github:crazy-creator0/uca-kit init . --platform copilot
+npx --yes github:crazy-creator0/uca-kit init . --platform windsurf
+npx --yes github:crazy-creator0/uca-kit init . --platform devin
 ```
 
 The installer preserves existing files by default. When run in an interactive terminal, detected conflicts offer three choices: keep existing files and add only non-conflicting UCA Kit files, override conflicting paths, or cancel without changing the project. Cancellation is checked before copying anything, so there is nothing to roll back. Non-interactive runs keep existing files by default; `--force` explicitly overrides matching paths. Use `--dry-run` to preview changes. After installation, verify that your coding assistant actually loads the relevant instructions and skills; support differs by product and version.
@@ -138,7 +138,7 @@ This project is licensed under the [MIT License](LICENSE). The license applies t
 
 ## Contributing and support
 
-Bug reports and focused improvements are welcome through [GitHub Issues](https://github.com/crazy-creator0/universal-coding-agent-kit/issues). Please include reproducible steps, relevant environment details, and the checks you ran; do not post secrets or private project data.
+Bug reports and focused improvements are welcome through [GitHub Issues](https://github.com/crazy-creator0/uca-kit/issues). Please include reproducible steps, relevant environment details, and the checks you ran; do not post secrets or private project data.
 
 Before contributing, run:
 
